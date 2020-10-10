@@ -21,9 +21,9 @@ export class CancelOrderComponent implements OnInit {
   loadingSave: boolean;
 
   constructor(public dialogRef: MatDialogRef<CancelOrderComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private orderService: OrdersService, private snackBar: MatSnackBar,
-    private formBuilder: FormBuilder) {
+              @Inject(MAT_DIALOG_DATA) public data: DialogData,
+              private orderService: OrdersService, private snackBar: MatSnackBar,
+              private formBuilder: FormBuilder) {
     this.orderId = data.orderId;
   }
 

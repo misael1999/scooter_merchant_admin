@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StationModel } from 'src/app/models/station.model';
 import { Merchant } from 'src/app/models/merchant.model';
-import { Marketer } from 'src/app/models/marketer.model';
 
 @Component({
   selector: 'app-header',
@@ -10,10 +9,10 @@ import { Marketer } from 'src/app/models/marketer.model';
 })
 export class HeaderComponent implements OnInit {
 
-  marketer: Marketer;
+  merchant: Merchant;
 
   constructor() {
-    this.marketer = JSON.parse(localStorage.getItem('marketer'));
+    this.merchant = JSON.parse(localStorage.getItem('merchant'));
   }
 
   ngOnInit(): void {

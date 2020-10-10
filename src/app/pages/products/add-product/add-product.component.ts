@@ -6,6 +6,10 @@ import { Subscription } from 'rxjs';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Category } from 'src/app/models/category.model';
 import { Product } from 'src/app/models/product.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MunuCategoryDialogComponent } from './munu-category-dialog/munu-category-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-product',
@@ -18,32 +22,63 @@ export class AddProductComponent implements OnInit, OnDestroy {
   imageURL: string;
   id: number;
   categories: Category[];
+  categorySelected;
+  subcategorySelected;
   storeDataSubscription: Subscription;
   categoriesSubscription: Subscription;
   productSubscription: Subscription;
+  panelOpenState = false;
+  loadingSave = false;
+  menus = []
+  typeMenu;
+  loadingInfoProduct;
+
+  // Cuando se va actualizar un nuevo producto
+  product: Product;
+  menu_categories_update = []
+  menu_categories_delete = []
+  menu_categories_add = []
+  menu_categories_active = []
+
 
   constructor(
     private productsService: ProductsService,
     private router: Router,
     private categoriesService: CategoriesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private snack: MatSnackBar
   ) {
-    this.buildForm();
+    this.typeMenu = localStorage.getItem('type_menu');
+    if (this.typeMenu == 3) {
+      this.buildFormMenuThree();
+    }
+    else if (this.typeMenu == 2) {
+      this.buildFormMenuTwo();
+    }
+    else {
+      this.buildForm();
+    }
     this.id = this.route.snapshot.params.id;
   }
 
   ngOnInit(): void {
     this.categoriesSubscription = this.categoriesService
-    .getCategories({status: 1})
-    .subscribe((data: any) => {
-      this.categories = data.results;
-    });
-    if (this.id) {
-      this.productSubscription = this.productsService.getProductById(this.id)
-      .subscribe((data: Product) => {
-        this.setFormData(data);
+      .getCategories({ status: 1 })
+      .subscribe((data: any) => {
+        this.categories = data.results;
+        if (this.id) {
+          this.loadingInfoProduct = true;
+          this.productSubscription = this.productsService.getProductById(this.id)
+            .subscribe((data: Product) => {
+              this.loadingInfoProduct = false;
+              this.product = data;
+              this.setFormData(data);
+            }, error => {
+              this.loadingInfoProduct = false;
+            });
+        }
       });
-    }
   }
 
   ngOnDestroy(): void {
@@ -62,21 +97,58 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this.group = this.builder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      description_long: ['', [Validators.required]],
-      stock: ['', [Validators.required]],
+      stock: [100],
       price: ['', [Validators.required]],
       category_id: ['', [Validators.required]]
     });
   }
 
-  setFormData({name, description, description_long, category_id, stock, price, picture}: Product): void {
+  buildFormMenuThree() {
+    this.group = this.builder.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      stock: [100],
+      price: ['', [Validators.required]],
+      category_id: ['', [Validators.required]],
+      subcategory_id: ['', [Validators.required]],
+      section_id: ['', [Validators.required]],
+    });
+  }
+  buildFormMenuTwo() {
+    this.group = this.builder.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      stock: [100],
+      price: ['', [Validators.required]],
+      category_id: ['', [Validators.required]],
+      subcategory_id: ['', [Validators.required]],
+    });
+  }
+
+  selectCategory(categoryId) {
+    this.categorySelected = this.categories.find(category => category.id == categoryId);
+  }
+
+  selectSubcategory(subcategoryId) {
+    this.subcategorySelected = this.categorySelected.subcategories.find(subcategory => subcategory.id == subcategoryId);
+  }
+
+  setFormData({ name, description, category_id, subcategory_id, section_id, stock, price, picture, menu_categories }: Product): void {
+    this.categorySelected = this.categories.find(category => category.id == category_id);
+    this.subcategorySelected = this.categorySelected.subcategories.find(subcategory => subcategory.id == subcategory_id);
     this.group.get('name').setValue(name);
     this.group.get('description').setValue(description);
-    this.group.get('description_long').setValue(description_long);
     this.group.get('category_id').setValue(category_id);
-    this.group.get('stock').setValue(stock);
     this.group.get('price').setValue(price);
     this.imageURL = picture;
+    this.menus = menu_categories;
+    if (subcategory_id) {
+      this.group.get('subcategory_id').setValue(subcategory_id);
+    }
+    if (section_id) {
+      this.group.get('section_id').setValue(section_id);
+    }
+
   }
 
   handlePickUpImage(event: any): void {
@@ -89,17 +161,152 @@ export class AddProductComponent implements OnInit, OnDestroy {
   }
 
   sendData(product: Product): void {
-    if (!/'https'/.test(this.imageURL)) {
-      product.picture = this.imageURL;
+    if (this.group.invalid) {
+      this.group.markAllAsTouched();
+      return;
     }
 
     if (this.id) {
       product.id = this.id;
-      delete product.picture;
+      
+      if (this.imageURL.includes('https')) {
+        delete product.picture;
+      }
+      delete product.menu_categories;
+      product.menu_categories_update = this.menu_categories_update;
+      product.menu_categories_add = this.menu_categories_add;
+      product.menu_categories_delete = this.menu_categories_delete;
+      product.menu_categories_active = this.menu_categories_active;
       this.updateProduct(product);
     } else {
       this.saveProduct(product);
     }
+  }
+
+  editMenuCategory(menu, idx) {
+    const dialogRef = this.dialog.open(MunuCategoryDialogComponent, {
+      disableClose: true,
+      width: '40%',
+      minWidth: '600px',
+      panelClass: 'custom-dialog-container',
+      data: { menu }
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (typeof data == 'object') {
+        this.menus[idx] = data;
+        if (data.id != null) {
+          // Verificar que no exista el menu con ese id
+          const indexFound = this.menu_categories_update.findIndex((menu) => menu.id == data.id);
+          if (indexFound < 0) {
+            this.menu_categories_update.push(data);
+            return;
+          }
+          this.menu_categories_update[indexFound] = data;
+          return;
+        }
+        const indexMenu = this.menu_categories_add.findIndex((menu) => menu.name == data.name);
+        this.menu_categories_add[indexMenu] = data;
+        // Buscar el menú que es nuevo y para guardar
+
+      }
+    });
+
+  }
+
+  disabledMenuCategory(menu, idx) {
+    delete menu.status;
+    if (menu.id == null) {
+      Swal.fire({
+        title: 'Eliminar',
+        text: `Esta seguro de eliminar a: ${menu.name}`,
+        type: 'warning',
+        showConfirmButton: true,
+        confirmButtonText: 'Eliminar',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+      }).then(resp => {
+        this.menus.splice(idx, 1);
+      });
+      return;
+    }
+    menu.to_disable = true;
+    // Verificar que no este en el listado de menu para activar
+    const idxMenu = this.menu_categories_active.findIndex((menu2) => menu2.id == menu.id);
+    if (idxMenu >= 0) {
+      this.menu_categories_active.splice(idxMenu, 1);
+      return;
+    }
+    this.menu_categories_delete.push(menu);
+  }
+
+  enableMenuCategory(menu) {
+    delete menu.status;
+    menu.to_disable = false;
+    const idx = this.menu_categories_delete.findIndex((menu) => menu.id == menu.id);
+    if (idx >= 0) {
+      this.menu_categories_delete.splice(idx, 1);
+      return;
+    }
+    this.menu_categories_active.push(menu);
+  }
+
+  openMenuDialog() {
+    const dialogRef = this.dialog.open(MunuCategoryDialogComponent, {
+      disableClose: true,
+      width: '40%',
+      minWidth: '600px',
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (typeof data == 'object') {
+        this.menus.push(data);
+        if (this.product) {
+          this.menu_categories_add.push(data);
+        }
+      }
+    });
+  }
+
+  saveProduct(product: Product): void {
+    if (this.menus.length > 0) {
+      product.menu_categories = this.menus;
+    }
+    this.loadingSave = true;
+    this.storeDataSubscription = this.productsService.addProduct(product)
+      .subscribe((data: any) => {
+        this.loadingSave = false;
+        this.showMessageSuccess('Se ha guardado el producto');
+        this.router.navigate(['/products']);
+      }, error => {
+        this.loadingSave = false;
+        this.showMessageError(error.error.errors.message);
+      });
+  }
+
+  showMessageError(message) {
+    return this.snack.open(message, '', {
+      duration: 5000,
+      panelClass: 'error-snackbar'
+    });
+  }
+  showMessageSuccess(message) {
+    return this.snack.open(message, '', {
+      duration: 3000,
+      panelClass: 'main-snackbar'
+    });
+  }
+
+  updateProduct(product: Product): void {
+    this.loadingSave = true;
+    this.storeDataSubscription = this.productsService.updateProduct(product)
+      .subscribe((data: any) => {
+        this.router.navigate(['/products']);
+      }, error => {
+        this.loadingSave = true;
+        alert(error.errors.message);
+      });
   }
 
   isFieldInvalid(field: string): boolean {
@@ -112,21 +319,5 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
   hasFieldError(field: string, errorcode: string): boolean {
     return (this.group.get(field).hasError(errorcode));
-  }
-
-  saveProduct(product: Product): void {
-    this.storeDataSubscription = this.productsService.addProduct(product)
-    .subscribe((data: any) => {
-      console.log(data);
-      this.router.navigate(['/products']);
-    });
-  }
-
-  updateProduct(product: Product): void {
-    this.storeDataSubscription = this.productsService.updateProduct(product)
-    .subscribe((data: any) => {
-      console.log(data);
-      this.router.navigate(['/products']);
-    });
   }
 }

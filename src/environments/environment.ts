@@ -5,11 +5,17 @@
 export const environment = {
   production: false,
   // HOST_APIV1: 'https://www.scooter-app.team/appback/api/v1',
+<<<<<<< HEAD
   HOST_APIV1: 'https://www.scooterdev.tech/appback/api/v1',
   // HOST_APIV1: 'http://127.0.0.1:8000/api/v1',
+=======
+  // HOST_APIV1: 'https://www.scooterdev.tech/api/v1',
+  HOST_APIV1: 'http://127.0.0.1:8000/api/v1',
+>>>>>>> 24650d97f122f9d0e1f2f94909b0e0ab86288edd
   // HOST_APIV1: 'http://192.168.0.6:8000/api/v1',
   // WS_SOCKET: 'ws://192.168.0.6',
-  WS_SOCKET: 'wss://www.scooter-app.team/ws',
+  WS_SOCKET: 'wss://www.scooterdev.tech/ws',
+  // WS_SOCKET: 'wss://www.scooter-app.team/ws',
   firebase: {
     apiKey: 'AIzaSyDcAruMxBUQlW9S672oSoe1dyr7l8WIxlU',
     authDomain: 'scooter-277719.firebaseapp.com',
@@ -19,8 +25,7 @@ export const environment = {
     messagingSenderId: '566246125587',
     appId: '1:566246125587:web:d8fd400351edef9d9acfe6',
     measurementId: 'G-VFTE1Y2E90'
-  },
-  googleMapsApiKey: 'AIzaSyDcAruMxBUQlW9S672oSoe1dyr7l8WIxlU',
+  }
 };
 
 /*

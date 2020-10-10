@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { AddCategoryPageComponent } from './add-category-page/add-category-page.component';
 import { CategoryListComponent } from './category-list/category-list.component';
-import { InfoCategoryComponent } from './info-category/info-category.component';
-import { AddCategoryComponent } from './add-category/add-category.component';
+import { EditCategoryPageComponent } from './edit-category-page/edit-category-page.component';
 
 const routes: Routes = [
   { path: '', component: CategoryListComponent },
-  { path: 'category/:id', component: InfoCategoryComponent },
-  { path: 'add', component: AddCategoryComponent },
-  {path: 'modify/:id', component: AddCategoryComponent}
+  { path: 'category', component: AddCategoryPageComponent },
+  { path: 'category/:id', component: AddCategoryPageComponent },
 ];
 
 @NgModule({

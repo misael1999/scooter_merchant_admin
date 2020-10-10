@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductListComponent } from './product-list/product-list.component';
 import { AddProductComponent } from './add-product/add-product.component';
@@ -13,11 +12,20 @@ import { CardInfoComponent } from './info-product/card-info/card-info.component'
 import { DeleteProductDialogComponent } from './info-product/delete-product-dialog/delete-product-dialog.component';
 import { DisabledComponent } from './product-list/disabled/disabled.component';
 import { EnabledComponent } from './product-list/enabled/enabled.component';
-import { UnlockDialogComponent } from './product-list/unlock-dialog/unlock-dialog.component';
+import { MunuCategoryDialogComponent } from './add-product/munu-category-dialog/munu-category-dialog.component';
 
 
 @NgModule({
-  declarations: [ProductListComponent, AddProductComponent, InfoProductComponent, CardInfoComponent, DeleteProductDialogComponent, DisabledComponent, EnabledComponent, UnlockDialogComponent],
+  declarations: [
+    ProductListComponent,
+    AddProductComponent,
+    InfoProductComponent,
+    CardInfoComponent,
+    DeleteProductDialogComponent,
+    DisabledComponent,
+    EnabledComponent,
+    MunuCategoryDialogComponent,
+  ],
   imports: [
     CommonModule,
     ProductsRoutingModule,
@@ -27,6 +35,9 @@ import { UnlockDialogComponent } from './product-list/unlock-dialog/unlock-dialo
     ReactiveFormsModule,
     PipesModule
   ],
-  entryComponents: [DeleteProductDialogComponent, UnlockDialogComponent]
+  entryComponents: [
+    DeleteProductDialogComponent,
+    MunuCategoryDialogComponent
+  ]
 })
 export class ProductsModule { }

@@ -21,7 +21,7 @@ export class ProductsService {
   }
 
   addProduct(product: Product): Observable<any> {
-    return this.http.post(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/products/`, {...product});
+    return this.http.post(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/products/`, { ...product });
   }
 
   getProductById(id: number): Observable<any> {
@@ -29,14 +29,14 @@ export class ProductsService {
   }
 
   updateProduct(product: Product): Observable<any> {
-    return this.http.patch(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/products/${product.id}/`, {...product});
+    return this.http.patch(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/products/${product.id}/`, { ...product });
   }
 
-  deleteProduct({id}: Product): Observable<any> {
+  deleteProduct(id: Product): Observable<any> {
     return this.http.delete(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/products/${id}/`);
   }
 
-  unlockProduct({id}: Product): Observable<any> {
-    return this.http.patch(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/products/${id}/unlock/`, {});
+  unlockProduct(id: Product): Observable<any> {
+    return this.http.patch(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/products/${id}/unlock/`, { status: 1 });
   }
 }

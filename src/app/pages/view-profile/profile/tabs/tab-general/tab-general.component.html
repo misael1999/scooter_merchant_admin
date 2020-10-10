@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-6 col-step-image">
 
-        <p class="title-component">Cambiar imagen de tu central</p>
+        <p class="title-component">Cambiar imagen de tu Comercio</p>
         <!-- Image ========= -->
 
         <div class="image-content">
@@ -12,8 +12,7 @@
 
 
         <div class="button-select-image">
-            <input (change)="onFileSelected($event)" #myInput type="file" name="file" id="file"
-                class="inputfile inputfile-1" />
+            <input (change)="onFileSelected($event)" #myInput type="file" name="file" id="file" class="inputfile inputfile-1" />
             <label for="file">
                 <span>Seleccionar imagen</span>
             </label>
@@ -55,15 +54,39 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Tiempo aproximado de preparación</label>
-                    <input formControlName="approximate_preparation_time" type="text" class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalInfoForm, 'approximate_preparation_time'),
-                      'has-success valid': isFieldValid(generalInfoForm, 'approximate_preparation_time')}">
-                    <!-- MESSAGES ERRORS  -->
-                    <div class="invalid-feedback-form" *ngIf="isFieldInvalid(generalInfoForm, 'approximate_preparation_time')">
-                        <span *ngIf="isFieldHasError(generalInfoForm, 'approximate_preparation_time','required')">Este campo es
-                            requerido</span>
+                    <label>Tiempo de preparación *</label>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <input placeholder="5" formControlName="from_preparation_time" type="number" min="1"
+                          class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalInfoForm, 'from_preparation_time'),
+                      'has-success valid': isFieldValid(generalInfoForm, 'from_preparation_time')}">
+                      </div>
+                      <div class="col-lg-1">
+                        A
+                      </div>
+                      <div class="col-lg-4">
+                        <input placeholder="10" formControlName="to_preparation_time" type="number" min="1"
+                          class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalInfoForm, 'to_preparation_time'),
+                      'has-success valid': isFieldValid(generalInfoForm, 'to_preparation_time')}">
+                      </div>
+                      <div class="col-lg-3">
+                        Minutos
+                      </div>
                     </div>
-                </div>
+                    <!-- MESSAGES ERRORS  -->
+                    <div class="invalid-feedback-form"
+                      *ngIf="isFieldInvalid(generalInfoForm, 'from_preparation_time')">
+                      <span *ngIf="isFieldHasError(generalInfoForm, 'from_preparation_time','required')">Este
+                        campo es
+                        requerido</span>
+                    </div>
+                    <div class="invalid-feedback-form"
+                      *ngIf="isFieldInvalid(generalInfoForm, 'to_preparation_time')">
+                      <span *ngIf="isFieldHasError(generalInfoForm, 'to_preparation_time','required')">Este
+                        campo es
+                        requerido</span>
+                    </div>
+                  </div>
             </form>
         </div>
     </div>
@@ -72,7 +95,7 @@
 <div class="row mt-5 mb-3 mr-2">
     <div class="col-lg-12 d-flex justify-content-end">
         <div class="btns">
-            <button [disabled]="loadingSaveInfo || (!generalInfoForm.dirty && !changeImage)"  (click)="saveGeneralInfo()" style="color: white;" class="btn btn-primary">
+            <button [disabled]="loadingSaveInfo || (!generalInfoForm.dirty && !changeImage)" (click)="saveGeneralInfo()" style="color: white;" class="btn btn-primary">
                 <span *ngIf="!loadingSaveInfo">Guardar</span>
                 <div *ngIf="loadingSaveInfo" class="spinner-border text-warning" role="status">
                   <span class="sr-only">Loading...</span>

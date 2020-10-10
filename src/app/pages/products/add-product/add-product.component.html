@@ -1,89 +1,203 @@
-<h1 mat-dialog-title class="d-flex justify-content-between">
-    Agregar Producto
-    <button mat-dialog-close mat-flat-button class="btn ">
-        <i class="ti ti-close"></i>
-    </button>
-</h1>
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-flex-start mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{id ? 'Editar': 'Agregar'}} producto</h1>
+    </div>
 
-<div mat-dialog-content>
-    <div class="row">
-        <div class="col-md-12 ">
-            <form [formGroup]="group" class="user" (ngSubmit)="sendData(group.value)">
-                <div class="form-group">
-                    <label>Nombre</label>
-                    <input formControlName="name" [ngClass]="{'is-invalid': isFieldInvalid('name'), 'is-valid': isFieldValid('name')}" type="text" class="form-control" placeholder="Nombre del Producto">
-                    <!-- MESSAGES ERRORS  -->
-                    <div class="invalid-feedback">
-                        <span *ngIf="hasFieldError('name','required')">El nombre del producto es requerido.</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Descripción </label>
-                    <input formControlName="description" [ngClass]="{'is-invalid': isFieldInvalid('description'), 'is-valid': isFieldValid('description')}" type="text" class="form-control" placeholder="Descripción corta">
-                    <!-- MESSAGES ERRORS  -->
-                    <div class="invalid-feedback">
-                        <span *ngIf="hasFieldError('description','required')">Una descripción corta del producto es requerida.</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <!-- MESSAGES ERRORS  -->
-                    <label>Descripción larga</label>
-                    <textarea formControlName="description_long" [ngClass]="{'is-invalid': isFieldInvalid('description_long'), 'is-valid': isFieldValid('description_long')}" class="form-control"></textarea>
-                    <div class="invalid-feedback">
-                        <span *ngIf="hasFieldError('description_long','required')">Una descripción detallada del producto es requerida.</span>
-                    </div>
-                </div>
+    <div class="spinner-grow" role="status" *ngIf="loadingInfoProduct || !categories">
+        <span class="sr-only">Loading...</span>
+      </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Stock</label>
-                        <input formControlName="stock" [ngClass]="{'is-invalid': isFieldInvalid('stock'), 'is-valid': isFieldValid('stock')}" type="text" class="form-control" placeholder="Ingresa el stock del producto">
-                        <!-- MESSAGES ERRORS  -->
-                        <div class="invalid-feedback">
-                            <span *ngIf="hasFieldError('stock','required')">El stock del producto es requerido.</span>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Precio</label>
-                        <input formControlName="price" [ngClass]="{'is-invalid': isFieldInvalid('price'), 'is-valid': isFieldValid('price')}" type="text" class="form-control" placeholder="Ingresa el precio del producto">
-                        <!-- MESSAGES ERRORS  -->
-                        <div class="invalid-feedback">
-                            <span *ngIf="hasFieldError('price','required')">El precio del producto es requerido.</span>
-                        </div>
-                    </div>
+    <div class="row justify-content-center" *ngIf="!loadingInfoProduct && categories">
+        <div class="col-xl-12 col-lg-12 col-md-12">
+            <div class="card o-hidden border-0 shadow-lg my-3">
+                <div class="card-body px-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7 p-5">
+                            <form [formGroup]="group" class="user" (ngSubmit)="sendData(group.value)">
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-md-12">
+                                            <label>Nombre del producto</label>
+                                            <input formControlName="name" [ngClass]="{'is-invalid': isFieldInvalid('name'), 'is-valid': isFieldValid('name')}" type="text" class="form-control" placeholder="Nombre del producto">
+                                            <!-- MESSAGES ERRORS  -->
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="hasFieldError('name','required')">El nombre del producto es
+                                                requerido.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <label for="">Descripción</label>
+                                            <textarea formControlName="description" [ngClass]="{'is-invalid': isFieldInvalid('description'), 'is-valid': isFieldValid('description')}" type="text" class="form-control" placeholder="Descripcion" name="" id=""></textarea>
+                                            <!-- <input formControlName="description" [ngClass]="{'is-invalid': isFieldInvalid('description'), 'is-valid': isFieldValid('description')}" type="text" class="form-control" placeholder="Ingresa una descripción corta del producto"> -->
+                                            <!-- MESSAGES ERRORS  -->
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="hasFieldError('description','required')">Una descripción corta del
+                                            producto es requerida.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-row">
 
-                </div>
-                <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label for="">Precio</label>
+                                            <input formControlName="price" [ngClass]="{'is-invalid': isFieldInvalid('price'), 'is-valid': isFieldValid('price')}" type="number" class="form-control" placeholder="Precio">
+                                            <!-- MESSAGES ERRORS  -->
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="hasFieldError('price','required')">El precio del producto
+                                                    es
+                                                    requerido.</span>
+                                            </div>
+                                        </div>
 
-                    <div class="form-group col-md-6">
-                        <label>Categoría</label>
-                        <select class="form-control select-form" formControlName="category_id">
-                                        <option>Selecciona una categoría</option>
-                                        <ng-container *ngIf="categories">
-                                            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
-                                        </ng-container>   
-                                    </select>
-                        <!-- MESSAGES ERRORS  -->
-                        <div class="invalid-feedback">
-                            <span *ngIf="hasFieldError('category_id','required')">La categoría del producto es requerida</span>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Imagen</label>
-                        <input type="file" class="form-control form-control-file" placeholder="Elige una imagen" (change)="handlePickUpImage($event)">
-                    </div>
-                    <img *ngIf="imageURL" class="img-fluid" [src]="imageURL" alt="category_picture">
+                                        <div class="col-md-6">
+                                            <label for="">Categoría</label>
 
-                </div>
+                                            <select (change)="selectCategory($event.target.value)" [ngClass]="{'is-invalid': isFieldInvalid('category_id'), 'is-valid': isFieldValid('category_id')}" class="form-control select-form" formControlName="category_id">
+                                                <option value="">Selecciona una categoría</option>
+                                                <ng-container *ngIf="categories">
+                                                    <option *ngFor="let category of categories" [value]="category.id">
+                                                        {{category.name}}</option>
+                                                </ng-container>
+                                            </select>
+                                            <!-- MESSAGES ERRORS  -->
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="hasFieldError('category_id','required')">La categoría del
+                                                    producto
+                                                    es requerida</span>
+                                            </div>
 
+                                        </div>
+                                        <div *ngIf="typeMenu >= 2" class="col-md-6">
+                                            <label for="">Subcategoría</label>
 
+                                            <select (change)="selectSubcategory($event.target.value)" [attr.disabled]="!categorySelected ? '': null" [ngClass]="{'is-invalid': isFieldInvalid('subcategory_id'), 'is-valid': isFieldValid('subcategory_id')}" class="form-control select-form" formControlName="subcategory_id">
+                                                <option value="">Selecciona una subcategoría</option>
+                                                <ng-container *ngIf="categorySelected">
+                                                    <option *ngFor="let subcategory of categorySelected.subcategories" [value]="subcategory.id">
+                                                        {{subcategory.name}}</option>
+                                                </ng-container>
+                                            </select>
+                                            <!-- MESSAGES ERRORS  -->
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="hasFieldError('subcategory_id','required')">La subcategoría del
+                                                    producto
+                                                    es requerida</span>
+                                            </div>
 
-                <hr>
+                                        </div>
+                                        <div *ngIf="typeMenu >= 3" class="col-md-6">
+                                            <label for="">Sección</label>
 
-                <button [disabled]="group.invalid" class="btn btn-primary btn-user btn-block">
-                                    <span>Guardar</span>
+                                            <select [attr.disabled]="!subcategorySelected ? '': null" [ngClass]="{'is-invalid': isFieldInvalid('section_id'), 'is-valid': isFieldValid('section_id')}" class="form-control select-form" formControlName="section_id">
+                                                <option value="">Selecciona una sección</option>
+                                                <ng-container *ngIf="subcategorySelected">
+                                                    <option *ngFor="let section of subcategorySelected.sections" [value]="section.id">
+                                                        {{section.name}}</option>
+                                                </ng-container>
+                                            </select>
+                                            <!-- MESSAGES ERRORS  -->
+                                            <div class="invalid-feedback">
+                                                <span *ngIf="hasFieldError('section_id','required')">La sección del
+                                                    producto
+                                                    es requerida</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-12 mt-2">
+                                            <div class="form-group">
+
+                                                <div class="form-row">
+                                                    <div class="col-md-12 d-flex flex-column">
+                                                        <label style="font-weight: bold;" for="">Menú avanzado(opcional)
+                                                             <i class="fas fa-info-circle cursor"
+                                                            #tooltip="matTooltip"
+                                                            matTooltipHideDelay="100000"
+                                                            matTooltip="Para que el cliente pueda elegir con una serie de opciones"
+                                                            [matTooltipPosition]="'above'"></i> </label>
+                                                        <button (click)="openMenuDialog()" type="button" class="btn btn-outline-primary">Agregar grupo modificador</button>
+                                                        <!-- MENÚ GUARDADO  -->
+                                                        <mat-accordion class="my-2">
+                                                            <mat-expansion-panel *ngFor="let menu of menus; let i = index">
+                                                                <mat-expansion-panel-header>
+                                                                    <mat-panel-title>
+                                                                        {{menu.name}}
+                                                                        <span *ngIf="menu.status?.slug_name == 'inactive' || menu.to_disable"
+                                                                         class="badge badge-danger mx-3">Desactivado</span>
+
+                                                                    </mat-panel-title>
+                                                                </mat-expansion-panel-header>
+                                                                <!--  ARTICULOS -->
+                                                                <div class="row">
+                                                                    <div class="col-lg-8">
+                                                                        <label style="font-weight: bold;" for="">Articulos</label>
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <label style="font-weight: bold;" for="">Precio</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div *ngFor="let option of menu.options; let i = index;">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-8 d-flex my-1 flex-column">
+                                                                            <span>{{option.name}}</span>
+                                                                        </div>
+                                                                        <div class="col-lg-4 d-flex my-1 flex-column">
+                                                                            <span>{{option.price}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div *ngIf="menu.to_disable == false || (menu.status && menu.status?.slug_name != 'inactive')" class="row mt-3 d-flex justify-content-end">
+                                                                    <button type="button" (click)="disabledMenuCategory(menu, i)" class="btn btn-danger btn-sm mx-2">
+                                                                        {{menu.id ? 'Desactivar': 'Eliminar'}}
+                                                                        <i class="fas fa-trash"></i></button>
+                                                                    <button type="button" (click)="editMenuCategory(menu, i)" class="btn btn-primary btn-sm">Editar <i class="fas fa-edit"></i></button>
+                                                                </div>
+                                                                <div *ngIf="menu.status?.slug_name == 'inactive' || menu.to_disable " class="row mt-3 d-flex justify-content-end">
+                                                                    <button type="button" (click)="enableMenuCategory(menu)" class="btn btn-success btn-sm mx-2">Volver a activar <i class="fas fa-unlock"></i></button>
+                                                                </div>
+                                                                <!-- TERMINA ARTICULOS  -->
+                                                            </mat-expansion-panel>
+                                                        </mat-accordion>
+                                                        <!-- MENÚ GUARDADO  -->
+                                                    </div>
+            
+                                                 
+                                                </div>
+                                            </div>
+                                        </div>
+                 
+                                    </div>
+                                </div>
+
+                             
+
+                                <hr>
+                                <button [disabled]="loadingSave" class="btn btn-primary">
+                                    <span>Guardar datos</span>
+                                    <div *ngIf="loadingSave" class="spinner-border text-warning" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
                                 </button>
-            </form>
+                            </form>
+                        </div>
+                        <div class="col-lg-5 p-5">
+                            <div class="col-md-12">
+                                <div class="images d-flex justify-content-center">
+                                    <img *ngIf="imageURL"  height="200" class="img-fluid image-product" [src]="imageURL" alt="category_picture">
+                                    <img *ngIf="!imageURL"  class="img-fluid image-product" src="assets/images/common/no-image.png" alt="">
+                                </div>
+                            </div>
+                                <div class="col-md-12">
+                                    <label> Imagen</label>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control form-control-file" placeholder="Elige una imagen" (change)="handlePickUpImage($event)">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

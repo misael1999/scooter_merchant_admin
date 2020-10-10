@@ -1,5 +1,3 @@
-import { Point } from './coordinate';
-
 export class Merchant {
     constructor(
         public id: number,
@@ -12,8 +10,8 @@ export class Merchant {
         public picture: string,
         public reputation: number,
         public subcategory: string,
-        public user: User,
-        public point: Point
+        public type_menu: number,
+        public user: User
     ) {}
 }
 

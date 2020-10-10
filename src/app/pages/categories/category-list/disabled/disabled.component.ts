@@ -4,7 +4,7 @@ import { Category } from 'src/app/models/category.model';
 import { PageEvent } from '@angular/material/paginator';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { MatDialog } from '@angular/material/dialog';
-import { UnlockDialogComponent } from '../unlock-dialog/unlock-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-disabled',
@@ -13,7 +13,8 @@ import { UnlockDialogComponent } from '../unlock-dialog/unlock-dialog.component'
 })
 export class DisabledComponent implements OnInit, OnDestroy {
   categoriesSubscription: Subscription;
-  categories: Category[];
+  categories: Category[] = [];
+  typeMenu;
 
   params = {
     limit: 15,
@@ -21,7 +22,7 @@ export class DisabledComponent implements OnInit, OnDestroy {
     search: '',
     ordering: '',
     status: 2
-  }
+  };
 
   // MatPaginator Inputs
   length = 100;
@@ -32,10 +33,12 @@ export class DisabledComponent implements OnInit, OnDestroy {
 
   constructor(
     private categoriesService: CategoriesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
+    this.typeMenu = localStorage.getItem('type_menu');
     this.getCategories(this.params);
   }
 
@@ -58,12 +61,12 @@ export class DisabledComponent implements OnInit, OnDestroy {
       this.categoriesSubscription.unsubscribe();
     }
     this.categoriesSubscription = this.categoriesService
-    .getCategories(params)
-    .subscribe((data: any) => {
-      console.log(data);
-      this.categories = data.results;
-      this.length = data.count;
-    });
+      .getCategories(params)
+      .subscribe((data: any) => {
+        console.log(data);
+        this.categories = data.results;
+        this.length = data.count;
+      });
   }
 
   getPage(e: any): PageEvent {
@@ -77,7 +80,27 @@ export class DisabledComponent implements OnInit, OnDestroy {
     this.getCategories(this.params);
   }
 
-  openDialog(category: Category): void {
-    this.dialog.open(UnlockDialogComponent, {data: category});
+  activeCategory(category) {
+    this.categoriesService.unlockCategory(category.id)
+      .subscribe((data) => {
+        console.log(data);
+        this.showMessageSuccess('Categoría activada');
+        this.getCategories(this.params);
+      }, error => {
+        this.showMessageError(error.errors.message);
+      });
+  }
+
+  showMessageSuccess(message) {
+    this.snackBar.open(message, 'Aceptar', {
+      duration: 3000,
+      panelClass: ['main-snackbar']
+    });
+  }
+  showMessageError(message) {
+    this.snackBar.open(message, 'Aceptar', {
+      duration: 3000,
+      panelClass: ['error-snackbar']
+    });
   }
 }
