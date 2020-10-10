@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(user) {
-    const URL = `${environment.HOST_APIV1}/marketing/login/`;
+    const URL = `${environment.HOST_APIV1}/merchants/login/`;
     return this.http.post(URL, user);
   }
 
