@@ -1,0 +1,89 @@
+<h1 mat-dialog-title class="d-flex justify-content-between">
+    Agregar Producto
+    <button mat-dialog-close mat-flat-button class="btn ">
+        <i class="ti ti-close"></i>
+    </button>
+</h1>
+
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-md-12 ">
+            <form [formGroup]="group" class="user" (ngSubmit)="sendData(group.value)">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input formControlName="name" [ngClass]="{'is-invalid': isFieldInvalid('name'), 'is-valid': isFieldValid('name')}" type="text" class="form-control" placeholder="Nombre del Producto">
+                    <!-- MESSAGES ERRORS  -->
+                    <div class="invalid-feedback">
+                        <span *ngIf="hasFieldError('name','required')">El nombre del producto es requerido.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Descripción </label>
+                    <input formControlName="description" [ngClass]="{'is-invalid': isFieldInvalid('description'), 'is-valid': isFieldValid('description')}" type="text" class="form-control" placeholder="Descripción corta">
+                    <!-- MESSAGES ERRORS  -->
+                    <div class="invalid-feedback">
+                        <span *ngIf="hasFieldError('description','required')">Una descripción corta del producto es requerida.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- MESSAGES ERRORS  -->
+                    <label>Descripción larga</label>
+                    <textarea formControlName="description_long" [ngClass]="{'is-invalid': isFieldInvalid('description_long'), 'is-valid': isFieldValid('description_long')}" class="form-control"></textarea>
+                    <div class="invalid-feedback">
+                        <span *ngIf="hasFieldError('description_long','required')">Una descripción detallada del producto es requerida.</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Stock</label>
+                        <input formControlName="stock" [ngClass]="{'is-invalid': isFieldInvalid('stock'), 'is-valid': isFieldValid('stock')}" type="text" class="form-control" placeholder="Ingresa el stock del producto">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="hasFieldError('stock','required')">El stock del producto es requerido.</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Precio</label>
+                        <input formControlName="price" [ngClass]="{'is-invalid': isFieldInvalid('price'), 'is-valid': isFieldValid('price')}" type="text" class="form-control" placeholder="Ingresa el precio del producto">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="hasFieldError('price','required')">El precio del producto es requerido.</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                        <label>Categoría</label>
+                        <select class="form-control select-form" formControlName="category_id">
+                                        <option>Selecciona una categoría</option>
+                                        <ng-container *ngIf="categories">
+                                            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+                                        </ng-container>   
+                                    </select>
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="hasFieldError('category_id','required')">La categoría del producto es requerida</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Imagen</label>
+                        <input type="file" class="form-control form-control-file" placeholder="Elige una imagen" (change)="handlePickUpImage($event)">
+                    </div>
+                    <img *ngIf="imageURL" class="img-fluid" [src]="imageURL" alt="category_picture">
+
+                </div>
+
+
+
+                <hr>
+
+                <button [disabled]="group.invalid" class="btn btn-primary btn-user btn-block">
+                                    <span>Guardar</span>
+                                </button>
+            </form>
+        </div>
+    </div>
+</div>

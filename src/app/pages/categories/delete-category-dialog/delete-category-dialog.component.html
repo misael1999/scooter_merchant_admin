@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirmación de baja</h1>
+<section mat-dialog-content>
+    <p>¿En verdad desea dar de baja la categoría {{category.name}}?</p>
+</section>
+<section mat-dialog-actions>
+    <button class="btn btn-primary" mat-dialog-close color="primary">No</button>
+    <button class="btn btn-outline-primary" (click)="deleteCategory()">Claro</button>
+</section>

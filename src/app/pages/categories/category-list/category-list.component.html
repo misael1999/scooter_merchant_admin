@@ -1,0 +1,16 @@
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-flex-start mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Categorías</h1>
+        <div class="col-md-9"></div>
+        <a class="btn btn-secondary btn-block btn-sm margin-left-1rem" (click)="openDialogAddCategory()">Agregar</a>
+    </div>
+
+    <mat-tab-group>
+        <mat-tab label="Categorías disponibles">
+            <app-enabled></app-enabled>
+        </mat-tab>
+        <mat-tab label="Categorías no disponibles">
+            <app-disabled></app-disabled>
+        </mat-tab>
+    </mat-tab-group>
+</div>

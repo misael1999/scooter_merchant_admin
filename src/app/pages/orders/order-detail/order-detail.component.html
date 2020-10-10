@@ -1,0 +1,85 @@
+<div id="invoice" *ngIf="orderDetail">
+
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i>Imprimir</button>
+            <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i>Exportar a PDF</button>
+        </div>
+        <hr>
+    </div>
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <div class="row">
+                    <div class="col">
+                        <!-- <img [src]="stationDetail.picture" width="100%" /> -->
+                        <h1> {{ stationDetail.station_name }} </h1>
+                    </div>
+                    <div class="col company-details">
+                        <div> {{stationDetail.address.street}} </div>
+                        <div> {{ stationDetail.phone_number }} </div>
+                        <div> {{ stationDetail.user.username}} </div>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div class="row contacts">
+                    <div class="col invoice-to">
+                        <!-- <div class="text-gray-light">Ticket:</div> -->
+                        <h2 class="to"> {{ orderDetail.customer.name }} </h2>
+                        <div class="address"> {{ orderDetail.from_address.full_address }} </div>
+                        <div class="email"> {{orderDetail.customer.phone_number}} </div>
+                        <div class="email"> {{orderDetail.ema}} </div>
+                    </div>
+                    <div class="col invoice-details">
+                        <div class="date">Fecha del pedido: 01/10/2020</div>
+                        <div class="date">Fecha actual: 30/10/2020</div>
+                    </div>
+                </div>
+                <table cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th class="text-left">Descripcion</th>
+                            <th class="text-right">Cantidad</th>
+                            <th class="text-right">Precio</th>
+                            <th class="text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let item of orderDetail.details'>
+                            <td class="no">{{item.product_id}} </td>
+                            <td class="text-left">
+                                {{ item.product_name }}
+
+                            </td>
+                            <td class="unit">$0.00</td>
+                            <td class="qty"> {{ item.quantity}} </td>
+                            <td class="total">$0.00</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">SUBTOTAL</td>
+                            <td>$5,200.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td colspan="2">TOTAL</td>
+                            <td>$6,500.00</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="thanks">¡Gracias!</div>
+                <div class="notices">
+                    <div>Importante</div>
+                    <div class="notice">Esta factura es validad para uso demostrativo y no tiene validez al cliente</div>
+                </div>
+            </main>
+            <footer>
+                La factura fue creada por Scooter para usos demostrativos.
+            </footer>
+        </div>
+    </div>
+</div>

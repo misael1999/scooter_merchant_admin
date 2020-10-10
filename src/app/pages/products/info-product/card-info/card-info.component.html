@@ -1,0 +1,17 @@
+<div class="container-fluid justify-content-center row">
+    <div class="card col-lg-5 col-md-7">
+        <img *ngIf="product.picture === ''; else elsePicture" class="card-img-top img-fluid" src="http://lorempixel.com/400/400/" alt="product_picture">
+        <ng-template #elsePicture>
+            <img class="card-img-top img-fluid" [src]="product.picture" alt="product_picture">
+        </ng-template>
+        <div class="card-body">
+            <h2 class="card-title">{{product.name}}</h2>
+            <span>Stock: {{product.stock}}</span>
+            <span>Precio: {{product.price}}</span>
+            <a class="btn btn-info btn-block" [routerLink]="['/products', 'modify', product.id]">Modificar</a>
+            <button (click)="openDialog()" class="btn btn-outline-danger btn-block" type="button">Eliminar</button>
+            <h5>{{ product.description }}</h5>
+            <p>{{product.description_long}}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirmación de habilitación</h1>
+<section mat-dialog-content>
+    <p>¿En verdad desea habilitar nuevamente el producto {{product.name}}?</p>
+</section>
+<section mat-dialog-actions>
+    <button class="btn btn-primary" (click)="unlockProduct()">Claro</button>
+    <button class="btn btn-outline-primary" mat-dialog-close color="primary">No</button>
+</section>
