@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
         this.loadingLogin = false;
         this.setDataUserLocalStorage(data);
         this.router.navigate(['/dashboard']);
+
       }, error => {
         this.loadingLogin = false;
         this.alertService.openErrorDialog(null, 'Opss..', error.errors.message);
@@ -43,11 +44,13 @@ export class LoginComponent implements OnInit {
 
   }
 
-  setDataUserLocalStorage(data: any) {
+  setDataUserLocalStorage(data) {
     localStorage.setItem('access_token', data.access);
-    localStorage.setItem('marketer_id', data.marketer.id);
+    localStorage.setItem('merchant_id', data.merchant.id);
+    localStorage.setItem('type_menu', data.merchant.type_menu);
     localStorage.setItem('refresh_token', data.refresh);
-    localStorage.setItem('marketer', JSON.stringify(data.marketer));
+    localStorage.setItem('information_is_complete', data.merchant.information_is_complete);
+    localStorage.setItem('merchant', JSON.stringify(data.merchant));
   }
 
   buildLoginForm() {

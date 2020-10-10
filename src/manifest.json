@@ -1,8 +1,8 @@
 {
     "dir": "ltr",
     "lang": "es",
-    "name": "scooterMarketingAdmin",
-    "short_name": "scooterMarketingAdmin",
+    "name": "scooterMarket",
+    "short_name": "scooterMarket",
     "theme_color": "#1976d2",
     "background_color": "#fafafa",
     "display": "fullscreen",

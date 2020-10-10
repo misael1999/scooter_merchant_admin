@@ -47,9 +47,7 @@ export class InterceptorService implements HttpInterceptor {
         text: 'Sesión expirada',
       });
       return throwError('No authorization');
-    } */
-
-    
+    } */    
 
     if (errorResponse.status >= 400 && errorResponse.status <= 404  ) {
       errorResponse = error.error;

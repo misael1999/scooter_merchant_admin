@@ -1,8 +1,12 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-flex-start mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Productos</h1>
-        <div class="col-md-8"></div>
-        <a class="btn btn-secondary margin-left-1rem" (click)="openDialogAddProduct()">Agregar</a>
+        <div class="col-md-5">
+            <h1 class="h3 mb-0 text-gray-800">Productos</h1>
+        </div>
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <a class="btn btn-sm btn-secondary btn-block" [routerLink]="['/products', 'add']">Agregar</a>
+        </div>
     </div>
     <mat-tab-group>
         <mat-tab label="Disponibles">
@@ -10,6 +14,7 @@
         </mat-tab>
         <mat-tab label="No disponibles">
             <app-disabled></app-disabled>
+
         </mat-tab>
     </mat-tab-group>
 </div>

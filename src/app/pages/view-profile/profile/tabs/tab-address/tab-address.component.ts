@@ -41,7 +41,7 @@ export class TabAddressComponent implements OnInit {
   getPoint(point) {
     if (point.coordinates) {
       this.currentMarker.lat = point.coordinates[1],
-      this.currentMarker.lng = point.coordinates[0]
+      this.currentMarker.lng = point.coordinates[0];
 
       this.lat = point.coordinates[1];
       this.lng = point.coordinates[0];
@@ -72,12 +72,12 @@ export class TabAddressComponent implements OnInit {
       this.addressForm.markAllAsTouched();
       return;
     }
-  
+
     const info = this.addressForm.value;
     info.point = {lat: this.currentMarker.lat, lng: this.currentMarker.lng};
-    
+
     this.loadingSaveInfo = true;
-    
+
     this.profileService.updateMerchant({address: info})
     .subscribe((data: any) => {
       this.showMessageSuccess('Dirección actualizada correctamente');

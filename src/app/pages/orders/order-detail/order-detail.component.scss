@@ -142,14 +142,6 @@
     border: none
 }
 
-.invoice footer {
-    width: 100%;
-    text-align: center;
-    color: #777;
-    border-top: 1px solid #aaa;
-    padding: 8px 0
-}
-
 @media print {
     .invoice {
         font-size: 11px!important;

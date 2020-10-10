@@ -1,11 +1,9 @@
-<div class="container-fluid content mt-3">
-
+<div class="container-fluid mt-3">
     <div>
-
-        <!-- Filter  -->
         <div class="filters mb-3">
             <div class="row d-flex justify-content-end">
 
+                <!-- Ordering products disabled -->
                 <div class="col-lg-3">
                     <select class="form-control select-form" (change)="orderBy($event.target.value)">
                         <option>Ordenar por:</option>
@@ -13,15 +11,17 @@
                         <option value="-created">Fecha de creación</option>
                     </select>
                 </div>
+                <!-- End ordering products disabled -->
 
                 <div class="col-lg-6">
                 </div>
 
-
-                <!-- Filter by search vehicles -->
+                <!-- Search products -->
                 <div class="col-lg-3">
                     <div class="input-group mb-3">
-                        <input #searchInput (keyup.enter)="searchBy(searchInput.value)" type="text" class="form-control fm-size" placeholder="Buscar por nombre" aria-label="Username" aria-describedby="basic-addon1">
+                        <input #searchInput (keyup.enter)="searchBy(searchInput.value)" type="text"
+                            class="form-control fm-size" placeholder="Buscar por nombre" aria-label="Username"
+                            aria-describedby="basic-addon1">
                         <div class="input-group-prepend cursor" (click)="searchBy(searchInput.value)">
                             <span class="input-group-text" id="basic-addon1">
                                 <i class="fas fa-search"></i>
@@ -29,20 +29,19 @@
                         </div>
                     </div>
                 </div>
-                <!-- Fin Filter by search vehicles -->
-
-
+                <!-- End search products -->
             </div>
         </div>
-        <!-- Fin filter  -->
+
 
         <div class="row" class="content">
 
-            <!-- PAGINADOR  -->
+            <!-- Paginator  -->
             <div class="col-lg-12 d-flex justify-content-end">
-                <mat-paginator [disabled]="!products || products.length === 0" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getPage($event)"></mat-paginator>
+                <mat-paginator [disabled]="!products || products.length===0" [length]="length" [pageSize]="pageSize"
+                    [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getPage($event)"></mat-paginator>
             </div>
-            <!-- TERMINA EL PAGINADOR  -->
+            <!-- End paginator  -->
 
             <!-- Preloader  -->
             <div class="col-lg-12 d-flex justify-content-center" *ngIf="!products">
@@ -50,34 +49,39 @@
                     <span class="sr-only">Cargando productos...</span>
                 </div>
             </div>
-            <!-- Fin Preloader  -->
+            <!-- End Preloader  -->
 
 
 
+            <!-- Table products -->
             <div class="col-md-12" *ngIf="products && products.length > 0">
-
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr class="">
                             <th scope="col">Imagen</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Categoría</th>
-                            <th scope="col">Stock</th>
+                            <th *ngIf="typeMenu >= 2" scope="col">Subcategoría</th>
+                            <th *ngIf="typeMenu >= 3" scope="col">Sección</th>
                             <th scope="col">Precio</th>
                             <th scope="col" class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let product of products ">
-                            <td> 
-                                <img class="img-category img-profile rounded-circle" *ngIf="product.picture" [src]="product.picture" alt="category_img">
+                            <td>
+                                <img class="img-category img-profile rounded-circle" *ngIf="product.picture"
+                                    [src]="product.picture" alt="category_img">
+                                <img class="img-category img-profile rounded-circle" *ngIf="product.picture === null"
+                                    src="../../../../../assets/img/Bolsa.png" alt="category_img">
                             </td>
                             <td> {{product.name}} </td>
                             <td> {{product.category.name}}</td>
-                            <td> {{product.stock}}</td>
+                            <td *ngIf="typeMenu >= 2"> {{product.subcategory?.name}}</td>
+                            <td *ngIf="typeMenu >= 3"> {{product.section?.name}}</td>
                             <td> {{product.price}}</td>
                             <td class="text-center">
-                                <button class="btn btn-mas" (click)="openDialog(product)">
+                                <button class="btn bt-activate" (click)="activateProduct(product)">
                                     <i class="fas fa-lock-open"></i>
                                 </button>
                             </td>
@@ -86,11 +90,11 @@
                     </tbody>
                 </table>
             </div>
-            <!-- Fin table the vehicles  -->
-            <app-no-found-data *ngIf="!products || products.length === 0"  [message]="'No hay productos que mostrar'"></app-no-found-data>
+            <app-no-found-data *ngIf="!products || products.length === 0"  [message]="'No hay productos que mostrar'">
+            </app-no-found-data>
+            <!-- End table products -->
         </div>
     </div>
 
 
 </div>
-

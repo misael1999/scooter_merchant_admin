@@ -7,7 +7,6 @@ import { InfoProductComponent } from './info-product/info-product.component';
 const routes: Routes = [
   { path: '', component: ProductListComponent },
   { path: 'add', component: AddProductComponent },
-  { path: 'product/:id', component: InfoProductComponent },
   { path: 'modify/:id', component: AddProductComponent }
 ];
 

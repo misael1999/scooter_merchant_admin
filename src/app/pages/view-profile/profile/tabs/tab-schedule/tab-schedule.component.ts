@@ -20,7 +20,7 @@ export class TabScheduleComponent implements OnInit {
 
 
   constructor(private profileService: ProfileService,
-     private configService: ConfigAccountService, private snackBar: MatSnackBar) { }
+              private configService: ConfigAccountService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getSchedules();
@@ -74,7 +74,7 @@ export class TabScheduleComponent implements OnInit {
 
   deleteSchedule(scheduleId) {
     const index = this.scheduleSelected.findIndex((schedule) => {
-      return schedule.schedule_id === scheduleId});
+      return schedule.schedule_id === scheduleId;});
     if (index >= 0) {
       this.scheduleSelected.splice(index, 1);
     }

@@ -1,0 +1,36 @@
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #cec8c8;
+    opacity: 1; /* Firefox */
+  }
+  
+
+.title {
+    font-weight: bold;
+    font-size: 95%;
+}
+
+.content-dialog {
+    height: 100%;
+}
+
+.actions {
+    padding: 15px;
+    background: #f2f2f2;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btns {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 90%;
+    .more {
+        color: #ff9b18f8;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+}

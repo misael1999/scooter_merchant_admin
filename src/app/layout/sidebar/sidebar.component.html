@@ -4,6 +4,7 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/dashboard" routerLinkActive="active">
         <div>
         </div>
+        <p> {{ merchant.merchant_name |slice:0:0 |lowercase }} </p>
         <div style="font-family: 'slant'; font-size: 150%;" class="sidebar-brand-text mx-3">SCOOTER</div>
     </a>
     <!-- Divider -->
@@ -13,20 +14,19 @@
     <!-- Nav Item - Dashboard Collapso Menu -->
     <li class="nav-item cursor" routerLink="/dashboard" routerLinkActive="active">
         <a class="nav-link">
-            <i class="fas fa-fw fa-map-marked-alt"></i>
-            <span>Mapa</span></a>
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
     </li>
-    <!-- Nav Item - Fin Dashboard Collapso Menu -->
     <hr class="sidebar-divider">
 
 
 
     <!-- Heading -->
-    <!-- <div class="sidebar-heading">
+    <div class="sidebar-heading">
         Gestión
-    </div> -->
+    </div>
     <!-- Nav Item - Pages Collapse Menu -->
-    <!-- <li class="nav-item">
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-clipboard-list"></i>
             <span>Pedidos</span>
@@ -41,39 +41,27 @@
                 <a class="collapse-item" routerLink="/orders/cancelled" routerLinkActive="active">Pedidos ignorados</a>
             </div>
         </div>
-    </li> -->
+    </li>
     <!-- Fin Nav Item - Pages Collapse Menu -->
 
 
 
 
     <!-- Nav Item - Map the traicing Collapse Menu -->
-    <!-- <li class="nav-item" routerLink="/categories" routerLinkActive="active">
+    <li class="nav-item" routerLink="/categories" routerLinkActive="active">
         <a class="nav-link collapsed">
             <i class="fas fa-fw fa-tag"></i>
             <span>Categorías</span>
         </a>
-    </li> -->
-
-
-    <!-- Nav Item - Products Collapse Menu -->
-    <!-- <li class="nav-item" routerLink="/products" routerLinkActive="active">
+    </li>
+    <!-- Nav Item - Vehicles Collapse Menu -->
+    <li class="nav-item" routerLink="/products" routerLinkActive="active">
         <a class="nav-link collapsed">
             <i class="fas fa-box"></i>
             <span>Productos</span>
         </a>
-    </li> -->
-    <!-- Fin Nav Item - Fin Products Collapse Menu -->
-
-
-    <!-- Nav Item - Clients Collapse Menu -->
-    <!-- <li class="nav-item" routerLink="/clients" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Clientes</span>
-        </a>
-    </li> -->
-    <!-- Nav Item - Fin the Clients Collapse Menu  -->
+    </li>
+    <!-- Fin Nav Item - Map the traicing Collapse Menu -->
 
 
     <!-- Nav Item - Delivery Collapse Menu -->
@@ -86,22 +74,33 @@
     <!-- Nav Item - Fin the Delivery Collapse Menu -->
 
 
+    <!-- Nav Item - Clients Collapse Menu -->
+    <!-- <li class="nav-item" routerLink="/clients" routerLinkActive="active">
+        <a class="nav-link collapsed">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Clientes</span>
+        </a>
+    </li> -->
+    <!-- Nav Item - Fin the Clients Collapse Menu  -->
+
+
+
     <!-- Divider -->
-    <!-- <hr class="sidebar-divider"> -->
+    <hr class="sidebar-divider">
+
     <!-- Heading -->
-    <!-- <div class="sidebar-heading">
+    <div class="sidebar-heading">
         Informes
-    </div> -->
+    </div>
 
 
-    <!-- Nav Item - Setting Collapse Menu -->
-    <!-- <li class="nav-item" routerLink="/profile" routerLinkActive="active">
+    <li class="nav-item" routerLink="/profile" routerLinkActive="active">
         <a class="nav-link collapsed">
             <i class="fas fa-fw fa-cog"></i>
             <span>Configuración</span>
         </a>
-    </li> -->
-    <!-- Nav Item - Fin Setting Collapse Menu -->
+
+    </li>
 
 
     <!-- Sidebar Toggler (Sidebar) -->

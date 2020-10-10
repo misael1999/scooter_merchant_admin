@@ -76,7 +76,7 @@ export class NewOrdersComponent implements OnInit, OnDestroy {
     }, error => {
 
     }, () => {
-      this.loaderAcceptOrder = false; 
+      this.loaderAcceptOrder = false;
     });
   }
 

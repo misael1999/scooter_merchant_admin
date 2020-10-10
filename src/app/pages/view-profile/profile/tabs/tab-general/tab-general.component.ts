@@ -23,7 +23,7 @@ export class TabGeneralComponent implements OnInit {
   changeImage = false;
 
   constructor(private profileService: ProfileService,
-    private fb: FormBuilder, private snackBar: MatSnackBar) { }
+              private fb: FormBuilder, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.merchant = this.profileService.merchant;
@@ -71,8 +71,9 @@ export class TabGeneralComponent implements OnInit {
       phone_number: [this.merchant.phone_number, Validators.required],
       contact_person: [this.merchant.contact_person, Validators.required],
       description: [this.merchant.description],
-      approximate_preparation_time: [this.merchant.approximate_preparation_time, Validators.required],
-    })
+      from_preparation_time: [this.merchant.from_preparation_time, Validators.required],
+      to_preparation_time: [this.merchant.to_preparation_time, Validators.required],
+    });
   }
 
   saveGeneralInfo() {
@@ -83,13 +84,15 @@ export class TabGeneralComponent implements OnInit {
     }
 
     const info = this.generalInfoForm.value;
+    info.approximate_preparation_time = info.from_preparation_time + '-' + info.to_preparation_time;
+
 
     if (this.binaryString != null) {
       info.picture = this.binaryString;
     }
-    
+
     this.loadingSaveInfo = true;
-    
+
     this.profileService.updateMerchant({general: info})
     .subscribe((data: any) => {
       this.showMessageSuccess('Información actualizada correctamente');

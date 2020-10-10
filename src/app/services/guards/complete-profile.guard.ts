@@ -16,7 +16,7 @@ export class CompleteProfileGuard implements CanActivate {
 
       // Verify that the station exists and does not have a complete configuration  ========
 
-      const merchant = JSON.parse(localStorage.getItem('marketer'));
+      const merchant = JSON.parse(localStorage.getItem('merchant'));
       const information_is_complete = localStorage.getItem('information_is_complete');
       if (merchant) {
         if (information_is_complete == 'false') {

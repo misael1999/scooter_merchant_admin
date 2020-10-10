@@ -1,0 +1,120 @@
+<form class="px-5 py-4" [formGroup]="group">
+  <input type="hidden" formControlName="id">
+  <div class="form-group d-flex flex-column">
+    <div class="d-flex">
+      <input autofocus="off" style="height: 45px;" formControlName="name"
+        [ngClass]="{'is-invalid': isFieldInvalid(group, 'name')}" type="text" class="form-control"
+        placeholder="ejem: ¿DESEAS AGREGARLE ALGO MÁS?">
+
+      <div style="height: 45px;" class="input-group-prepend">
+        <div class="input-group-text"><i class="fas fa-pencil-alt"></i></div>
+      </div>
+    </div>
+    <!-- MESSAGES ERRORS  -->
+    <div class="invalid-feedback">
+      <span *ngIf="hasFieldError(group, 'name','required')">El nombre es requerido.</span>
+    </div>
+  </div>
+  <div mat-dialog-content>
+    <!-- RANGO DE ARTICULOS A SELECCIONAR -->
+    <div class="option d-flex flex-column">
+      <span class="title">¿Cuántos articulos puede seleccionar el cliente?</span>
+      <div class="range-inputs my-2">
+        <div class="row">
+          <div class="col-lg-5">
+            <!-- SELECT  -->
+            <select (change)="changeTypeRange($event.target.value)" formControlName="is_range" class="form-control">
+              <option value="false">Seleccionar</option>
+              <option value="true">Seleccionar un rango</option>
+            </select>
+            <!-- SELECT  -->
+
+          </div>
+          <!-- SI ES RANGO  -->
+          <div *ngIf="isRange" class="col-lg-7 d-flex align-items-center">
+            <span class="mr-1">Mínimo:</span>
+            <input min="0" formControlName="min_options_choose"
+              [ngClass]="{'is-invalid': isFieldInvalid(group, 'min_options_choose')}" type="number" class="form-control"
+              placeholder="1">
+            <span class="mx-1">Máximo:</span>
+            <input min="0" formControlName="max_options_choose"
+              [ngClass]="{'is-invalid': isFieldInvalid(group, 'max_options_choose')}" type="number" class="form-control"
+              placeholder="3">
+          </div>
+          <!-- SI NO ES RANGO  -->
+          <div *ngIf="!isRange" class="col-lg-7 d-flex align-items-center">
+            <input formControlName="limit_options_choose"
+              [ngClass]="{'is-invalid': isFieldInvalid(group, 'max_options_choose')}" type="number" class="form-control"
+              placeholder="3">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- TERMINA RANGO DE ARTICULOS  -->
+    <!-- PREGUNTAS  -->
+    <div class="option d-flex flex-column">
+      <span class="title">¿Es requerido?</span>
+      <div class="range-inputs my-3 d-flex align-items-center">
+        <mat-radio-group [required]="true" formControlName="is_obligatory">
+          <mat-radio-button class="mr-4" value="true">Requerido</mat-radio-button>
+          <mat-radio-button value="false">Opcional</mat-radio-button>
+        </mat-radio-group>
+        <div style="color: red; font-size: 90%; margin-left: 20px" *ngIf="isFieldInvalid(group, 'is_obligatory')"
+          class="invalid-div">
+          <span *ngIf="hasFieldError(group, 'is_obligatory','required')">Selecciona una opción.</span>
+        </div>
+      </div>
+    </div>
+    <!-- PREGUNTAS  -->
+    <!--  ARTICULOS -->
+    <div class="row">
+      <div class="col-lg-8">
+        <label for="">Articulos</label>
+      </div>
+      <div class="col-lg-3">
+        <label for="">Precio</label>
+      </div>
+      <div class="col-lg-1">
+        <label for=""></label>
+      </div>
+    </div>
+    <div formArrayName="options" *ngFor="let optionForm of optionsFormData.controls; let i = index;">
+      <div [formGroupName]="i" class="row">
+        <input type="hidden" formControlName="option_id">
+        <div class="col-lg-8 d-flex my-1 flex-column">
+          <input formControlName="name" [ngClass]="{'is-invalid': isFieldInvalid(optionForm, 'name')}" type="text"
+            class="form-control" placeholder="Nombre">
+          <div class="invalid-feedback">
+            <span *ngIf="hasFieldError(optionForm, 'name','required')">El nombre es requerido.</span>
+          </div>
+        </div>
+        <div class="col-lg-3 d-flex my-1 flex-column">
+          <input formControlName="price" type="number" class="form-control" placeholder="3">
+        </div>
+        <div *ngIf="!menu || optionForm.get('option_id').value == null"
+          class="col-lg-1 d-flex my-1 flex-column justify-content-center">
+          <i (click)="deleteOption(i)" *ngIf="i != 0" class="fas fa-trash cursor"></i>
+        </div>
+        <div *ngIf="menu && optionForm.get('option_id').value != null"
+          class="col-lg-1 d-flex my-1 flex-column justify-content-center">
+          <button mat-button [matMenuTriggerFor]="menu">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button  mat-menu-item>Desactivar</button>
+            <button (click)="deleteOptionUpdate(menu, i)" mat-menu-item>Eliminar</button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+    <!-- TERMINA ARTICULOS  -->
+    <div class="btns">
+      <a (click)="addOption()" class="more"> <i class="fas fa-plus mr-2"></i> AGREGAR OTRO ARTICULO</a>
+    </div>
+  </div>
+</form>
+<div class="actions" mat-dialog-actions>
+  <button mat-dialog-close class="btn py-2 px-5 mb-3 mx-2">Cancelar</button>
+  <button (click)="saveMenuCategory()" class="btn py-2 px-5 btn-primary mb-3">Guardar</button>
+</div>

@@ -1,0 +1,36 @@
+<h1 mat-dialog-title class="d-flex justify-content-between">
+
+    {{id != null ? 'Editar': 'Agregar' }} Sección
+    <button mat-dialog-close mat-flat-button class="btn ">
+        <i class="far fa-times-circle"></i>
+    </button>
+</h1>
+
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-md-12 ">
+
+            <form [formGroup]="group" class="user" (ngSubmit)="sendData(group.value)">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input formControlName="name" [ngClass]="{'is-invalid': isFieldInvalid(group, 'name'), 'is-valid': isFieldValid(group, 'name')}" type="text" class="form-control" placeholder="Nombre de la sección">
+                    <!-- MESSAGES ERRORS  -->
+                    <div class="invalid-feedback">
+                        <span *ngIf="hasFieldError(group, 'name','required')">El nombre es requerido</span>
+                    </div>
+                </div>
+
+                <hr>
+                <div>
+                    <button [disabled]="loadingSave" [disabled]="group.invalid" class="btn btn-primary align-items-end">
+                        <span>Guardar</span>
+                        
+                        <div *ngIf="loadingSave" class="spinner-border text-warning" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

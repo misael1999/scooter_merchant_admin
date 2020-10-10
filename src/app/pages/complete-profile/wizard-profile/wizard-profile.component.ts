@@ -7,6 +7,8 @@ import { StationModel } from 'src/app/models/station.model';
 import { UpdateInfoStationModel } from 'src/app/models/update_info.model';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { Router } from '@angular/router';
+import { Merchant } from 'src/app/models/merchant.model';
+import { Coordinate } from 'src/app/models/coordinate';
 
 
 // just an interface for type safety.
@@ -24,7 +26,7 @@ export interface Marker {
 })
 export class WizardProfileComponent implements OnInit, AfterContentInit {
 
-  station: StationModel;
+  merchant: Merchant;
   // Forms
   addressForm: FormGroup;
   ratesServicesForm: FormGroup;
@@ -81,7 +83,7 @@ export class WizardProfileComponent implements OnInit, AfterContentInit {
 
   // STEP 3
   // google maps zoom level
-  zoom = 17;
+  zoom = 14;
   currentMarker: Marker = {
     lat: 18.462859841665864,
     lng: -97.39279966871719,
@@ -100,11 +102,23 @@ export class WizardProfileComponent implements OnInit, AfterContentInit {
               private _formBuilder: FormBuilder, private alertService: AlertsService) { }
 
   ngOnInit(): void {
-    this.station = JSON.parse(localStorage.getItem('station'));
+    this.merchant = JSON.parse(localStorage.getItem('merchant'));
     this.getSchedules();
     this.buildRateServicefForm();
     this.buildAddressForm();
     this.buildGeneralForm();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (data: Position) => {
+          let cord: Coordinate = Coordinate.fromGeoposition(data);
+          this.currentMarker.lat = cord.latitude;
+          this.currentMarker.lng = cord.longitude;
+          this.currentMarker.label = this.merchant.merchant_name;
+          this.currentMarker.draggable = false;
+          console.log(cord);
+        }
+      );
+    }
   }
 
 
@@ -164,9 +178,10 @@ export class WizardProfileComponent implements OnInit, AfterContentInit {
 
   buildGeneralForm() {
     this.generalForm = this._formBuilder.group({
-      merchant_name: [null, Validators.required],
+      merchant_name: [this.merchant.merchant_name, Validators.required],
       description: [null],
-      approximate_preparation_time: [null, Validators.required]
+      from_preparation_time: [null, Validators.required],
+      to_preparation_time: [null, Validators.required]
     });
   }
 
@@ -224,7 +239,7 @@ export class WizardProfileComponent implements OnInit, AfterContentInit {
         this.router.navigate(['/dashboard']);
       }, (err) => {
         this.loadingUpdateConfig = false;
-        this.alertService.openErrorDialog(null, 'Oppss..', err.errors.message);
+        this.alertService.openErrorDialog(null, 'Oppss..', JSON.stringify(err.errors.message));
       });
   }
 
@@ -299,6 +314,7 @@ export class WizardProfileComponent implements OnInit, AfterContentInit {
       return false;
     }
     const general = this.generalForm.value;
+    general.approximate_preparation_time = general.from_preparation_time + '-' + general.to_preparation_time;
     // Save in object to update info
     this.merchantConfig.general = {picture: this.binaryString, ...general};
     return true;

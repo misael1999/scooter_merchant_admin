@@ -18,7 +18,7 @@ export class ProfileService {
     return this.httpClient.get(url);
   }
 
-  updateMerchant(data: Object) {
+  updateMerchant(data: any) {
     const merchantId = localStorage.getItem('merchant_id');
     const url = `${environment.HOST_APIV1}/merchants/${merchantId}/update_info/`;
     return this.httpClient.patch(url, data);
