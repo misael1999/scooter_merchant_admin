@@ -24,6 +24,11 @@ const routes: Routes = [
     canActivate: [AuthGuard, RefreshTokenGuard],
     loadChildren: () => import('./view-profile/view-profile.module').then(m => m.ViewProfileModule)
   },
+  {
+    path: 'forUse',
+    canActivate: [AuthGuard, RefreshTokenGuard],
+    loadChildren: () => import('./statement/statement.module').then(m => m.StatementModule)
+  },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'categories',

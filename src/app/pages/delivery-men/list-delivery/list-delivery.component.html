@@ -1,17 +1,14 @@
 <div class="container-fluid">
 
-    <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Repartidores</h1>
         <button class="btn btn-secondary btn-sm" (click)="dialogAddDelivery()">Agregar</button>
     </div>
 
     <div>
-        <!-- Filter  -->
         <div class="filters mb-3">
+
             <div class="row d-flex justify-content-end">
-
-
                 <div class="col-md-12 tabPading">
                     <nav mat-tab-nav-bar>
                         <a mat-tab-link routerLink="/delivery/list" active="activeLink" routerLinkActive="active">Activos </a>
@@ -70,16 +67,27 @@
             <div class="col-md-12">
                 <table class="table table-striped table-bordered">
                     <thead>
-                        <tr class="">
+                        <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellidos </th>
                             <th scope="col">Telefono </th>
-                            <th scope="col">Total de pedidos</th>
-                            <th scope="col">Reputacion </th>
+                            <th scope="col">Salario</th>
+                            <th scope="col">Alias </th>
+                            <th scope="col">Modelo </th>
+                            <th scope="col">Placa</th>
                             <th scope="col">Acciones </th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr *ngFor="let delivery of [1,2,3,4] ">
+                            <td> Juan </td>
+                            <td> Dominguez</td>
+                            <td> 2381270938</td>
+                            <td> 200 </td>
+                            <td> JuanMotoRoja </td>
+                            <td> 2018 </td>
+                            <td> MCJ-54 </td>
+                            <td> A y B </td>
 
                     </tbody>
                 </table>
