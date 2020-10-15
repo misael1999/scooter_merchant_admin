@@ -168,7 +168,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
     if (this.id) {
       product.id = this.id;
-      
+      product.picture = this.imageURL;
       if (this.imageURL.includes('https')) {
         delete product.picture;
       }
