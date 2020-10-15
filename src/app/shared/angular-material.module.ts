@@ -47,7 +47,7 @@ const components = [
   MatRadioModule,
   MatExpansionModule,
   MatTooltipModule,
-  MatMenuModule
+  MatMenuModule,
 ];
 
 @NgModule({

@@ -65,23 +65,32 @@
 
 
     <!-- Nav Item - Delivery Collapse Menu -->
-    <!-- <li class="nav-item" routerLink="/delivery/list" routerLinkActive="active">
+    <li class="nav-item" routerLink="/delivery/list" routerLinkActive="active">
         <a class="nav-link collapsed">
             <i class="fas fa-fw fa-car"></i>
             <span>Repartidores</span>
         </a>
-    </li> -->
-    <!-- Nav Item - Fin the Delivery Collapse Menu -->
+    </li>
+    <!-- Nav Item - End the Delivery Collapse Menu -->
 
 
-    <!-- Nav Item - Clients Collapse Menu -->
-    <!-- <li class="nav-item" routerLink="/clients" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Clientes</span>
+
+
+    <!-- Nav Item - Payments Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment" aria-expanded="true" aria-controls="collapsePayment">
+            <i class="fas fa-fw fa-credit-card"></i>
+            <span>Pagos</span>
         </a>
-    </li> -->
-    <!-- Nav Item - Fin the Clients Collapse Menu  -->
+        <div id="collapsePayment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Pagos:</h6>
+                <a class="collapse-item cursor" routerLink="/forUse/gain" routerLinkActive="active">Por Uso</a>
+                <a class="collapse-item cursor" routerLink="/orders/process" routerLinkActive="active">Por Productos</a>
+            </div>
+        </div>
+    </li>
+    <!-- End Nav Item - Payments Collapse Menu -->
 
 
 

@@ -1,7 +1,5 @@
 <h1 mat-dialog-title class="d-flex justify-content-between">
-
     Agregar repartidor
-
     <button mat-dialog-close mat-flat-button class="btn ">
         <i class="ti ti-close"></i>
       </button>
@@ -12,22 +10,112 @@
     <div class="row">
         <div class="col-md-12 ">
 
-            <!-- Form add vehicle -->
+
+            <!-- Form Add vehícle -->
             <form>
-
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Nombre</label>
-                        <input formControlName="name" type="text" class="form-control" placeholder="Nombre">
-
-                    </div>
-
-                    <div class="form- col-lg-6">
-                        <label>Apellidos</label>
-                        <input formControlName="last_name" type="text " class="form-control " placeholder="Apellidos">
+                <small>Datos del Vehiculo</small>
+                <div class="form-group">
+                    <label>Alias</label>
+                    <input formControlName="alias" type="text" class="form-control" placeholder="Alias" [ngClass]="{'is-invalid': isFieldInvalid(vehicleForm, 'alias'), 'is-valid': isFieldValid(vehicleForm, 'alias')}">
+                    <div class="invalid-feedback">
+                        <span *ngIf="isFieldHasError(vehicleForm, 'alias','required')">Este campo es requerido</span>
                     </div>
                 </div>
 
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Modelo</label>
+                        <input type="text" class="form-control" formControlName='model' placeholder="Modelo" [ngClass]="{'is-invalid': isFieldInvalid(vehicleForm, 'model'), 'is-valid': isFieldValid(vehicleForm, 'model')}">
+                        <div class="invalid-feedback">
+                            <span *ngIf="isFieldHasError(vehicleForm, 'model','required')">Este campo es requerido</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Año</label>
+                        <input type="text" class="form-control" formControlName='year' placeholder="Año" [ngClass]="{'is-invalid': isFieldInvalid(vehicleForm, 'year'),
+                            'is-valid': isFieldValid(vehicleForm, 'year')}">
+                        <div class="invalid-feedback">
+                            <span *ngIf="isFieldHasError(vehicleForm, 'year','required')">Este campo es requerido</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Placa</label>
+                        <input type="text" [ngClass]="{'is-invalid': isFieldInvalid(vehicleForm, 'plate'),
+                            'is-valid': isFieldValid(vehicleForm, 'plate')}" class="form-control" formControlName='plate' placeholder="Placa">
+                        <div class="invalid-feedback">
+                            <span *ngIf="isFieldHasError(vehicleForm, 'plate','required')">Este campo es requerido</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- End form vehicle -->
+
+            <form>
+                <small>Datos del repartidor</small>
+                <div class="form-row">
+                    <div class="form-group col-md-6 ">
+                        <label>Nombre</label>
+                        <input formControlName="street" type="text " class="form-control " placeholder="Calle " [ngClass]="{'is-invalid': isFieldInvalid(deliveryForm, 'street'), 'is-valid': isFieldValid(deliveryForm, 'street')}">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="isFieldHasError(deliveryForm, 'street','required')">Este campo es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6 ">
+                        <label>Apellido</label>
+                        <input formControlName="suburb" type="text " class="form-control " placeholder="Colonia " [ngClass]="{'is-invalid': isFieldInvalid(deliveryForm, 'suburb'), 'is-valid': isFieldValid(deliveryForm, 'suburb')}">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="isFieldHasError(deliveryForm, 'suburb','required')">Este campo es requerido</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4 ">
+                        <label>Telefono </label>
+                        <input formControlName="postal_code" type="text " class="form-control " placeholder="Código postal" maxlength="5" minlength="5" [ngClass]="{'is-invalid': isFieldInvalid(deliveryForm, 'postal_code'), 'is-valid': isFieldValid(deliveryForm, 'postal_code')}">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="isFieldHasError(deliveryForm, 'postal_code','minlength')">Como minimo 5 Caracteres</span>
+                            <span *ngIf="isFieldHasError(deliveryForm, 'postal_code','required')">Este campo es requerido</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4 ">
+                        <label>Salario</label>
+                        <input formControlName="exterior_number" type="text " class="form-control " placeholder="Numero exterior " [ngClass]="{'is-invalid': isFieldInvalid(deliveryForm, 'exterior_number'), 'is-valid': isFieldValid(deliveryForm, 'exterior_number')}">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="isFieldHasError(deliveryForm, 'exterior_number','required')">Este campo es requerido</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 ">
+                        <label>Contraseña </label>
+                        <input formControlName="inside_number" type="text " class="form-control " placeholder="Numero interior " [ngClass]="{'is-invalid': isFieldInvalid(deliveryForm, 'inside_number'), 'is-valid': isFieldValid(deliveryForm, 'inside_number')}">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="isFieldHasError(deliveryForm, 'inside_number','required')">Este campo es requerido</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-7"></div>
+                    <div class="col-md-3">
+                        <button class="btn btn-light right " mat-dialog-close mat-flat-button color="primary">Cancelar</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary fa-pull-right">Guardar</button>
+                    </div>
+                </div>
             </form>
             <!-- Fin form add vehicle -->
         </div>
