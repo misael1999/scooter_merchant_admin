@@ -168,9 +168,12 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
     if (this.id) {
       product.id = this.id;
-      product.picture = this.imageURL;
-      if (this.imageURL.includes('https')) {
-        delete product.picture;
+      if (this.imageURL != null) {
+        if (this.imageURL.includes('https')) {
+          delete product.picture;
+        } else {
+          product.picture = this.imageURL;
+        }
       }
       delete product.menu_categories;
       product.menu_categories_update = this.menu_categories_update;
