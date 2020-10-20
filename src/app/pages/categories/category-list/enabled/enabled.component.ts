@@ -18,7 +18,7 @@ export class EnabledComponent implements OnInit, OnDestroy {
   @Output() openEditDialog = new EventEmitter<Category>();
 
   params = {
-    limit: 15,
+    limit: 25,
     offset: 0,
     search: '',
     ordering: '',
@@ -103,7 +103,6 @@ export class EnabledComponent implements OnInit, OnDestroy {
     this.categoriesSubscription = this.categoriesService
       .getCategories(params)
       .subscribe((data: any) => {
-        console.log(data);
         this.categories = data.results;
         this.length = data.count;
       });

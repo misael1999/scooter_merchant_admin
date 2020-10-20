@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ScheduleModel } from 'src/app/models/schedule.model';
-import { AmazingTimePickerService } from 'amazing-time-picker';
 
 @Component({
   selector: 'app-schedule-profile',
@@ -15,7 +13,7 @@ export class ScheduleProfileComponent implements OnInit {
   openingHour = '09:00:00';
   closedHour = '18:00:00';
 
-  constructor(private atp: AmazingTimePickerService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -24,7 +22,7 @@ export class ScheduleProfileComponent implements OnInit {
     this.sendSchedule();
   }
 
-  public openOpeningHourPicker() {
+/*   public openOpeningHourPicker() {
     const amazingTimePicker = this.atp.open(
       this.getConfigTimePicker(this.openingHour)
       );
@@ -33,18 +31,17 @@ export class ScheduleProfileComponent implements OnInit {
         this.openingHour = time;
         this.sendSchedule();
       });
-  }
+  } */
 
-  openClosedHourPicker() {
+/*   openClosedHourPicker() {
     const amazingTimePicker = this.atp.open(
       this.getConfigTimePicker(this.closedHour)
     );
     amazingTimePicker.afterClose()
       .subscribe(time => {
         this.closedHour = time;
-        this.sendSchedule();
       });
-  }
+  } */
 
   sendSchedule() {
     this.addSchedule.emit({
@@ -55,7 +52,7 @@ export class ScheduleProfileComponent implements OnInit {
     });
   }
 
-  getConfigTimePicker(time: string): object {
+ /*  getConfigTimePicker(time: string): object {
     return {
       time,
       theme: 'light',
@@ -70,7 +67,7 @@ export class ScheduleProfileComponent implements OnInit {
         color: 'white'
       }
     };
-  }
+  } */
 
 
 

@@ -24,7 +24,7 @@ export class EnabledComponent implements OnInit, OnDestroy {
   pageEvent: PageEvent;
 
   params = {
-    limit: 15,
+    limit: 25,
     offset: 0,
     search: '',
     ordering: '',
@@ -100,7 +100,7 @@ export class EnabledComponent implements OnInit, OnDestroy {
     this.productsSubscription = this.productService.getProducts(params)
       .subscribe((data: any) => {
         this.products = data.results;
-        console.log(this.products);
+        this.length = data.count;
       });
   }
 

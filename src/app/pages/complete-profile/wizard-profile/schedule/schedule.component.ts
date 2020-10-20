@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ScheduleModel } from 'src/app/models/schedule.model';
-import { AmazingTimePickerService } from 'amazing-time-picker';
 
 @Component({
   selector: 'app-schedule',
@@ -15,35 +14,13 @@ export class ScheduleComponent implements OnInit {
   openingHour = '09:00';
   closedHour = '18:00';
 
-  constructor(private atp: AmazingTimePickerService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   selectCheckbox(event) {
     this.sendSchedule();
-  }
-
-  public openOpeningHourPicker() {
-    const amazingTimePicker = this.atp.open(
-      this.getConfigTimePicker(this.openingHour)
-      );
-    amazingTimePicker.afterClose()
-      .subscribe(time => {
-        this.openingHour = time;
-        this.sendSchedule();
-      });
-  }
-
-  openClosedHourPicker() {
-    const amazingTimePicker = this.atp.open(
-      this.getConfigTimePicker(this.closedHour)
-    );
-    amazingTimePicker.afterClose()
-      .subscribe(time => {
-        this.closedHour = time;
-        this.sendSchedule();
-      });
   }
 
   sendSchedule() {
@@ -54,24 +31,6 @@ export class ScheduleComponent implements OnInit {
       checked: this.schedule.checked
     });
   }
-
-  getConfigTimePicker(time: string): object {
-    return {
-      time,
-      theme: 'light',
-      preference: {
-        labels: {
-          ok: 'Aceptar',
-          cancel: 'Cancelar'
-        }
-      },
-      arrowStyle: {
-        background: 'orange',
-        color: 'white'
-      }
-    };
-  }
-
 
 
 }
