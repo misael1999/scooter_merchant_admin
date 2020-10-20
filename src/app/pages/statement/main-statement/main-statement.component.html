@@ -1,0 +1,17 @@
+<div class="container">
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Resumen {{month}} {{year}}</h1>
+
+    </div>
+    <span>Selecciona un mes</span><br>
+    <nz-date-picker style="width: 200px;" [(ngModel)]="date"
+     [nzPlaceHolder]="'Selecciona el mes'" nzMode="month"  (ngModelChange)="changeDate($event)"></nz-date-picker>
+
+    <div class="my-4"></div>
+
+    <app-info></app-info>
+
+    <app-table-info></app-table-info>
+
+</div>

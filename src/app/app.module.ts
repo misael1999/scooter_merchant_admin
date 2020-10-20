@@ -4,7 +4,6 @@ import localeEs from '@angular/common/locales/es';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from './shared/material/material.module';
 import { PagesComponent } from './pages/pages.component';
 import { LayoutModule } from './layout/layout.module';
 import { registerLocaleData } from '@angular/common';
@@ -22,6 +21,9 @@ import { FirebaseMessagingService } from './services/firebase-messaging.service'
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US } from 'ng-zorro-antd/i18n';
+import en from '@angular/common/locales/en';
 
 
 registerLocaleData(localeEs);
@@ -64,6 +66,7 @@ registerLocaleData(localeEs);
       provide: MatPaginatorIntl,
       useValue: getPaginatorTranslate()
     },
+    { provide: NZ_I18N, useValue: en_US },
   ],
   bootstrap: [AppComponent]
 })
