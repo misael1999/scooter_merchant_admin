@@ -20,6 +20,9 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { FirebaseMessagingService } from './services/firebase-messaging.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+
 
 registerLocaleData(localeEs);
 
@@ -35,11 +38,12 @@ registerLocaleData(localeEs);
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
     LayoutModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     HttpClientModule,
+    LoadingBarRouterModule,
+    LoadingBarModule,
     SharedModule,
     ServiceWorkerModule.register('./combine-sw.js', { enabled: environment.production }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

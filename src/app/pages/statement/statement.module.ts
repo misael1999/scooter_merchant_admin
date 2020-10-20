@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GainForUseComponent } from './gain-for-use/gain-for-use.component';
-import { HistoryForUseComponent } from './history-for-use/history-for-use.component';
 import { StatementRoutingModule } from './statement-routing.module';
 import { AngularMaterialModule } from '../../shared/angular-material.module';
 import { SharedModule } from '../../shared/shared.module';
+import { InfoComponent } from './info/info.component';
 
 
 
 @NgModule({
-  declarations: [
-    GainForUseComponent,
-    HistoryForUseComponent],
+  declarations: [InfoComponent],
   imports: [
     CommonModule,
     StatementRoutingModule,

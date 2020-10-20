@@ -4,6 +4,7 @@ import { AuthGuard } from '../services/guards/auth.guard';
 import { RefreshTokenGuard } from '../services/guards/refresh-token.guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'dashboard',
     canActivate: [AuthGuard, RefreshTokenGuard],
@@ -25,11 +26,15 @@ const routes: Routes = [
     loadChildren: () => import('./view-profile/view-profile.module').then(m => m.ViewProfileModule)
   },
   {
-    path: 'forUse',
+    path: 'payments',
+    canActivate: [AuthGuard, RefreshTokenGuard],
+    loadChildren: () => import('./payments/payments.module').then(m => m.PaymentsModule)
+  },
+  {
+    path: 'statement',
     canActivate: [AuthGuard, RefreshTokenGuard],
     loadChildren: () => import('./statement/statement.module').then(m => m.StatementModule)
   },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'categories',
     canActivate: [AuthGuard, RefreshTokenGuard],

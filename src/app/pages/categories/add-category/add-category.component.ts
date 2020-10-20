@@ -110,16 +110,19 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
         this.dialogRef.close(true);
       }, (error: any) => {
         this.loadingSave = false;
-        console.log(error);
         alert(error.errors.message);
-        console.error(error);
       });
   }
 
   updateCategory(category: Category): void {
     this.storeDataSubscription = this.categoriesService.updateCategory(category)
-      .subscribe((data: any) => { this.router.navigate(['/categories']); },
-        (error: any) => { console.error(error); });
+      .subscribe((data: any) => {
+        this.loadingSave = false;
+        this.dialogRef.close(true);
+      },
+        (error: any) => {
+          alert(error.errors.message);
+        });
   }
 
   handlePickUpImage(event: any): void {
