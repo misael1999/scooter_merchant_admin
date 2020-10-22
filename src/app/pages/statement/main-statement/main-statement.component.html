@@ -1,17 +1,25 @@
 <div class="container">
+    <mat-progress-bar class="my-4" *ngIf="loadingData" mode="indeterminate"></mat-progress-bar>
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Resumen {{month}} {{year}}</h1>
 
     </div>
     <span>Selecciona un mes</span><br>
-    <nz-date-picker style="width: 200px;" [(ngModel)]="date"
-     [nzPlaceHolder]="'Selecciona el mes'" nzMode="month"  (ngModelChange)="changeDate($event)"></nz-date-picker>
+    <nz-date-picker style="width: 200px;" [(ngModel)]="date" [nzPlaceHolder]="'Selecciona el mes'" nzMode="month"
+        (ngModelChange)="changeDate($event)"></nz-date-picker>
 
     <div class="my-4"></div>
 
-    <app-info></app-info>
+    <div class="data" *ngIf="!loadingData &&  dataSummary.orders.length > 0">
+        <app-info [dataSummary]="dataSummary"></app-info>
 
-    <app-table-info></app-table-info>
+        <app-table-info [dataSummary]="dataSummary"></app-table-info>
+    </div>
 
+</div>
+
+
+<div class="container" *ngIf="!loadingData && dataSummary.orders.length == 0">
+    <nz-empty></nz-empty>
 </div>

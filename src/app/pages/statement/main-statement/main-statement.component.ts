@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StatisticsService } from 'src/app/services/statistics.service';
 
 @Component({
   selector: 'app-main-statement',
@@ -10,24 +11,47 @@ export class MainStatementComponent implements OnInit {
   date = null;
   month = '';
   year = '';
+  dataSummary: any;
+  loadingData: boolean;
 
-  constructor() { }
+  constructor(private statisticsService: StatisticsService) { }
 
   ngOnInit(): void {
     const now = new Date();
-    this.month = this.getMonthName(now.getMonth() + 1);
+    const numberMonth = now.getMonth() + 1;
+    this.month = this.getMonthName(numberMonth);
     this.year = now.getFullYear().toString();
     this.date = now;
+    this.getSummaryData(numberMonth);
   }
 
   changeDate(result: Date): void {
-    this.month = this.getMonthName(result.getMonth() + 1);
-    this.year = result.getFullYear().toString();
+
+    if (result != null) {
+      const numberMonth = result.getMonth() + 1;
+      this.month = this.getMonthName(numberMonth);
+      this.year = result.getFullYear().toString();
+      this.getSummaryData(numberMonth);
+    }
+
+
+  }
+
+  getSummaryData(month) {
+    this.loadingData = true;
+    this.statisticsService.getSummaryData({ month })
+      .subscribe((data) => {
+        console.log(data);
+        this.dataSummary = data;
+        this.loadingData = false;
+      }, error => {
+        this.loadingData = false;
+      });
 
   }
 
   getMonthName(month) {
-    switch(month) {
+    switch (month) {
       case 1:
         return 'Enero';
       case 2:

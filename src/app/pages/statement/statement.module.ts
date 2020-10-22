@@ -8,6 +8,7 @@ import { TableInfoComponent } from './table-info/table-info.component';
 import { MainStatementComponent } from './main-statement/main-statement.component';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { FormsModule } from '@angular/forms';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     StatementRoutingModule,
     AngularMaterialModule,
     SharedModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    NzEmptyModule
   ]
 })
 export class StatementModule { }

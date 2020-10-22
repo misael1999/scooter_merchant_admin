@@ -16,6 +16,9 @@ export class ScheduleProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.schedule);
+    this.openingHour = this.schedule.from_hour;
+    this.closedHour = this.schedule.to_hour;
   }
 
   selectCheckbox(event) {

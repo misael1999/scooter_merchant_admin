@@ -8,10 +8,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let i of [1, 3, 4, 5, 5]">
-        <th scope="row">YTG6S</th>
-        <td>19 de octubre del 2020</td>
-        <td>$300</td>
+      <tr *ngFor="let order of dataSummary.orders">
+        <th scope="row">{{order.qr_code}}</th>
+        <td>{{order.date_delivered_order | date:'medium'}}</td>
+        <td>${{order.order_price}}</td>
         <td>
             <span class="link-details">Más detalles</span>
         </td>
@@ -22,10 +22,10 @@
         <th scope="row"></th>
         <td></td>
         <td>
-            Subtotal:
+            Total de venta:
         </td>
         <td>
-            <span class="link-details">$3300</span>
+            <span class="link-details">${{dataSummary.total_sales}}</span>
         </td>
       </tr>
       <!-- COMISIONES  -->
@@ -36,7 +36,7 @@
             Comisiones:
         </td>
         <td>
-            <span class="link-details">$1500</span>
+            <span class="link-details">-${{dataSummary.total_commissions}}</span>
         </td>
       </tr>
       <!-- TOTAL  -->
@@ -44,10 +44,10 @@
         <th scope="row"></th>
         <td></td>
         <td>
-            Total:
+            Ganancias:
         </td>
         <td>
-            <span class="link-details">$2200</span>
+            <span class="link-details">${{dataSummary.profits}}</span>
         </td>
       </tr>
     </tbody>

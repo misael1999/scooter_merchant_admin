@@ -90,6 +90,7 @@ export class TabScheduleComponent implements OnInit {
       this.loadingSaveInfo = false;
       localStorage.setItem('merchant', JSON.stringify(data.data));
       this.isChangeSchedule = false;
+      location.reload();
       // location.reload();
       // this.changeImage = false;
     }, error => {

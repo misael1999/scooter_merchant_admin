@@ -1,8 +1,8 @@
 <div class="schedule">
     <mat-checkbox (change)="selectCheckbox($event)" [(ngModel)]="schedule.checked">{{schedule.name}}</mat-checkbox>
     <div class="inputs" *ngIf="schedule.checked">
-        <input (change)="sendSchedule()"  type="time" class="form-control ml-2" placeholder="Apertura" [value]="openingHour" />
+        <input (change)="sendSchedule()" [(ngModel)]="openingHour"  type="time" class="form-control ml-2" placeholder="Apertura" [(value)]="schedule.from_hour" />
         <span>A</span>
-        <input (change)="sendSchedule()" type="time" class="form-control" placeholder="cerrado" [value]="closedHour" />
+        <input (change)="sendSchedule()" [(ngModel)]="closedHour" type="time" class="form-control" placeholder="cerrado" [(value)]="schedule.to_hour" />
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-table-info',
@@ -6,8 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./table-info.component.scss']
 })
 export class TableInfoComponent implements OnInit {
-
-  @Input() dataSummary: any;
 
   constructor() { }
 

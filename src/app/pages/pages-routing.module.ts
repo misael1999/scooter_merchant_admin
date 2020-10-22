@@ -36,6 +36,11 @@ const routes: Routes = [
     loadChildren: () => import('./statement/statement.module').then(m => m.StatementModule)
   },
   {
+    path: 'reviews',
+    canActivate: [AuthGuard, RefreshTokenGuard],
+    loadChildren: () => import('./reviews/reviews.module').then(m => m.ReviewsModule)
+  },
+  {
     path: 'categories',
     canActivate: [AuthGuard, RefreshTokenGuard],
     loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule)

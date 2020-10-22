@@ -276,6 +276,9 @@ export class AddProductComponent implements OnInit, OnDestroy {
     if (this.menus.length > 0) {
       product.menu_categories = this.menus;
     }
+    if (this.imageURL != null) {
+      product.picture = this.imageURL;
+    }
     this.loadingSave = true;
     this.storeDataSubscription = this.productsService.addProduct(product)
       .subscribe((data: any) => {
