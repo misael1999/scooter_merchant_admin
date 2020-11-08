@@ -11,6 +11,8 @@ import { AngularMaterialModule } from 'src/app/shared/angular-material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { ScheduleProfileComponent } from './profile/tabs/tab-schedule/schedule/schedule.component';
+import { TabRulesComponent } from './profile/tabs/tab-rules/tab-rules.component';
+import { TabRatesComponent } from './profile/tabs/tab-rates/tab-rates.component';
 
 
 
@@ -23,6 +25,8 @@ import { ScheduleProfileComponent } from './profile/tabs/tab-schedule/schedule/s
     TabScheduleComponent,
     TabOtherComponent,
     ScheduleProfileComponent,
+    TabRulesComponent,
+    TabRatesComponent,
   ],
   imports: [
     CommonModule,

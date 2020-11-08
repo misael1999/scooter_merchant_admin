@@ -135,7 +135,9 @@ export class AddProductComponent implements OnInit, OnDestroy {
 
   setFormData({ name, description, category_id, subcategory_id, section_id, stock, price, picture, menu_categories }: Product): void {
     this.categorySelected = this.categories.find(category => category.id == category_id);
-    this.subcategorySelected = this.categorySelected.subcategories.find(subcategory => subcategory.id == subcategory_id);
+    if (this.categorySelected != undefined && this.categorySelected.subcategories) {
+      this.subcategorySelected = this.categorySelected.subcategories.find(subcategory => subcategory.id == subcategory_id);
+    }
     this.group.get('name').setValue(name);
     this.group.get('description').setValue(description);
     this.group.get('category_id').setValue(category_id);

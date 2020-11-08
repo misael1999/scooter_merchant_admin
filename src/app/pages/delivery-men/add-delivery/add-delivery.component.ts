@@ -1,36 +1,116 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DeliveryMenService } from 'src/app/services/delivery-men.service';
+import { ValidationForms } from 'src/app/utils/validations-forms';
 
 @Component({
   selector: 'app-add-delivery',
   templateUrl: './add-delivery.component.html',
   styleUrls: ['./add-delivery.component.scss']
 })
-export class AddDeliveryComponent implements OnInit {
-  vehicleForm: FormGroup;
+export class AddDeliveryComponent extends ValidationForms implements OnInit {
   deliveryForm: FormGroup;
+  deliveryMan: any;
+  loadingSave: boolean;
 
-  constructor() { }
+  constructor(private fb: FormBuilder,
+    private deliveryService: DeliveryMenService,
+    public dialogRef: MatDialogRef<AddDeliveryComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    super();
+    if (data.deliveryMan) {
+      this.deliveryMan = data.deliveryMan;
+      this.buildUpdateForm(this.deliveryMan);
+    } else {
+      this.buildForm();
+    }
+  }
 
   ngOnInit(): void {
   }
 
+  buildForm() {
+    this.deliveryForm = this.fb.group(
+      {
+        name: [null, Validators.required],
+        last_name: [null, Validators.required],
+        phone_number: [null, Validators.required],
+        password: [null, Validators.required],
+        vehicle_plate: [null, Validators.required],
+        vehicle_model: [null, Validators.required],
+        vehicle_year: [null, Validators.required],
+        vehicle_color: [null, Validators.required],
+        vehicle_type: ['1', Validators.required],
+      }
+    );
+  }
 
-  // Methods the verification in the form
-  isFieldInvalid(form: FormGroup, field: string) {
-    return (
-      (!form.get(field).valid && form.get(field).touched)
+  buildUpdateForm(deliveryMan) {
+    this.deliveryForm = this.fb.group(
+      {
+        name: [deliveryMan.name, Validators.required],
+        last_name: [deliveryMan.last_name, Validators.required],
+        phone_number: [deliveryMan.phone_number, Validators.required],
+        password: [null],
+        vehicle_plate: [deliveryMan.vehicle_plate, Validators.required],
+        vehicle_model: [deliveryMan.vehicle_model, Validators.required],
+        vehicle_year: [deliveryMan.vehicle_year, Validators.required],
+        vehicle_color: [deliveryMan.vehicle_color, Validators.required],
+        vehicle_type: [deliveryMan.vehicle_type_id, Validators.required],
+      }
     );
   }
-  isFieldValid(form: FormGroup, field: string) {
-    return (
-      (form.get(field).valid && form.get(field).touched)
-    );
+
+  createDelivery() {
+
+    if (this.deliveryForm.invalid) {
+      this.deliveryForm.markAllAsTouched();
+      return;
+    }
+
+    const delivery = this.deliveryForm.value;
+    this.loadingSave = true;
+
+    if (this.deliveryMan) {
+      // ======= Actualizar repartidor ========
+      this.updateDelivery(this.deliveryMan.id, delivery);
+    } else {
+      // ======= Agregar repartidor ======== 
+      this.addDelivery(delivery);
+    }
+
   }
-  isFieldHasError(form: FormGroup, field: string, error: string) {
-    return (
-      (form.get(field).hasError(error))
-    );
+
+  addDelivery(delivery) {
+    this.deliveryService.createDeliveryMan(delivery)
+      .subscribe((data) => {
+
+        this.showSwalMessage('Repartidor agregado correctamente');
+        this.loadingSave = false;
+        this.dialogRef.close(true);
+
+      }, error => {
+        this.showSwalMessage(error.errors.message, 'error');
+        this.loadingSave = false;
+      });
+  }
+
+  updateDelivery(deliveryManId, delivery) {
+    if (delivery.password == null) {
+      delete delivery.password;
+    }
+    this.deliveryService.updateDeliveryMan(deliveryManId, delivery)
+      .subscribe((data) => {
+
+        this.showSwalMessage('Repartidor actualizado correctamente');
+        this.loadingSave = false;
+        this.dialogRef.close(true);
+
+      }, error => {
+        this.showSwalMessage(error.errors.message, 'error');
+        this.loadingSave = false;
+      });
   }
 
 }

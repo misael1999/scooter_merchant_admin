@@ -5,6 +5,8 @@ import { TabGeneralComponent } from './profile/tabs/tab-general/tab-general.comp
 import { TabAddressComponent } from './profile/tabs/tab-address/tab-address.component';
 import { TabScheduleComponent } from './profile/tabs/tab-schedule/tab-schedule.component';
 import { TabOtherComponent } from './profile/tabs/tab-other/tab-other.component';
+import { TabRulesComponent } from './profile/tabs/tab-rules/tab-rules.component';
+import { TabRatesComponent } from './profile/tabs/tab-rates/tab-rates.component';
 
 
 
@@ -12,6 +14,8 @@ const routes: Routes = [
   {
     path: '', component: ProfileComponent, children: [
       {path: 'general', component: TabGeneralComponent},
+      {path: 'rules', component: TabRulesComponent},
+      {path: 'rates', component: TabRatesComponent},
       {path: 'address', component: TabAddressComponent},
       {path: 'schedule', component: TabScheduleComponent},
       {path: 'others', component: TabOtherComponent},

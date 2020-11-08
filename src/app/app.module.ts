@@ -23,7 +23,6 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
-import en from '@angular/common/locales/en';
 
 
 registerLocaleData(localeEs);
