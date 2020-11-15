@@ -21,6 +21,11 @@ const routes: Routes = [
     loadChildren: () => import('./delivery-men/delivery-men.module').then(m => m.DeliveryMenModule)
   },
   {
+    path: 'zones',
+    canActivate: [AuthGuard, RefreshTokenGuard],
+    loadChildren: () => import('./zones/zones.module').then(m => m.ZonesModule)
+  },
+  {
     path: 'profile',
     canActivate: [AuthGuard, RefreshTokenGuard],
     loadChildren: () => import('./view-profile/view-profile.module').then(m => m.ViewProfileModule)
