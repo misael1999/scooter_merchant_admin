@@ -1,0 +1,155 @@
+<div class="container">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Agregar sucursal</h1>
+    </div>
+
+    <div class="content p-5">
+        <nz-steps nzType="default" nzSize="small" [nzCurrent]="index" (nzIndexChange)="onIndexChange($event)">
+            <nz-step nzTitle="General" nzDescription="Información general" [nzStatus]="getStatusStep(0)" nzIcon="user">
+            </nz-step>
+            <nz-step nzTitle="Ubicación" nzDescription="Dirección y ubicación" [nzStatus]="getStatusStep(1)"
+                [nzIcon]="iconTemplate"></nz-step>
+            <nz-step nzTitle="Confirmación" [nzStatus]="getStatusStep(2)" nzIcon="solution"></nz-step>
+            <ng-template #iconTemplate><i nz-icon nzType="shop"></i></ng-template>
+        </nz-steps>
+
+        <!-- STEP ONE  -->
+        <div class="step" *ngIf="index == 0">
+            <p class="text-center">Agrega la información general de la sucursal</p>
+            <form [formGroup]="branchForm" autocomplete="autocomplete_off_hack_xfr4!k">
+                <div class="form-row border p-5 mt-3">
+                    <div class="form-group col-md-6 ">
+                        <label>Nombre de la sucursal</label>
+                        <input autocomplete="autocomplete_off_hack_xfr4!k" formControlName="name" type="text "
+                            class="form-control" placeholder="Nombre de la sucursal"
+                            [ngClass]="(isFieldInvalid(branchForm, 'name'))? 'is-invalid': 'valid'">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="hasFieldError(branchForm, 'name','required')">Este campo es requerido</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 ">
+                        <label>Persona a Cargo</label>
+                        <input autocomplete="autocomplete_off_hack_xfr4!k" formControlName="manager" type="text "
+                            class="form-control" placeholder="Ingresa el nombre de la persona"
+                            [ngClass]="(isFieldInvalid(branchForm, 'manager'))? 'is-invalid': 'valid'">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="hasFieldError(branchForm, 'manager','required')">Este campo es requerido</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 ">
+                        <label>Nombre de usuario</label>
+                        <input autocomplete="autocomplete_off_hack_xfr4!k" formControlName="username" type="text "
+                            class="form-control" placeholder="Ingresa el usuario de inicio de sesión"
+                            [ngClass]="(isFieldInvalid(branchForm, 'username'))? 'is-invalid': 'valid'">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="hasFieldError(branchForm, 'username','required')">Este campo es
+                                requerido</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 ">
+                        <label>Contraseña</label>
+                        <input autocomplete="autocomplete_off_hack_xfr4!k" formControlName="password" type="password"
+                            class="form-control" placeholder="Ingresa la contraseña"
+                            [ngClass]="(isFieldInvalid(branchForm, 'password'))? 'is-invalid': 'valid'">
+                        <!-- MESSAGES ERRORS  -->
+                        <div class="invalid-feedback">
+                            <span *ngIf="hasFieldError(branchForm, 'password','required')">Este campo es
+                                requerido</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <!-- STEP 2  -->
+        <div *ngIf="index == 1" class="step map">
+            <!-- Project Card Example -->
+            <div class="card shadow mb-2">
+                <div class="card-header py-1">
+                    <h5>Selecciona la ubicación</h5>
+                </div>
+                <div class="card-body">
+                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false"
+                        [zoomControl]="true" (mapClick)="setMarkerMap($event)">
+                        <agm-marker *ngIf="currentMarker" [latitude]="currentMarker.lat" [longitude]="currentMarker.lng"
+                            [label]="'C'">
+                        </agm-marker>
+                        <!-- <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)"
+                      [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable"
+                      (dragEnd)="markerDragEnd(m, $event)">
+
+                      <agm-info-window>
+                        <strong>InfoWindow content</strong>
+                      </agm-info-window>
+
+                    </agm-marker> -->
+
+                    </agm-map>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- STEP 3  -->
+        <div *ngIf="index == 2" class="step summary">
+
+          <div class="row">
+              <!-- COL  -->
+              <div class="col-lg-8">
+                  <!-- CARD  -->
+                <div class="card shadow mb-2">
+                    <div class="card-header py-1">
+                        <h5>General</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <span>Sucursal:</span> 
+                            <span>{{getValue('name')}}</span>
+                        </p>
+                        <p>
+                            <span>Encargado:</span> 
+                            <span>{{getValue('manager')}}</span>
+                        </p>
+                        <p>
+                            <span>Usuario:</span> 
+                            <span>{{getValue('username')}}</span>
+                        </p>
+                    </div>
+                </div>
+                <!-- TERMINA CARD  -->
+
+              </div>
+
+              <!-- COL  -->
+              <div class="col-lg-4">
+                <div class="card shadow mb-2">
+                    <div class="card-header py-1">
+                        <h5>Dirección</h5>
+                    </div>
+                    <div class="card-body">
+                        Direccion completa: Avenida Independecia Sur, 76726, Tehuacán Puebla
+                    </div>
+                </div>
+              </div>
+          </div>
+
+        </div>
+
+        <div class="row d-flex justify-content-between px-5">
+            <button *ngIf="index > 0" (click)="previousStep()" class="btn btn-sm btn-danger">Atras</button>
+            <div></div>
+            <button *ngIf="index < 2" (click)="nextStep()" class="btn btn-sm btn-success">Siguiente</button>
+            <button *ngIf="index == 2" (click)="saveData()" class="btn btn-sm btn-info">Guardar</button>
+        </div>
+
+
+    </div>
+
+
+</div>
