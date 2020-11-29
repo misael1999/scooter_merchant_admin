@@ -64,7 +64,8 @@ export class AddZoneDialogComponent extends ValidationForms implements OnInit {
         base_rate_price: [null],
         from_hour: [null],
         to_hour: [null],
-        has_schedule: [null],
+        has_schedule: [false],
+        has_price: [false],
       }
     );
   }
@@ -79,14 +80,19 @@ export class AddZoneDialogComponent extends ValidationForms implements OnInit {
         from_hour: [zone.from_hour],
         to_hour: [zone.to_hour],
         has_schedule: [zone.has_schedule],
+        has_price: [zone.has_price],
       }
     );
     this.has_schedule = zone.has_schedule;
+    this.has_price = zone.has_price;
     this.typeZone = zone.type_id.toString();
   }
 
   checkboxSchedule(value) {
     this.has_schedule = value;
+  }
+  checkboxPrice(value) {
+    this.has_price = value;
   }
 
   selectFile(event) {
@@ -142,33 +148,37 @@ export class AddZoneDialogComponent extends ValidationForms implements OnInit {
   }
 
   validTypeZone(zone): boolean {
+    // Zona restringida
     if (this.typeZone == '1') {
       delete zone.base_rate_price;
       if (this.has_schedule && (zone.from_hour == null || zone.to_hour == null)) {
         this.showSwalMessage('Ingresa los horarios', 'info');
         return false;
-      } else {
+      } else if (!this.has_schedule){
+
         delete zone.from_hour;
         delete zone.to_hour;
-        return true;
-      }
-    }
-    if (this.typeZone == '2') {
-      delete zone.from_hour;
-      delete zone.to_hour;
-      delete zone.base_rate_price;
-      delete zone.has_schedule;
-      return true;
-    }
-    if (this.typeZone == '3') {
-      if (zone.base_rate_price == null) {
-        this.showSwalMessage('Ingresa la tarifa', 'info');
         return false;
       }
+    }
+    // Zona operativa
+    if (this.typeZone == '2') {
       if (this.has_schedule && (zone.from_hour == null || zone.to_hour == null)) {
         this.showSwalMessage('Ingresa los horarios', 'info');
         return false;
+      } else if (!this.has_schedule){
+
+        delete zone.from_hour;
+        delete zone.to_hour;
       }
+
+      if (this.has_price && zone.base_rate_price == null) {
+        this.showSwalMessage('Ingresa la tarifa de envío para la zona', 'info');
+        return false;
+      } else if (!this.has_price) {
+        delete zone.base_rate_price;
+      }
+       
     }
 
     return true;
@@ -242,7 +252,7 @@ export class AddZoneDialogComponent extends ValidationForms implements OnInit {
     if (xmlDoc.documentElement.nodeName == "kml") {
 
       for (const item of xmlDoc.getElementsByTagName('Placemark') as any) {
-        let placeMarkName = item.getElementsByTagName('name')[0].childNodes[0].nodeValue.trim()
+        // let placeMarkName = item.getElementsByTagName('name')[0].childNodes[0].nodeValue.trim()
         let polygons = item.getElementsByTagName('Polygon')
         let lineString = item.getElementsByTagName('LineString')
         let markers = item.getElementsByTagName('Point')
@@ -251,16 +261,18 @@ export class AddZoneDialogComponent extends ValidationForms implements OnInit {
         for (const polygon of polygons) {
           let coords = polygon.getElementsByTagName('coordinates')[0].childNodes[0].nodeValue.trim()
           let points = coords.split(" ")
-
           let googlePolygonsPaths = []
           for (const point of points) {
             let coord = point.split(",")
-            googlePolygonsPaths.push({ lat: +coord[1], lng: +coord[0] })
+            if (!this.isNumber(Number(coord))) {
+              googlePolygonsPaths.push({ lat: +coord[1], lng: +coord[0] })
+            }
+         
           }
           googlePolygons.push(googlePolygonsPaths)
         }
         /** LINESTRING PARSE **/
-        for (const line of lineString) {
+   /*      for (const line of lineString) {
           let coords = line.getElementsByTagName('coordinates')[0].childNodes[0].nodeValue.trim()
           let points = coords.split(" ")
 
@@ -270,17 +282,17 @@ export class AddZoneDialogComponent extends ValidationForms implements OnInit {
             googlePolygonsPaths.push({ lat: +coord[1], lng: +coord[0] })
           }
           googlePolygons.push(googlePolygonsPaths)
-        }
+        } */
 
         /** MARKER PARSE **/
-        for (const marker of markers) {
+  /*       for (const marker of markers) {
           var coords = marker.getElementsByTagName('coordinates')[0].childNodes[0].nodeValue.trim()
           let coord = coords.split(",")
           googleMarkers.push({ lat: +coord[1], lng: +coord[0] })
-        }
+        } */
       }
     } else {
-      throw "error while parsing"
+      this.showSwalMessage('No es un archivo KML', 'warning');
     }
 
     if (googlePolygons.length == 0) {
@@ -289,6 +301,10 @@ export class AddZoneDialogComponent extends ValidationForms implements OnInit {
 
     return { markers: googleMarkers, polygons: googlePolygons, lines: googleLine }
 
+  }
+
+  isNumber (n) {
+    return ! isNaN (n-0);
   }
 
 }

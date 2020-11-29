@@ -39,8 +39,7 @@
                             [ngClass]="(isFieldInvalid(zoneForm, 'type_id'))? 'is-invalid': 'valid'" id="">
                             <option value="">Seleccciona un tipo de zona</option>
                             <option value="1">Zona restringida</option>
-                            <!-- <option value="2">Zona operativa</option> -->
-                            <option value="3">Zona de promoción</option>
+                            <option value="2">Zona operativa</option>
                         </select>
                         <!-- MESSAGES ERRORS  -->
                         <div class="invalid-feedback">
@@ -52,7 +51,16 @@
      <!--                <div *ngIf="typeZone == '3'" class="form-group col-md-12">
                         <mat-checkbox formControlName="has_price" class="example-margin">¿Tiene tarifa?</mat-checkbox>
                     </div> -->
-                    <div *ngIf="typeZone == '3'" class="form-group col-md-12 ">
+       
+                    <div *ngIf="typeZone == '2'" class="form-group col-md-12">
+                        <mat-checkbox (ngModelChange)="checkboxPrice($event)"  formControlName="has_price" class="example-margin">¿Tiene tarifa?
+                        </mat-checkbox>
+                    </div>
+                    <div *ngIf="typeZone == '1' || typeZone == '2'" class="form-group col-md-12">
+                        <mat-checkbox (ngModelChange)="checkboxSchedule($event)"  formControlName="has_schedule" class="example-margin">¿Tiene horario?
+                        </mat-checkbox>
+                    </div>
+                    <div *ngIf="typeZone == '2' && has_price" class="form-group col-md-12 ">
                         <label>Tarifa </label>
                         <input formControlName="base_rate_price" type="number" class="form-control "
                             placeholder="Tarifa"
@@ -63,11 +71,7 @@
                                 requerido</span>
                         </div>
                     </div>
-                    <div *ngIf="typeZone == '1' || typeZone == '3'" class="form-group col-md-12">
-                        <mat-checkbox (ngModelChange)="checkboxSchedule($event)"  formControlName="has_schedule" class="example-margin">¿Tiene horario?
-                        </mat-checkbox>
-                    </div>
-                    <div *ngIf="has_schedule && (typeZone == '1' || typeZone == '3')" class="form-group col-md-6 ">
+                    <div *ngIf="has_schedule && (typeZone == '1' || typeZone == '2')" class="form-group col-md-6 ">
                         <label>Desde la hora </label>
                         <input formControlName="from_hour" type="time" class="form-control " placeholder=""
                             [ngClass]="(isFieldInvalid(zoneForm, 'from_hour'))? 'is-invalid': 'valid'">
@@ -77,7 +81,7 @@
                                 requerido</span>
                         </div>
                     </div>
-                    <div *ngIf="has_schedule && (typeZone == '1' || typeZone == '3')" class="form-group col-md-6 ">
+                    <div *ngIf="has_schedule && (typeZone == '1' || typeZone == '2')" class="form-group col-md-6 ">
                         <label>Hasta la hora </label>
                         <input formControlName="to_hour" type="time" class="form-control " placeholder=""
                             [ngClass]="(isFieldInvalid(zoneForm, 'to_hour'))? 'is-invalid': 'valid'">

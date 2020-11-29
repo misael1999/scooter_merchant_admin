@@ -3,6 +3,7 @@
         <h3>Zonas</h3>
     </div>
     <div class="card-body">
+        <span *ngIf="zones.length == 0">No hay zonas que mostrar</span>
         <div *ngFor="let zone of zones" class="card shadow p-2 mt-1">
             <p><span class="title">Nombre</span>: {{zone.name}}</p>
             <p><span class="title">Descripción</span>: {{zone.description}}</p>

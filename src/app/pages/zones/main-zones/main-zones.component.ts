@@ -17,35 +17,34 @@ export class MainZonesComponent extends ValidationForms implements OnInit {
   zones = [];
   // Poligonos con todas las zonas
   polygones = [];
-  station: any;
+  merchant: any;
   restricted_zones_activated: boolean;
-  promotions_zones_activated: boolean;
+  operational_zones_activated: boolean;
 
   constructor(private zonesService: ZonesService,
     private dialog: MatDialog, private profileService: ProfileService) { super() }
 
   ngOnInit(): void {
-    this.getStation();
+    this.getmerchant();
     this.getArea();
     this.getZones();
   }
 
-  getStation() {
-    this.station = JSON.parse(localStorage.getItem('station'));
-    console.log(this.station);
-    if (this.station.promotions_zones_activated !== null) {
-      this.promotions_zones_activated = this.station.promotions_zones_activated;
-      this.restricted_zones_activated = this.station.restricted_zones_activated;
+  getmerchant() {
+    this.merchant = JSON.parse(localStorage.getItem('merchant'));
+    if (this.merchant.operational_zones_activated !== null) {
+      this.operational_zones_activated = this.merchant.operational_zones_activated;
+      this.restricted_zones_activated = this.merchant.restricted_zones_activated;
     }
   }
 
   async changeSlidePromotions(e) {
-    this.promotions_zones_activated = e.source.checked;
+    this.operational_zones_activated = e.source.checked;
 
     // this.allowCancellations = true;
-    const resp = await this.showMessageConfirm((e.source.checked ? 'Activar' : 'Desactivar') + ' promociones por zonas');
+    const resp = await this.showMessageConfirm((e.source.checked ? 'Activar' : 'Desactivar') + ' operatividad por zonas');
     if (resp.dismiss) {
-      this.promotions_zones_activated = !this.promotions_zones_activated;
+      this.operational_zones_activated = !this.operational_zones_activated;
       return;
     } else {
       this.saveConfigInfo();
@@ -70,27 +69,27 @@ export class MainZonesComponent extends ValidationForms implements OnInit {
 
   saveConfigInfo() {
 
-    const config = {
+    const general = {
       restricted_zones_activated: this.restricted_zones_activated,
-      promotions_zones_activated: this.promotions_zones_activated,
+      operational_zones_activated: this.operational_zones_activated,
     };
-    /* this.profileService.updateStation({ config })
+    this.profileService.updateMerchant({ general })
       .subscribe((data: any) => {
         // this.showSwalMessage('Configuración actualizada correctamente');
         // this.loadingSaveInfo = false;
-        localStorage.setItem('station', JSON.stringify(data.data));
+        localStorage.setItem('merchant', JSON.stringify(data.data));
         // this.isChangeConfig = false;
         // location.reload();
       }, error => {
         this.showSwalMessage(error.errors.message, 'error');
         // this.loadingSaveInfo = false;
-      }); */
+      });
 
   }
 
   getArea() {
     this.loadingArea = true;
-    this.zonesService.getAreaByStation()
+    this.zonesService.getAreaByMerchant()
       .subscribe((data: any) => {
         this.loadingArea = false;
         this.setPolygon(data.poly.coordinates);

@@ -9,7 +9,7 @@ export class ZonesService {
 
   constructor(private http: HttpClient) { }
 
-  getAreaByStation(params = {}) {
+  getAreaByMerchant(params = {}) {
     const merchantId = localStorage.getItem('merchant_id');
     const url = `${environment.HOST_APIV1}/merchants/${merchantId}/area/`;
     return this.http.get(url, { params });

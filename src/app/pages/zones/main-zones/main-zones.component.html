@@ -7,8 +7,8 @@
     <div class="row mb-4 ml-1 d-flex flex-column">
         <button style="width: 150px;" (click)="openDialog()" class="btn btn-info btn-sm">Agregar zona</button>
         <div class="checks mt-2">
-            <mat-slide-toggle (change)="changeSlidePromotions($event)" [checked]="promotions_zones_activated">
-                Activar zonas con promoción
+            <mat-slide-toggle (change)="changeSlidePromotions($event)" [checked]="operational_zones_activated">
+                Activar zonas operativas
             </mat-slide-toggle>
             <mat-slide-toggle (change)="changeSlideRestricted($event)" [checked]="restricted_zones_activated"
                 class="mx-2">Activar zonas restringidas</mat-slide-toggle>
