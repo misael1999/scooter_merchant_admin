@@ -16,23 +16,23 @@
                     <span class="icon-holder">
                         <i class="fas fa-shopping-cart"></i>
                     </span>
-                    <span class="title">Ventas</span>
+                    <span class="title">Pedidos</span>
                     <span class="arrow">
                         <i class="arrow-icon"></i>
                     </span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li>
-                        <a href="">Nuevas</a>
+                    <li routerLink="/orders/news" routerLinkActive="active">
+                        <a>Nuevos</a>
                     </li>
-                    <li>
-                        <a href="">En proceso</a>
+                    <li routerLink="/orders/process" routerLinkActive="active">
+                        <a>En proceso</a>
                     </li>
-                    <li>
-                        <a href="">Entregadas</a>
+                    <li routerLink="/orders/delivered" routerLinkActive="active">
+                        <a>Entregadas</a>
                     </li>
-                    <li>
-                        <a href="">Canceladas</a>
+                    <li routerLink="/orders/cancelled" routerLinkActive="active">
+                        <a>Ignoradas</a>
                     </li>
                 </ul>
             </li>

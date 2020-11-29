@@ -38,6 +38,19 @@
 				display: block;
 				
 				&.dropdown {
+
+					&.active {
+						background-color: rgba($brand-primary, 0.15);
+
+						a {
+							color: $brand-primary;
+						}
+
+						&:after {
+							@include transform(scaleY(1));
+							opacity: 1;
+						}
+					}
 					
 					.arrow {
 						position: absolute;
@@ -99,6 +112,7 @@
 						}
 
 						>.dropdown-menu {
+							cursor: pointer;
 							display: block;
 
 							.dropdown-menu {
@@ -252,6 +266,7 @@
 							.title {
 								display: none;
 							}
+
 						}
 					}
 

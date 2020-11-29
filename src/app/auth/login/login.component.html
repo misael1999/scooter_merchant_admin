@@ -10,29 +10,38 @@
                                     <img width="100px" class="img-fluid" alt="" src="assets/images/logo/logo.png">
                                     <h2 class="m-b-0">Sign In</h2>
                                 </div>
-                                <form>
+                                <form [formGroup]="loginForm">
                                     <div class="form-group">
-                                        <label class="font-weight-semibold" for="userName">Username:</label>
+                                        <label class="font-weight-semibold" for="userName">Correo:</label>
                                         <div class="input-affix">
                                             <i class="prefix-icon anticon anticon-user"></i>
-                                            <input type="text" class="form-control" id="userName" placeholder="Username">
+                                            <input formControlName="username" type="text" class="form-control"
+                                             id="userName" placeholder="Username" [ngClass]="(isFieldInvalid(loginForm, 'username'))? 'is-invalid': 'valid'">>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="font-weight-semibold" for="password">Password:</label>
-                                        <a class="float-right font-size-13 text-muted" href="">Forget Password?</a>
+                                        <label class="font-weight-semibold" for="password">Contraseña:</label>
+                                        <a class="float-right font-size-13 text-muted" href="">Olvidaste la contraseña?</a>
                                         <div class="input-affix m-b-10">
                                             <i class="prefix-icon anticon anticon-lock"></i>
-                                            <input type="password" class="form-control" id="password" placeholder="Password">
+                                            <input formControlName="password" type="password" class="form-control"
+                                             id="password" placeholder="Password" [ngClass]="(isFieldInvalid(loginForm, 'password'))? 'is-invalid': 'valid'">>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <span class="font-size-13 text-muted">
+                                            <!-- <span class="font-size-13 text-muted">
                                                 Don't have an account? 
                                                 <a class="small" href=""> Signup</a>
-                                            </span>
-                                            <button class="btn btn-primary">Sign In</button>
+                                            </span> -->
+                                            
+                                            <button [disabled]="loadingLogin" (click)="login()" class="btn btn-primary">Iniciar sesión
+                                                
+                                                <div *ngIf="loadingLogin" class="spinner-border" role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+
+                                            </button>
                                         </div>
                                     </div>
                                 </form>
