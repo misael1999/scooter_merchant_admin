@@ -1,165 +1,42 @@
-<ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<!-- Side Nav START -->
+<div class="side-nav">
+    <div class="side-nav-inner ">
+        <ul class="side-nav-menu scrollable">
+            <li class="nav-item dropdown" [routerLink]="['/dashboard']" routerLinkActive="active">
+                <a>
+                    <span class="icon-holder">
+                        <i class="fas fa-home"></i>
+                    </span>
+                    <span class="title">Inicio</span>
+                </a>
+            </li>
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/dashboard" routerLinkActive="active">
-        <div>
-        </div>
-        <p> {{ merchant.merchant_name |slice:0:0 |lowercase }} </p>
-        <div style="font-family: 'slant'; font-size: 150%;" class="sidebar-brand-text mx-3">Los pedidos</div>
-    </a>
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
-
-
-    <!-- Nav Item - Dashboard Collapso Menu -->
-    <li class="nav-item cursor" routerLink="/dashboard" routerLinkActive="active">
-        <a class="nav-link">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
-    <hr class="sidebar-divider">
-
-
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Gestión
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="fas fa-shopping-cart"></i>
+                    </span>
+                    <span class="title">Ventas</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="">Nuevas</a>
+                    </li>
+                    <li>
+                        <a href="">En proceso</a>
+                    </li>
+                    <li>
+                        <a href="">Entregadas</a>
+                    </li>
+                    <li>
+                        <a href="">Canceladas</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-clipboard-list"></i>
-            <span>Pedidos</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Pedidos:</h6>
-                <a class="collapse-item cursor" routerLink="/orders/news" routerLinkActive="active">Pedidos nuevos</a>
-                <a class="collapse-item cursor" routerLink="/orders/process" routerLinkActive="active">Pedidos en
-                    proceso</a>
-                <a class="collapse-item" routerLink="/orders/delivered" routerLinkActive="active">Pedidos entregados</a>
-                <a class="collapse-item" routerLink="/orders/cancelled" routerLinkActive="active">Pedidos ignorados</a>
-            </div>
-        </div>
-    </li>
-    <!-- Fin Nav Item - Pages Collapse Menu -->
-
-
-
-
-    <!-- Nav Item - Map the traicing Collapse Menu -->
-    <li class="nav-item" routerLink="/branches" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-building"></i>
-            <span>Sucursales</span>
-        </a>
-    </li>
-    <!-- Nav Item - Map the traicing Collapse Menu -->
-    <li class="nav-item" routerLink="/categories" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-tag"></i>
-            <span>Categorías</span>
-        </a>
-    </li>
-    <!-- Nav Item - Vehicles Collapse Menu -->
-    <li class="nav-item" routerLink="/products" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-box"></i>
-            <span>Inventario</span>
-        </a>
-    </li>
-    <!-- Fin Nav Item - Map the traicing Collapse Menu -->
-
-
-    <!-- Nav Item - Delivery Collapse Menu -->
-<!--     <li class="nav-item" routerLink="/delivery/list" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-car"></i>
-            <span>Repartidores</span>
-        </a>
-    </li> -->
-    <!-- Nav Item - End the Delivery Collapse Menu -->
-
-
-
-
-    <!-- Nav Item - Payments Collapse Menu -->
-    
-  
-<!-- 
-    <li class="nav-item" routerLink="/statement" routerLinkActive="active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment" aria-expanded="true" aria-controls="collapsePayment">
-            <i class="fas fa-fw fa-credit-card"></i>
-            <span>Pagos</span>
-        </a>
-        <div id="collapsePayment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Pagos:</h6>
-                <a class="collapse-item cursor" routerLink="/forUse/gain" routerLinkActive="active">Por Uso</a>
-                <a class="collapse-item cursor" routerLink="/orders/process" routerLinkActive="active">Por Productos</a>
-            </div>
-        </div>
-    </li> -->
-    <!-- End Nav Item - Payments Collapse Menu -->
-    <hr class="sidebar-divider" *ngIf="merchant.is_delivery_by_store">
-
-
-
-    <!-- Heading -->
-    <div class="sidebar-heading" *ngIf="merchant.is_delivery_by_store">
-        Herramientas para envíos
-    </div>
-    <li *ngIf="merchant.is_delivery_by_store" class="nav-item" routerLink="/delivery" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-motorcycle"></i>
-            <span>Repartidores</span>
-        </a>
-    </li>
-    <li *ngIf="merchant.is_delivery_by_store" class="nav-item" routerLink="/zones" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-map"></i>
-            <span>Zonas</span>
-        </a>
-    </li>
-    <li *ngIf="merchant.is_delivery_by_store" class="nav-item" routerLink="/delivery-config" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-truck"></i>
-            <span>Configurar entregas</span>
-        </a>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider" *ngIf="merchant.is_delivery_by_store">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Informes
-    </div>
-    <li class="nav-item" routerLink="/statement" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-credit-card"></i>
-            <span>Resumen</span>
-        </a>
-    </li>
-    <li class="nav-item" routerLink="/reviews" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-star"></i>
-            <span>Reseñas</span>
-        </a>
-    </li>
-
-    <li class="nav-item" routerLink="/profile" routerLinkActive="active">
-        <a class="nav-link collapsed">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Configuración</span>
-        </a>
-
-    </li>
-
-
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
-
-</ul>
+</div>
+<!-- Side Nav END -->

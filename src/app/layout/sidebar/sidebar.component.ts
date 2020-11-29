@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Merchant } from 'src/app/models/merchant.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,11 +7,7 @@ import { Merchant } from 'src/app/models/merchant.model';
 })
 export class SidebarComponent implements OnInit {
 
-  merchant: Merchant;
-
-  constructor() {
-    this.merchant = JSON.parse(localStorage.getItem('merchant'));
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }

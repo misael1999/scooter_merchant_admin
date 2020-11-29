@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/scooterMarket",
+            "outputPath": "dist/scooter-merchant-admin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -26,12 +26,6 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/firebase-messaging-sw.js",
-              "src/combine-sw.js",
-              "src/manifest.json",
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest",
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
@@ -39,20 +33,13 @@
               }
             ],
             "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "src/assets/css/themify-icons.css",
               "src/styles.scss",
-              "src/assets/scss/sb-admin-2.scss",
-              "src/assets/vendor/bootstrap/scss/bootstrap-grid.scss",
-              "src/assets/vendor/bootstrap/scss/bootstrap.scss",
-              "src/assets/vendor/fontawesome-free/css/all.css",
-              "src/assets/scss/angular-theme.scss"
+              "src/assets/scss/app.scss",
+              "node_modules/font-awesome/scss/font-awesome.scss"
             ],
             "scripts": [
-              "src/assets/vendor/jquery/jquery.min.js",
-              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
-              "src/assets/vendor/jquery-easing/jquery.easing.min.js",
-              "src/assets/js/sb-admin-2.js"
+              "src/assets/js/vendors.min.js",
+              "src/assets/js/app.min.js"
             ]
           },
           "configurations": {
@@ -114,13 +101,9 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest",
-              "src/manifest.webmanifest"
+              "src/assets"
             ],
             "styles": [
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
               "src/styles.scss"
             ],
             "scripts": []

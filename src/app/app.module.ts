@@ -15,10 +15,8 @@ import { getPaginatorTranslate } from './shared/paginator';
 import { SharedModule } from './shared/shared.module';
 import { PageNoFound404Component } from './shared/page-no-found404/page-no-found404.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
-import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { FirebaseMessagingService } from './services/firebase-messaging.service';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -41,13 +39,10 @@ registerLocaleData(localeEs);
     ReactiveFormsModule,
     LayoutModule,
     AngularFireMessagingModule,
-    AngularFireModule.initializeApp(environment.firebase),
     HttpClientModule,
     LoadingBarRouterModule,
     LoadingBarModule,
-    SharedModule,
-    ServiceWorkerModule.register('./combine-sw.js', { enabled: environment.production }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    SharedModule
   ],
   providers: [
     FirebaseMessagingService,

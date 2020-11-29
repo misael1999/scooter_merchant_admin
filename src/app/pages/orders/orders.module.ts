@@ -9,9 +9,9 @@ import { RejectOrderDialogComponent } from './new-orders/reject-order-dialog/rej
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrdersCancelledComponent } from './orders-cancelled/orders-cancelled.component';
 import { SharedModule } from '../../shared/shared.module';
-import { PipesModule } from 'src/app/pipes/pipes.module';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { CancelOrderComponent } from './orders-in-process/cancel-order/cancel-order.component';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 
 
