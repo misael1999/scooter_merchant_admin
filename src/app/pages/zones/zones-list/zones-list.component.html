@@ -7,7 +7,9 @@
         <div *ngFor="let zone of zones" class="card shadow p-2 mt-1">
             <p><span class="title">Nombre</span>: {{zone.name}}</p>
             <p><span class="title">Descripción</span>: {{zone.description}}</p>
-            <p><span class="title">Tipo</span>: {{zone.type}}</p>
+            <p><span class="title">Tipo</span>:
+                 <span class="badge"
+                 [ngClass]="zone.type == 'Zona Operativa'? 'badge-info': 'badge-danger'">{{zone.type}}</span></p>
             <div class="btns">
                 <!-- Cuando la zona esta desactivdada  -->
                 <div class="inactive" *ngIf="zone.status == 2">

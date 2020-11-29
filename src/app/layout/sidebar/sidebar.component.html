@@ -107,7 +107,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading" *ngIf="merchant.is_delivery_by_store">
-        Herramientas
+        Herramientas para envíos
     </div>
     <li *ngIf="merchant.is_delivery_by_store" class="nav-item" routerLink="/delivery" routerLinkActive="active">
         <a class="nav-link collapsed">
@@ -119,6 +119,12 @@
         <a class="nav-link collapsed">
             <i class="fas fa-fw fa-map"></i>
             <span>Zonas</span>
+        </a>
+    </li>
+    <li *ngIf="merchant.is_delivery_by_store" class="nav-item" routerLink="/delivery-config" routerLinkActive="active">
+        <a class="nav-link collapsed">
+            <i class="fas fa-fw fa-truck"></i>
+            <span>Configurar entregas</span>
         </a>
     </li>
 

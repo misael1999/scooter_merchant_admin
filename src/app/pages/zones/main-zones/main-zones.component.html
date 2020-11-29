@@ -5,7 +5,10 @@
         <h1 class="h3 mb-0 text-gray-800">Zonas</h1>
     </div>
     <div class="row mb-4 ml-1 d-flex flex-column">
+       <div>
         <button style="width: 150px;" (click)="openDialog()" class="btn btn-info btn-sm">Agregar zona</button>
+        <span style="font-size: 90%; cursor: pointer; color: blue; margin-left: 20px;">Ver tutorial</span>
+       </div>
         <div class="checks mt-2">
             <mat-slide-toggle (change)="changeSlidePromotions($event)" [checked]="operational_zones_activated">
                 Activar zonas operativas

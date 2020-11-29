@@ -59,6 +59,11 @@ const routes: Routes = [
     path: 'products',
     canActivate: [AuthGuard, RefreshTokenGuard],
     loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
+  },
+  {
+    path: 'delivery-config',
+    canActivate: [AuthGuard, RefreshTokenGuard],
+    loadChildren: () => import('./delivery-config/delivery-config.module').then(m => m.DeliveryConfigModule)
   }
 ];
 
