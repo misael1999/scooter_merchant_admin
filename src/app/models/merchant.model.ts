@@ -5,6 +5,7 @@ export class Merchant {
         public contact_person: string,
         public information_is_complete: boolean,
         public is_delivery_by_store: boolean,
+        public has_branches: boolean,
         public merchant_name: string,
         public phone_number: string,
         public picture: string,
