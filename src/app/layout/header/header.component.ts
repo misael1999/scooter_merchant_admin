@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Merchant } from 'src/app/models/merchant.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +11,12 @@ export class HeaderComponent implements OnInit {
 
   merchant: Merchant;
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.merchant = JSON.parse(localStorage.getItem('merchant'));
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   ngOnInit(): void {
