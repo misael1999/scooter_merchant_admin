@@ -87,7 +87,7 @@
                                             </div>
 
                                         </div>
-                                        <div *ngIf="typeMenu >= 3" class="col-md-6">
+                       <!--                  <div *ngIf="typeMenu >= 3" class="col-md-6">
                                             <label for="">Sección</label>
 
                                             <select [attr.disabled]="!subcategorySelected ? '': null" [ngClass]="{'is-invalid': isFieldInvalid('section_id'), 'is-valid': isFieldValid('section_id')}" class="form-control select-form" formControlName="section_id">
@@ -97,14 +97,13 @@
                                                         {{section.name}}</option>
                                                 </ng-container>
                                             </select>
-                                            <!-- MESSAGES ERRORS  -->
                                             <div class="invalid-feedback">
                                                 <span *ngIf="hasFieldError('section_id','required')">La sección del
                                                     producto
                                                     es requerida</span>
                                             </div>
 
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-12 mt-2">
                                             <div class="form-group">
 

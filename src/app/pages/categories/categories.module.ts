@@ -12,6 +12,8 @@ import { AddCategoryPageComponent } from './add-category-page/add-category-page.
 import { AddSubcategoryDialogComponent } from './add-category-page/add-subcategory-dialog/add-subcategory-dialog.component';
 import { AddSectionDialogComponent } from './add-category-page/add-section-dialog/add-section-dialog.component';
 import { EditCategoryPageComponent } from './edit-category-page/edit-category-page.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { EditCategoryPageComponent } from './edit-category-page/edit-category-pa
     SharedModule,
     AngularMaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzIconModule,
+    NzStepsModule
   ],
   entryComponents: [
     AddSubcategoryDialogComponent,

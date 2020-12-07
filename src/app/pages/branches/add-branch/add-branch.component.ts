@@ -40,11 +40,6 @@ export class AddBranchComponent extends ValidationForms implements OnInit {
     this.buildForm();
   }
 
-  onIndexChange(event: number): void {
-    return;
-    this.index = event;
-  }
-
   buildForm() {
     this.branchForm = this.fb.group(
       {
@@ -62,6 +57,10 @@ export class AddBranchComponent extends ValidationForms implements OnInit {
     this.currentMarker.draggable = true;
   }
 
+  onIndexChange(event: number): void {
+    return;
+    this.index = event;
+  }
 
   getStatusStep(index): string {
 

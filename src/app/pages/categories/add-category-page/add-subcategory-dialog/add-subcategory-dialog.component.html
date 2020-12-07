@@ -20,13 +20,6 @@
                     </div>
                 </div>
 
-                <div class="form-row" *ngIf="typeMenu >= 2">
-                    <div class="form-group col-md-6">
-                        <label>Imagen</label>
-                        <input type="file" class="form-control" placeholder="Elige una imagen" (change)="handlePickUpImage($event)">
-                    </div>
-                    <img *ngIf="imageURL" class="img-fluid col-md-6 img-custom" [src]="imageURL" alt="category_picture">
-                </div>
                 <hr>
                 <div>
                     <button [disabled]="loadingSave" [disabled]="group.invalid" class="btn btn-primary align-items-end">

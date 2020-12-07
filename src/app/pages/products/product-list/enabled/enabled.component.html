@@ -60,7 +60,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Categoría</th>
                             <th *ngIf="typeMenu >= 2" scope="col">Subcategoría</th>
-                            <th *ngIf="typeMenu >= 3" scope="col">Sección</th>
+                            <!-- <th *ngIf="typeMenu >= 3" scope="col">Sección</th> -->
                             <th scope="col">Precio</th>
                             <th scope="col">Disponibilidad</th>
                             <th scope="col" class="text-center">Acciones</th>
@@ -79,7 +79,7 @@
                             <td> {{product.name}}</td>
                             <td> {{product.category.name}}</td>
                             <td *ngIf="typeMenu >= 2"> {{product.subcategory?.name}}</td>
-                            <td *ngIf="typeMenu >= 3"> {{product.section?.name}}</td>
+                            <!-- <td *ngIf="typeMenu >= 3"> {{product.section?.name}}</td> -->
                             <td> $ {{product.price }}</td>
                             <td>
                                 {{product.is_available ? 'Disponible': 'No disponible'}}

@@ -15,6 +15,9 @@ import { AddSubcategoryDialogComponent } from './add-subcategory-dialog/add-subc
 })
 export class AddCategoryPageComponent implements OnInit {
 
+  index = 0;
+
+
   group: FormGroup;
   subcatoryList = [];
   subcategorySelectedId;
@@ -89,21 +92,24 @@ export class AddCategoryPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((data: any) => {
       if (data) {
-        console.log(index);
         if (index != null) {
           const subcategoryTemp = this.subcatoryList[index];
-          console.log(subcategoryTemp);
           data.sections = subcategoryTemp.sections;
           this.subcatoryList[index] = data;
         } else {
-          data.sections = [];
+          let sections = [];
+          // Agregar por defecto
+          if (this.typeMenu == 3) {
+            sections = [{...data}];
+          }
+          data.sections = sections;
           this.subcatoryList.push(data);
         }
       }
     });
   }
 
-  openDialogSection(section = null, index = null) {
+/*   openDialogSection(section = null, index = null) {
     const dialogRef = this.dialog.open(AddSectionDialogComponent, {
       disableClose: true,
       minWidth: '400px',
@@ -118,7 +124,7 @@ export class AddCategoryPageComponent implements OnInit {
         this.subcatoryList[this.subcategorySelectedId].sections.push(data);
       }
     });
-  }
+  } */
 
   saveData() {
     if (this.group.invalid) {
@@ -137,9 +143,9 @@ export class AddCategoryPageComponent implements OnInit {
       return;
     }
 
-    if (!this.validSubcategories()) {
+  /*   if (!this.validSubcategories()) {
       return;
-    }
+    } */
 
     if (this.imageURL != null) {
       category.picture = this.imageURL;
@@ -201,6 +207,88 @@ export class AddCategoryPageComponent implements OnInit {
     }
 
     return isValid;
+  }
+
+  onIndexChange(event: number): void {
+    return;
+    this.index = event;
+  }
+
+  getStatusStep(index): string {
+
+    if (this.index == index) {
+      return 'process';
+    }
+
+    if (index < this.index) {
+      return 'finish';
+    }
+    return 'wait';
+  }
+
+  // Funcion recursiva para validar los pasos anteriores
+  validPreviousSteps(index): boolean {
+    if ((index - 1) === 0) {
+      return true;
+    }
+
+    const valid = this.isValidStep(index - 1);
+    if (!valid) {
+      return false;
+    }
+
+    return this.validPreviousSteps(index - 1);
+
+  }
+
+  // Saber si es valido el paso
+  isValidStep(index): boolean {
+
+    if (index == 0) {
+      return this.validStepOne();
+    }
+    if (index == 1) {
+      return this.validStepTwo();
+    }
+    return true;
+
+  }
+
+  validStepOne() {
+    if (this.group.invalid) {
+      this.group.markAllAsTouched();
+      return false;
+    }
+
+    return true;
+
+  }
+
+  validStepTwo() {
+    if (this.subcatoryList.length == 0) {
+      this.snackbar.open(`Agrega al menos una subcategoria`, '', {
+        duration: 4000
+      });
+      return false;
+    }
+    return true;
+
+  }
+
+  nextStep() {
+
+    if (this.isValidStep(this.index)) {
+      this.index = this.index + 1;
+    }
+
+  }
+
+  previousStep() {
+    this.index = this.index - 1;
+  }
+
+  getValue(field) {
+    return this.group.get(field).value;
   }
 
   selectSubcategory(value) {
