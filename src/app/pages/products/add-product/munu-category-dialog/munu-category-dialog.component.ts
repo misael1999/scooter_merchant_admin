@@ -60,6 +60,7 @@ export class MunuCategoryDialogComponent implements OnInit {
       id: [null],
       name: [null, Validators.required],
       is_obligatory: [null, Validators.required],
+      is_option_repeatable: [null, Validators.required],
       is_range: ['false', Validators.required],
       limit_options_choose: [null],
       min_options_choose: [null],
