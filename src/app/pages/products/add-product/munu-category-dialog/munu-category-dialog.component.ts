@@ -33,10 +33,11 @@ export class MunuCategoryDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  setFormData({ have_quantity, id, is_obligatory, is_range, limit_options_choose, max_options_choose, max_quantity, min_options_choose, min_quantity, name, options }): void {
+  setFormData({ have_quantity, id, is_obligatory, is_range, limit_options_choose, is_option_repeatable,  max_options_choose, max_quantity, min_options_choose, min_quantity, name, options }): void {
 
     this.group.get('name').setValue(name);
     this.group.get('is_obligatory').setValue(String(is_obligatory));
+    this.group.get('is_option_repeatable').setValue(String(is_option_repeatable));
     this.group.get('is_range').setValue(String(is_range));
     this.group.get('id').setValue(id);
     if (is_range == true || is_range == 'true') {
@@ -73,6 +74,7 @@ export class MunuCategoryDialogComponent implements OnInit {
       id: [null],
       name: [null, Validators.required],
       is_obligatory: [null, Validators.required],
+      is_option_repeatable: [null, Validators.required],
       is_range: ['false', Validators.required],
       limit_options_choose: [null],
       min_options_choose: [null],
