@@ -1,185 +1,176 @@
 <div class="image-container set-full-height" style="background-color: #f8f8f8;">
-  <div class="header-content">
-    <!--     <img class="logo" src="assets/images/common/icon-findots.jpg" alt="">
+    <div class="header-content">
+        <!--     <img class="logo" src="assets/images/common/icon-findots.jpg" alt="">
  -->
-    <span class="name">Scooter</span>
-  </div>
-  <div class="container">
-    <!--   -->
-    <div class="row d-flex justify-content-center">
-      <div class="col-lg-11">
+        <span class="name">Los Pedidos</span>
+    </div>
+    <div class="container">
+        <!--   -->
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-11">
 
-        <div class="card card-wizard">
+                <div class="card card-wizard">
 
-          <div class="header-wizard">
-            <h3 class="title">Hola {{merchant.merchant_name}}!, Completa tu información</h3>
-            <span class="category">Esta información nos ayudara a personalizar mas tu negocio</span>
-          </div>
+                    <div class="header-wizard">
+                        <h3 class="title">Hola {{merchant.merchant_name}}!, Completa tu información</h3>
+                        <span class="category">Esta información nos ayudara a personalizar mas tu negocio</span>
+                    </div>
 
-          <!-- PROGRESS WITH ICON-wizardS  -->
-          <div class="wizard-navigation">
+                    <!-- PROGRESS WITH ICON-wizardS  -->
+                    <div class="wizard-navigation">
 
-            <div class="content-progress">
-              <div class="progress progress-wizard">
-                <div id="progress-wizard" class="progress-bar" style="width: 21%;" role="progressbar" aria-valuenow="75"
-                  aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <ul class="ul-wizard">
-
-              <li class="li-wizard" #element [attr.data-index]="step.id" [attr.data-component]="step.component"
-                (click)="onNext(element)" *ngFor="let step of steps">
-                <div class="icon-wizard">
-                  <i class="{{step.icon}}"></i>
-                </div>
-                <p class="info-text">{{step.text}}</p>
-              </li>
-
-            </ul>
-
-          </div>
-
-          <!-- TAB CONTENT  -->
-          <div class="content-page">
-
-            <!-- START DIV IMAGE ============== -->
-            <div id="div-general" class="content-tab content">
-              <div class="row">
-                <div class="col-lg-6 col-step-image">
-
-                  <p class="title-component">Agrega una imagen para tu negocío</p>
-                  <!-- Image ========= -->
-
-                  <div class="image-content">
-                    <img *ngIf="!binaryString" src="assets/images/common/no-image.png" alt="">
-                    <img *ngIf="binaryString" [src]="binaryString" alt="">
-                  </div>
-
-
-                  <div class="button-select-image">
-                    <input (change)="onFileSelected($event)" #myInput type="file" name="file" id="file"
-                      class="inputfile inputfile-1" />
-                    <label for="file">
-                      <span>Seleccionar imagen</span>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="col-lg-6">
-                  <p class="title-component">Más información</p>
-                  <!-- list of services  -->
-                  <div class="row d-flex justify-content-center flex-column">
-                    <form [formGroup]="generalForm">
-                      <div class="form-group">
-                        <label>Nombre del negocio</label>
-                        <input formControlName="merchant_name" class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalForm, 'merchant_name'),
-                        'has-success valid': isFieldValid(generalForm, 'merchant_name')}" type="text">
-                        <!-- MESSAGES ERRORS  -->
-                        <div class="invalid-feedback-form" *ngIf="isFieldInvalid(generalForm, 'merchant_name')">
-                          <span *ngIf="isFieldHasError(generalForm, 'merchant_name','required')">Este campo es
-                            requerido</span>
+                        <div class="content-progress">
+                            <div class="progress progress-wizard">
+                                <div id="progress-wizard" class="progress-bar" style="width: 21%;" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <label>Descripción(opcional)</label>
-                        <input formControlName="description" class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalForm, 'description'),
-                        'has-success valid': isFieldValid(generalForm, 'description')}" type="text">
-                        <!-- MESSAGES ERRORS  -->
-                        <div class="invalid-feedback-form" *ngIf="isFieldInvalid(generalForm, 'description')">
-                          <span *ngIf="isFieldHasError(generalForm, 'description','required')">Este campo es
-                            requerido</span>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label>Tiempo de preparación *</label>
-                        <div class="row">
-                          <div class="col-lg-4">
-                            <input placeholder="5" formControlName="from_preparation_time" type="number" min="1"
-                              class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalForm, 'from_preparation_time'),
-                          'has-success valid': isFieldValid(generalForm, 'from_preparation_time')}">
-                          </div>
-                          <div class="col-lg-1">
-                            A
-                          </div>
-                          <div class="col-lg-4">
-                            <input placeholder="10" formControlName="to_preparation_time" type="number" min="1"
-                              class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalForm, 'to_preparation_time'),
-                          'has-success valid': isFieldValid(generalForm, 'to_preparation_time')}">
-                          </div>
-                          <div class="col-lg-3">
-                            Minutos
-                          </div>
-                        </div>
-                        <!-- MESSAGES ERRORS  -->
-                        <div class="invalid-feedback-form"
-                          *ngIf="isFieldInvalid(generalForm, 'from_preparation_time')">
-                          <span *ngIf="isFieldHasError(generalForm, 'from_preparation_time','required')">Este
-                            campo es
-                            requerido</span>
-                        </div>
-                        <div class="invalid-feedback-form"
-                          *ngIf="isFieldInvalid(generalForm, 'to_preparation_time')">
-                          <span *ngIf="isFieldHasError(generalForm, 'to_preparation_time','required')">Este
-                            campo es
-                            requerido</span>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
 
-              </div>
-            </div>
-            <!-- END DIV IMAGE ============  -->
-            <!-- DIV CATEGORIES  -->
-            <div id="div-categories" class="content-tab content">
+                        <ul class="ul-wizard">
 
-              <div class="row">
-                <div class="col-lg-12">
-                  <p class="title-component">¿Cuales son tus tarifas?</p>
-                </div>
-              </div>
+                            <li class="li-wizard" #element [attr.data-index]="step.id" [attr.data-component]="step.component" (click)="onNext(element)" *ngFor="let step of steps">
+                                <div class="icon-wizard">
+                                    <i class="{{step.icon}}"></i>
+                                </div>
+                                <p class="info-text">{{step.text}}</p>
+                            </li>
 
-            </div>
-            <!-- DIV ADDRESS  -->
-            <div id="div-map" class="content-tab content">
-              <div class="row">
-                <div class="col-lg-12">
-                  <p class="title-component">Agrega la ubicación de tu negocio.</p>
-                </div>
-                <!-- FORM GROUP  -->
-                <div class="col-lg-3">
-                  <form [formGroup]="addressForm">
-
-                    <div class="row">
-                      <div class="col-sm-12 col-sm-offset-1">
-                        <div class="form-group">
-                          <label>Dirección completa *</label>
-                          <textarea formControlName="full_address" type="text" class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(addressForm, 'full_address'),
-                            'has-success valid': isFieldValid(addressForm, 'full_address')}"></textarea>
-                          <!-- MESSAGES ERRORS  -->
-                          <div class="invalid-feedback-form" *ngIf="isFieldInvalid(addressForm, 'full_address')">
-                            <span *ngIf="isFieldHasError(addressForm, 'full_address','required')">Este campo es
-                              requerido</span>
-                          </div>
-                        </div>
-                      </div>
+                        </ul>
 
                     </div>
 
-                  </form>
+                    <!-- TAB CONTENT  -->
+                    <div class="content-page">
 
-                </div>
-                <!-- MAP  -->
-                <div class="col-lg-9">
-                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false"
-                    [zoomControl]="true" (mapClick)="setMarkerMap($event)">
-                    <agm-marker *ngIf="currentMarker" [latitude]="currentMarker.lat" [longitude]="currentMarker.lng"
-                      [label]="'C'">
-                    </agm-marker>
-                    <!-- <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)"
+                        <!-- START DIV IMAGE ============== -->
+                        <div id="div-general" class="content-tab content">
+                            <div class="row">
+                                <div class="col-lg-6 col-step-image">
+
+                                    <p class="title-component">Agrega una imagen para tu negocío</p>
+                                    <!-- Image ========= -->
+
+                                    <div class="image-content">
+                                        <img *ngIf="!binaryString" src="assets/images/common/no-image.png" alt="">
+                                        <img *ngIf="binaryString" [src]="binaryString" alt="">
+                                    </div>
+
+
+                                    <div class="button-select-image">
+                                        <input (change)="onFileSelected($event)" #myInput type="file" name="file" id="file" class="inputfile inputfile-1" />
+                                        <label for="file">
+                      <span>Seleccionar imagen</span>
+                    </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <p class="title-component">Más información</p>
+                                    <!-- list of services  -->
+                                    <div class="row d-flex justify-content-center flex-column">
+                                        <form [formGroup]="generalForm">
+                                            <div class="form-group">
+                                                <label>Nombre del negocio</label>
+                                                <input formControlName="merchant_name" class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalForm, 'merchant_name'),
+                        'has-success valid': isFieldValid(generalForm, 'merchant_name')}" type="text">
+                                                <!-- MESSAGES ERRORS  -->
+                                                <div class="invalid-feedback-form" *ngIf="isFieldInvalid(generalForm, 'merchant_name')">
+                                                    <span *ngIf="isFieldHasError(generalForm, 'merchant_name','required')">Este campo es
+                            requerido</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Descripción(opcional)</label>
+                                                <input formControlName="description" class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalForm, 'description'),
+                        'has-success valid': isFieldValid(generalForm, 'description')}" type="text">
+                                                <!-- MESSAGES ERRORS  -->
+                                                <div class="invalid-feedback-form" *ngIf="isFieldInvalid(generalForm, 'description')">
+                                                    <span *ngIf="isFieldHasError(generalForm, 'description','required')">Este campo es
+                            requerido</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Tiempo de preparación *</label>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <input placeholder="5" formControlName="from_preparation_time" type="number" min="1" class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalForm, 'from_preparation_time'),
+                          'has-success valid': isFieldValid(generalForm, 'from_preparation_time')}">
+                                                    </div>
+                                                    <div class="col-lg-1">
+                                                        A
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <input placeholder="10" formControlName="to_preparation_time" type="number" min="1" class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(generalForm, 'to_preparation_time'),
+                          'has-success valid': isFieldValid(generalForm, 'to_preparation_time')}">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        Minutos
+                                                    </div>
+                                                </div>
+                                                <!-- MESSAGES ERRORS  -->
+                                                <div class="invalid-feedback-form" *ngIf="isFieldInvalid(generalForm, 'from_preparation_time')">
+                                                    <span *ngIf="isFieldHasError(generalForm, 'from_preparation_time','required')">Este
+                            campo es
+                            requerido</span>
+                                                </div>
+                                                <div class="invalid-feedback-form" *ngIf="isFieldInvalid(generalForm, 'to_preparation_time')">
+                                                    <span *ngIf="isFieldHasError(generalForm, 'to_preparation_time','required')">Este
+                            campo es
+                            requerido</span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- END DIV IMAGE ============  -->
+                        <!-- DIV CATEGORIES  -->
+                        <div id="div-categories" class="content-tab content">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p class="title-component">¿Cuales son tus tarifas?</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- DIV ADDRESS  -->
+                        <div id="div-map" class="content-tab content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p class="title-component">Agrega la ubicación de tu negocio.</p>
+                                </div>
+                                <!-- FORM GROUP  -->
+                                <div class="col-lg-3">
+                                    <form [formGroup]="addressForm">
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Dirección completa *</label>
+                                                    <textarea formControlName="full_address" type="text" class="form-control-eco w-100" [ngClass]="{'has-error error': isFieldInvalid(addressForm, 'full_address'),
+                            'has-success valid': isFieldValid(addressForm, 'full_address')}"></textarea>
+                                                    <!-- MESSAGES ERRORS  -->
+                                                    <div class="invalid-feedback-form" *ngIf="isFieldInvalid(addressForm, 'full_address')">
+                                                        <span *ngIf="isFieldHasError(addressForm, 'full_address','required')">Este campo es
+                              requerido</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                <!-- MAP  -->
+                                <div class="col-lg-9">
+                                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true" (mapClick)="setMarkerMap($event)">
+                                        <agm-marker *ngIf="currentMarker" [latitude]="currentMarker.lat" [longitude]="currentMarker.lng" [label]="'C'">
+                                        </agm-marker>
+                                        <!-- <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)"
                       [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable"
                       (dragEnd)="markerDragEnd(m, $event)">
 
@@ -189,72 +180,70 @@
 
                     </agm-marker> -->
 
-                  </agm-map>
-                </div>
+                                    </agm-map>
+                                </div>
 
-              </div>
+                            </div>
 
-            </div>
-
-
-            <!-- DIV CONFIG  -->
-            <div id="div-config" class="content-tab content">
-
-              <div class="row">
-                <div class="col-lg-12">
-                  <p class="title-component">Horarios</p>
-                </div>
-                <div class="col-lg-12 my-3">
-                  <div class="row d-flex justify-content-around">
-
-                    <div class="col-lg-12">
-                      <label>Horario de atencion</label>
-                      <div class="list-schedules" *ngIf="schedules">
-                        <!-- Schedules list of components  -->
-                        <app-schedule *ngFor="let schedule of schedules" [schedule]="schedule"
-                          (addSchedule)="addSchedule($event)"></app-schedule>
-                      </div>
-                      <div class="btns my-5 d-flex justify-content-end">
-                        <button [disabled]="loadingUpdateConfig" (click)="saveConfig()"
-                          class="btn btn-secondary">Guardar información</button>
-                        <div *ngIf="loadingUpdateConfig" class="spinner-border text-warning mx-3" role="status">
-                          <span class="sr-only">Loading...</span>
                         </div>
-                      </div>
+
+
+                        <!-- DIV CONFIG  -->
+                        <div id="div-config" class="content-tab content">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p class="title-component">Horarios</p>
+                                </div>
+                                <div class="col-lg-12 my-3">
+                                    <div class="row d-flex justify-content-around">
+
+                                        <div class="col-lg-12">
+                                            <label>Horario de atencion</label>
+                                            <div class="list-schedules" *ngIf="schedules">
+                                                <!-- Schedules list of components  -->
+                                                <app-schedule *ngFor="let schedule of schedules" [schedule]="schedule" (addSchedule)="addSchedule($event)"></app-schedule>
+                                            </div>
+                                            <div class="btns my-5 d-flex justify-content-end">
+                                                <button [disabled]="loadingUpdateConfig" (click)="saveConfig()" class="btn btn-secondary">Guardar información</button>
+                                                <div *ngIf="loadingUpdateConfig" class="spinner-border text-warning mx-3" role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--   -->
+
+                                    </div>
+                                    <!--   -->
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <!--   -->
-
-                  </div>
-                  <!--   -->
                 </div>
 
-              </div>
 
             </div>
-
-          </div>
 
         </div>
 
 
-      </div>
-
     </div>
 
+    <div class="footer">
+        <div>
+            <button (click)="onPrevious()" *ngIf="hasPrevious" class="btn-previous">Anterior</button>
+        </div>
+        <div>
+            <span style="color: white;">Toda la información podra cambiarse mas adelante</span>
+        </div>
 
-  </div>
+        <div>
+            <button (click)="onNext()" *ngIf="hasNext" class="btn-next-step">Siguiente</button>
+        </div>
 
-  <div class="footer">
-    <div>
-      <button (click)="onPrevious()" *ngIf="hasPrevious" class="btn-previous">Anterior</button>
     </div>
-    <div>
-      <span style="color: white;">Toda la información podra cambiarse mas adelante</span>
-    </div>
-
-    <div>
-      <button (click)="onNext()" *ngIf="hasNext" class="btn-next-step">Siguiente</button>
-    </div>
-
-  </div>

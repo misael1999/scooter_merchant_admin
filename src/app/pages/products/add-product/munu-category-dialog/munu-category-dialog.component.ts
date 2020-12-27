@@ -122,6 +122,12 @@ export class MunuCategoryDialogComponent implements OnInit {
     forms.push(this.createOptionUpdateForm(option));
   }
 
+  desactivateOptionArticule (id){
+
+
+  }
+
+
   deleteOption(index) {
     let optionsForm = this.group.get('options');
     const forms: FormArray = optionsForm as FormArray;

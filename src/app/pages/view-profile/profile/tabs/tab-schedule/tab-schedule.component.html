@@ -8,8 +8,7 @@
             <div class="col-lg-6 d-flex align-items-center flex-column">
                 <div class="list-schedules" *ngIf="schedules">
                     <!-- Schedules list of components  -->
-                    <app-schedule-profile *ngFor="let schedule of schedules" [schedule]="schedule"
-                        (addSchedule)="addSchedule($event)"></app-schedule-profile>
+                    <app-schedule-profile *ngFor="let schedule of schedules" [schedule]="schedule" (addSchedule)="addSchedule($event)"></app-schedule-profile>
                 </div>
             </div>
 

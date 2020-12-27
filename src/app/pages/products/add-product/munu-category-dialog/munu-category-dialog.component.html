@@ -104,7 +104,7 @@
             <i class="fas fa-ellipsis-v"></i>
           </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item>Desactivar</button>
+                        <button (click)="desactivateOptionArticule(menu)" mat-menu-item>Desactivar</button>
                         <button (click)="deleteOptionUpdate(menu, i)" mat-menu-item>Eliminar</button>
                     </mat-menu>
                 </div>
