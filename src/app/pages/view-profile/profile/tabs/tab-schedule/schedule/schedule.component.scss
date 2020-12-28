@@ -4,15 +4,14 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-
     .inputs {
         display: flex;
         flex-wrap: nowrap;
         margin-bottom: 20px;
         align-items: center;
-
         span {
             margin: 0px 6px;
         }
     }
+    .select {}
 }

@@ -1,6 +1,18 @@
 <div class="schedule">
-    <mat-checkbox (change)="selectCheckbox($event)" [(ngModel)]="schedule.checked">{{schedule.name}}</mat-checkbox>
-    <div class="inputs" *ngIf="schedule.checked">
+
+    <mat-form-field>
+        <mat-label> {{ schedule.name}} </mat-label>
+        <mat-select (change)="selectCheckbox($event)" [(ngModel)]="schedule.is_open">
+            <mat-option [value]="schedule.is_open == true">Abierto</mat-option>
+            <mat-option [value]="schedule.is_open == false">Cerrado</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+
+    <!-- <mat-checkbox (change)="selectCheckbox($event)" [(ngModel)]="schedule.checked">{{schedule.name}}</mat-checkbox> -->
+
+    <div class="inputs" *ngIf="schedule.is_open">
         <input (change)="sendSchedule()" [(ngModel)]="openingHour" type="time" class="form-control ml-2" placeholder="Apertura" [(value)]="schedule.from_hour" />
         <span>A</span>
         <input (change)="sendSchedule()" [(ngModel)]="closedHour" type="time" class="form-control" placeholder="cerrado" [(value)]="schedule.to_hour" />

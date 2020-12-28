@@ -20,7 +20,7 @@ export class TabScheduleComponent implements OnInit {
 
 
   constructor(private profileService: ProfileService,
-              private configService: ConfigAccountService, private snackBar: MatSnackBar) { }
+    private configService: ConfigAccountService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getSchedules();
@@ -28,10 +28,13 @@ export class TabScheduleComponent implements OnInit {
     this.schedulesmerchant = this.merchant.schedules;
   }
 
+  // Ob
   getSchedules() {
     this.configService.getSchedules()
       .subscribe((data: any) => {
         const schedulesTemp: Array<any> = data.data;
+        
+        console.log(schedulesTemp);
 
         this.schedulesmerchant.forEach(schedule => {
 
@@ -40,7 +43,8 @@ export class TabScheduleComponent implements OnInit {
             const name = schedulesTemp[scheduleFindIndex].name;
             // const id = schedulesTemp[scheduleFindIndex].id;
             schedulesTemp[scheduleFindIndex] = schedule;
-            schedulesTemp[scheduleFindIndex].checked = true;
+            // schedulesTemp[scheduleFindIndex].checked = true;
+            schedulesTemp[scheduleFindIndex].is_open = true;
             schedulesTemp[scheduleFindIndex].name = name;
             this.scheduleSelected.push(schedule);
           }
@@ -53,12 +57,12 @@ export class TabScheduleComponent implements OnInit {
 
   addSchedule(schedule) {
     this.isChangeSchedule = true;
-    if (schedule.checked) {
+    if (schedule.is_open) {
       const index = this.scheduleSelected.findIndex((schedu) =>
         schedu.schedule_id === schedule.schedule_id);
 
       // If exist schedule, then update it
-      delete schedule.checked;
+      delete schedule.is_open;
       if (index >= 0) {
         this.scheduleSelected[index] = { ...schedule };
         return;
@@ -74,7 +78,8 @@ export class TabScheduleComponent implements OnInit {
 
   deleteSchedule(scheduleId) {
     const index = this.scheduleSelected.findIndex((schedule) => {
-      return schedule.schedule_id === scheduleId;});
+      return schedule.schedule_id === scheduleId;
+    });
     if (index >= 0) {
       this.scheduleSelected.splice(index, 1);
     }
@@ -84,16 +89,16 @@ export class TabScheduleComponent implements OnInit {
   saveScheduleInfo() {
 
     this.loadingSaveInfo = true;
-    this.profileService.updateMerchant({schedules: this.scheduleSelected})
-    .subscribe((data: any) => {
-      this.showMessageSuccess('Horarios actualizados correctamente');
-      this.loadingSaveInfo = false;
-      localStorage.setItem('merchant', JSON.stringify(data.data));
-      this.isChangeSchedule = false;
-      location.reload();
-      // location.reload();
-      // this.changeImage = false;
-    }, error => {
+    this.profileService.updateMerchant({ schedules: this.scheduleSelected })
+      .subscribe((data: any) => {
+        this.showMessageSuccess('Horarios actualizados correctamente');
+        this.loadingSaveInfo = false;
+        localStorage.setItem('merchant', JSON.stringify(data.data));
+        this.isChangeSchedule = false;
+        location.reload();
+        // location.reload();
+        // this.changeImage = false;
+      }, error => {
         this.showMessageError(error.errors.message);
         this.loadingSaveInfo = false;
       });

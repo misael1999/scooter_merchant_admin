@@ -7,9 +7,8 @@ import { ProfileService } from '../../../services/profile.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-  // merchant: Array<any> = [];
   merchant;
+
   constructor(private profileService: ProfileService) { }
 
   ngOnInit(): void {
@@ -20,10 +19,9 @@ export class ProfileComponent implements OnInit {
     this.profileService.getMerchant()
       .subscribe((data: any) => {
         this.merchant = data;
-        console.log('La informacion', this.merchant);
+        // console.log('La informacion', this.merchant);
         this.profileService.merchant = this.merchant;
         localStorage.setItem('merchant', JSON.stringify(this.merchant));
-
       }, error => {
         console.log(error);
         // return;
