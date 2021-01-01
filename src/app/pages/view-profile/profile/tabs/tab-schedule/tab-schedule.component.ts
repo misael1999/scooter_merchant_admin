@@ -33,7 +33,7 @@ export class TabScheduleComponent implements OnInit {
     this.configService.getSchedules()
       .subscribe((data: any) => {
         const schedulesTemp: Array<any> = data.data;
-        
+
         console.log(schedulesTemp);
 
         this.schedulesmerchant.forEach(schedule => {
@@ -55,6 +55,7 @@ export class TabScheduleComponent implements OnInit {
       });
   }
 
+  
   addSchedule(schedule) {
     this.isChangeSchedule = true;
     if (schedule.is_open) {
@@ -87,7 +88,6 @@ export class TabScheduleComponent implements OnInit {
   }
 
   saveScheduleInfo() {
-
     this.loadingSaveInfo = true;
     this.profileService.updateMerchant({ schedules: this.scheduleSelected })
       .subscribe((data: any) => {
@@ -96,8 +96,6 @@ export class TabScheduleComponent implements OnInit {
         localStorage.setItem('merchant', JSON.stringify(data.data));
         this.isChangeSchedule = false;
         location.reload();
-        // location.reload();
-        // this.changeImage = false;
       }, error => {
         this.showMessageError(error.errors.message);
         this.loadingSaveInfo = false;
@@ -118,5 +116,4 @@ export class TabScheduleComponent implements OnInit {
       panelClass: ['error-snackbar']
     });
   }
-
 }

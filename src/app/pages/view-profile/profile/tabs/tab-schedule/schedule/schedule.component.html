@@ -2,9 +2,9 @@
 
     <mat-form-field>
         <mat-label> {{ schedule.name}} </mat-label>
-        <mat-select (change)="selectCheckbox($event)" [(ngModel)]="schedule.is_open">
-            <mat-option [value]="schedule.is_open == true">Abierto</mat-option>
-            <mat-option [value]="schedule.is_open == false">Cerrado</mat-option>
+        <mat-select [(ngModel)]="schedule.is_open">
+            <mat-option source="" [value]="schedule.is_open == true">Abierto</mat-option>
+            <mat-option [value]="schedule.is_open != true">Cerrado</mat-option>
         </mat-select>
     </mat-form-field>
 
