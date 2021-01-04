@@ -1,21 +1,13 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-flex-start mb-4">
-        <div class="col-md-5">
+        <div class="col-md-10">
             <h1 class="h3 mb-0 text-gray-800">Categorías</h1>
         </div>
-        <div class="col-md-5"></div>
         <div class="col-md-2">
             <a class="btn btn-secondary btn-block btn-sm" (click)="openDialogAddcategory()">Agregar</a>
-        </div> 
+        </div>
     </div>
 
-    <mat-tab-group>
-        <mat-tab label="Disponibles">
-            <app-enabled (openEditDialog)="openDialogAddcategory($event)">
-            </app-enabled>
-        </mat-tab>
-        <mat-tab label="No disponibles">
-            <app-disabled></app-disabled>
-        </mat-tab>
-    </mat-tab-group>
+    <app-enabled (openEditDialog)="openDialogAddcategory($event)"></app-enabled>
+
 </div>

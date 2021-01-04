@@ -8,13 +8,5 @@
             <a class="btn btn-sm btn-secondary btn-block" [routerLink]="['/products', 'add']">Agregar</a>
         </div>
     </div>
-    <mat-tab-group>
-        <mat-tab label="Disponibles">
-            <app-enabled></app-enabled>
-        </mat-tab>
-        <mat-tab label="No disponibles">
-            <app-disabled></app-disabled>
-
-        </mat-tab>
-    </mat-tab-group>
+    <app-enabled></app-enabled>
 </div>

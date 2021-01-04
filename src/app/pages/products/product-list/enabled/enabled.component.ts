@@ -6,13 +6,14 @@ import { PageEvent } from '@angular/material/paginator';
 import { ProductsService } from 'src/app/services/products.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import Swal from 'sweetalert2';
+import { ValidationForms } from '../../../../utils/validations-forms';
 
 @Component({
   selector: 'app-enabled',
   templateUrl: './enabled.component.html',
   styleUrls: ['./enabled.component.scss']
 })
-export class EnabledComponent implements OnInit, OnDestroy {
+export class EnabledComponent extends ValidationForms implements OnInit, OnDestroy {
   products: Product[];
   productsSubscription: Subscription;
 
@@ -33,12 +34,19 @@ export class EnabledComponent implements OnInit, OnDestroy {
   typeMenu;
 
   constructor(private productService: ProductsService) { 
+    super();
     this.typeMenu = localStorage.getItem('type_menu');
   }
 
   ngOnInit(): void {
     this.getProducts(this.params);
   }
+  
+  showList(status) {
+    this.params.status = status;
+    this.getProducts(this.params);
+  }
+
 
   ngOnDestroy(): void {
     this.productsSubscription.unsubscribe();
@@ -69,6 +77,16 @@ export class EnabledComponent implements OnInit, OnDestroy {
     });
   }
 
+  activateProduct(product) {
+    this.productService.unlockProduct(product.id)
+      .subscribe((data) => {
+        console.log(data);
+        this.showMessageConfirm('Producto activado');
+        this.getProducts(this.params);
+      }, error => {
+        this.showSwalMessage(error.errors.message);
+      });
+  }
   disponibilidadProduct(product: Product) {
     if (product.is_available === true) {
       this.productService.updateProduct(product)
@@ -100,6 +118,7 @@ export class EnabledComponent implements OnInit, OnDestroy {
     this.productsSubscription = this.productService.getProducts(params)
       .subscribe((data: any) => {
         this.products = data.results;
+        console.log(this.products);
         this.length = data.count;
       });
   }

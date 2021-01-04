@@ -31,6 +31,14 @@ export class CategoriesService {
     return this.http.delete(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/categories/${id}/`);
   }
 
+  updateOrderingCategories(categories){
+    return this.http.post(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/categories/ordering_categories/`, { categories });
+
+
+  }
+
+
+
   updateCategory(category: Category): Observable<any> {
     return this.http.patch(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/categories/${category.id}/`, { ...category });
   }

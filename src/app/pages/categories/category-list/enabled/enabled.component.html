@@ -1,25 +1,40 @@
-<div class="container-fluid  mt-3">
+<div class="container-fluid">
     <div>
-        <!-- Filter  -->
         <div class="filters mb-3">
             <div class="row d-flex justify-content-end">
 
+
+                <!-- Ordering Categories -->
                 <div class="col-lg-3">
                     <select class="form-control select-form" (change)="orderBy($event.target.value)">
                         <option>Ordenar por:</option>
-                        <option value="-name">Nombre</option>
-                        <option value="-created">Fecha de creación</option>
+                        <option value="name">Ordenar de A a Z</option>
+                        <option value="-name">Ordenar de Z a A</option>
+                        <option value="created">Ordenar de reciente a antiguo </option>
+                        <option value="-created">Ordenar de antiguo a reciente</option>
                     </select>
                 </div>
+                <!-- End Ordering Categories -->
 
-                <div class="col-lg-6">
+
+                <!-- Show Categories -->
+                <div class="col-md-3 tabPading">
+                    <select (change)="showList($event.target.value)" class="form-control select-form">
+                        <option>Ver por:</option>
+                        <option value="1">Disponibles</option>
+                        <option value="2">Bloqueados</option>
+                    </select>
                 </div>
+                <!-- End show Categories -->
 
 
-                <!-- Filter by search vehicles -->
+                <div class="col-lg-3"></div>
+
+
+                <!-- Search categories by name -->
                 <div class="col-lg-3">
-                    <div class="input-group mb-3">
-                        <input #searchInput (keyup.enter)="searchBy(searchInput.value)" type="text" class="form-control fm-size" placeholder="Buscar por nombre" aria-label="Username" aria-describedby="basic-addon1">
+                    <div class="input-group">
+                        <input #searchInput (keyup.enter)="searchBy(searchInput.value)" type="text" class="form-control fm-size" placeholder="Buscar por nombre..." aria-label="Username" aria-describedby="basic-addon1">
                         <div class="input-group-prepend cursor" (click)="searchBy(searchInput.value)">
                             <span class="input-group-text" id="basic-addon1">
                                 <i class="fas fa-search"></i>
@@ -27,30 +42,37 @@
                         </div>
                     </div>
                 </div>
-                <!-- Fin Filter by search vehicles -->
-
+                <!-- Search categories by name -->
 
             </div>
         </div>
-        <!-- Fin filter  -->
+
 
         <div class="row" class="content">
 
-            <!-- PAGINADOR  -->
-            <div class="col-lg-12 d-flex justify-content-end">
-                <mat-paginator [disabled]="!categories" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getPage($event)"></mat-paginator>
+
+            <!-- Mat Paginator  -->
+            <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                <div>
+
+                    <button class="btn btn-success btn-sm" (click)="openOrdering()">Ordenar</button>
+                </div>
+
+
+                <mat-paginator  [disabled]="!categories" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getPage($event)"></mat-paginator>
             </div>
-            <!-- TERMINA EL PAGINADOR  -->
+            <!-- End Mat Paginator -->
 
 
 
-            <!-- Preloader  -->
+
+            <!-- Preloader -->
             <div class="col-lg-12 d-flex justify-content-center" *ngIf="!categories">
                 <div class="spinner-border text-primary my-5" role="status">
                     <span class="sr-only">Cargando categorías...</span>
                 </div>
             </div>
-            <!-- Fin Preloader  -->
+            <!-- End Preloader -->
 
 
 
@@ -67,10 +89,15 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let category of categories ">
+
+
+
+
                             <td *ngIf="typeMenu >= 2">
                                 <img class="img-category img-profile rounded-circle" *ngIf="category.picture" [src]="category.picture" alt="category_img">
                                 <img class="img-category img-profile rounded-circle" *ngIf="category.picture === null" src="assets/img/Bolsa.png" alt="category_img">
                             </td>
+
                             <td> {{category.name}} </td>
                             <td *ngIf="typeMenu >= 2">
                                 <p class="p-0 m-0 d-flex flex-column" *ngFor="let subcategory of category.subcategories">
@@ -79,11 +106,14 @@
                                 </p>
                             </td>
                             <td class="text-center btn-edit">
-                                <button class="btn btn-edit" (click)="editCategory(category)">
+                                <button *ngIf="params.status == 1" class="btn btn-edit" (click)="editCategory(category)">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
-                                <button class="btn btn-lock" (click)="deleteCategory(category.id, category.name)">
+                                <button *ngIf="params.status == 1" class="btn btn-lock" (click)="deleteCategory(category.id, category.name)">
                                     <i class="fas fa-lock fa-primary"></i>
+                                </button>
+                                <button *ngIf="params.status == 2" class="btn bt-active" (click)="activeCategory(category)">
+                                    <i class="fas fa-lock-open"></i>
                                 </button>
                             </td>
 
@@ -91,10 +121,10 @@
                     </tbody>
                 </table>
             </div>
-            <!-- Fin table the vehicles  -->
+
+
+            <!-- Component no data categories -->
             <app-no-found-data *ngIf="categories && categories.length === 0"  [message]="'No hay categorías que mostrar'"></app-no-found-data>
         </div>
     </div>
-
-
 </div>
