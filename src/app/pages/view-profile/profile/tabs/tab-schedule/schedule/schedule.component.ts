@@ -16,7 +16,7 @@ export class ScheduleProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('Los Horarios', this.schedule);
+    console.log('Horario: ', this.schedule);
     // get schedules and assign 
     this.openingHour = this.schedule.from_hour;
     this.closedHour = this.schedule.to_hour;
@@ -27,6 +27,7 @@ export class ScheduleProfileComponent implements OnInit {
   }
 
   sendSchedule() {
+    console.log(this.schedule.is_open);
     this.addSchedule.emit({
       schedule_id: this.schedule.schedule_id,
       from_hour: this.openingHour,
