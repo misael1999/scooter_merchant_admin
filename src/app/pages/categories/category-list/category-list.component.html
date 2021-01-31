@@ -1,11 +1,9 @@
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-flex-start mb-4">
-        <div class="col-md-10">
-            <h1 class="h3 mb-0 text-gray-800">Categorías</h1>
-        </div>
-        <div class="col-md-2">
-            <a class="btn btn-secondary btn-block btn-sm" (click)="openDialogAddcategory()">Agregar</a>
-        </div>
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between">
+        <h1 class="h3 mb-0 text-gray-800">Categorías</h1>
+        <button class="btn btn-primary btn-sm" (click)="openDialogAddcategory()">Agregar</button>
     </div>
 
     <app-enabled (openEditDialog)="openDialogAddcategory($event)"></app-enabled>

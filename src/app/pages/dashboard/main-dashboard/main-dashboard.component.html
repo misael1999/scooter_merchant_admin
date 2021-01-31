@@ -1,24 +1,21 @@
-<!-- Begin Page Content -->
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-    <div class=" row d-sm-flex align-items-center justify-content-between mb-4">
-        <div>Por el momento no hay nada que mostrar</div>
-        <!-- <div class="col-md-1"></div>
-        <div class="col-md-11">
-            <h1 class="h3 mb-0 text-gray-800">Cemitas la poblanita</h1>
-            <p><span><i class="fas fa-fw fa-map-marker-alt"></i></span> Av. Independencia N+ 1
-                <br>
-                <span>⭐⭐⭐⭐⭐</span>5.0 (1 Calificacion) </p>
-        </div> -->
+<div class="page-header no-gutters">
+    <div class="d-md-flex align-items-md-center justify-content-between">
+        <div class="media m-v-10 align-items-center">
+            <div class="avatar avatar-image avatar-lg">
+                <img [src]="merchant.picture" alt="Picture_merchant">
+            </div>
+            <div class="media-body m-l-15">
+                <h4 class="m-b-0">{{merchant.merchant_name}}</h4>
+                <span class="text-gray">{{merchant.full_address}}</span> <br>
+                <span class="text-gray">
+                    <label for="radio1">★</label>
+                    <label for="radio2">★</label>
+                    <label for="radio3">★</label>
+                    <label for="radio4">★</label>
+                    <label for="radio5">★</label>
+                  {{merchant.reputation}}
+                </span>
+            </div>
+        </div>
     </div>
-
-    <!-- Content Row -->
-    <div class="row">
-
-
-
-
-
-    </div>
-    <!-- Container-fluid -->
+</div>

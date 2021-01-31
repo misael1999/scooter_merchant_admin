@@ -5,7 +5,7 @@
 
     <div class="spinner-grow" role="status" *ngIf="loadingInfoProduct || !categories">
         <span class="sr-only">Loading...</span>
-      </div>
+    </div>
 
     <div class="row justify-content-center" *ngIf="!loadingInfoProduct && categories">
         <div class="col-xl-12 col-lg-12 col-md-12">
@@ -87,7 +87,7 @@
                                             </div>
 
                                         </div>
-                       <!--                  <div *ngIf="typeMenu >= 3" class="col-md-6">
+                                        <!--                  <div *ngIf="typeMenu >= 3" class="col-md-6">
                                             <label for="">Sección</label>
 
                                             <select [attr.disabled]="!subcategorySelected ? '': null" [ngClass]="{'is-invalid': isFieldInvalid('section_id'), 'is-valid': isFieldValid('section_id')}" class="form-control select-form" formControlName="section_id">
@@ -115,15 +115,18 @@
                                                             matTooltipHideDelay="100000"
                                                             matTooltip="Para que el cliente pueda elegir con una serie de opciones"
                                                             [matTooltipPosition]="'above'"></i> </label>
-                                                        <button (click)="openMenuDialog()" type="button" class="btn btn-outline-primary">Agregar grupo modificador</button>
+                                                        <div class="col-md-12 d-flex flex-column">
+                                                            <button (click)="openMenuDialog()" type="button" class="btn btn-outline-primary">Agregar grupo modificador</button>
+
+                                                            <button>Ordenar</button>
+                                                        </div>
                                                         <!-- MENÚ GUARDADO  -->
                                                         <mat-accordion class="my-2">
                                                             <mat-expansion-panel *ngFor="let menu of menus; let i = index">
                                                                 <mat-expansion-panel-header>
                                                                     <mat-panel-title>
                                                                         {{menu.name}}
-                                                                        <span *ngIf="menu.status?.slug_name == 'inactive' || menu.to_disable"
-                                                                         class="badge badge-danger mx-3">Desactivado</span>
+                                                                        <span *ngIf="menu.status?.slug_name == 'inactive' || menu.to_disable" class="badge badge-danger mx-3">Desactivado</span>
 
                                                                     </mat-panel-title>
                                                                 </mat-expansion-panel-header>
@@ -160,16 +163,16 @@
                                                         </mat-accordion>
                                                         <!-- MENÚ GUARDADO  -->
                                                     </div>
-            
-                                                 
+
+
                                                 </div>
                                             </div>
                                         </div>
-                 
+
                                     </div>
                                 </div>
 
-                             
+
 
                                 <hr>
                                 <button [disabled]="loadingSave" class="btn btn-primary">
@@ -183,17 +186,17 @@
                         <div class="col-lg-5 p-5">
                             <div class="col-md-12">
                                 <div class="images d-flex justify-content-center">
-                                    <img *ngIf="imageURL"  height="200" class="img-fluid image-product" [src]="imageURL" alt="category_picture">
-                                    <img *ngIf="!imageURL"  class="img-fluid image-product" src="assets/images/common/no-image.png" alt="">
+                                    <img *ngIf="imageURL" height="200" class="img-fluid image-product" [src]="imageURL" alt="category_picture">
+                                    <img *ngIf="!imageURL" class="img-fluid image-product" src="assets/images/common/no-image.png" alt="">
                                 </div>
                             </div>
-                                <div class="col-md-12">
-                                    <label> Imagen</label>
-                                    <div class="form-group">
-                                        <input type="file" class="form-control form-control-file" placeholder="Elige una imagen" (change)="handlePickUpImage($event)">
-                                    </div>
+                            <div class="col-md-12">
+                                <label> Imagen</label>
+                                <div class="form-group">
+                                    <input type="file" class="form-control form-control-file" placeholder="Elige una imagen" (change)="handlePickUpImage($event)">
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>

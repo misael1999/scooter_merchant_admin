@@ -33,7 +33,7 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
   };
   typeMenu;
 
-  constructor(private productService: ProductsService) { 
+  constructor(private productService: ProductsService) {
     super();
     this.typeMenu = localStorage.getItem('type_menu');
   }
@@ -41,7 +41,7 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
   ngOnInit(): void {
     this.getProducts(this.params);
   }
-  
+
   showList(status) {
     this.params.status = status;
     this.getProducts(this.params);
@@ -77,28 +77,34 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     });
   }
 
-  activateProduct(product) {
-    this.productService.unlockProduct(product.id)
-      .subscribe((data) => {
-        console.log(data);
-        this.showMessageConfirm('Producto activado');
-        this.getProducts(this.params);
-      }, error => {
-        this.showSwalMessage(error.errors.message);
-      });
-  }
-  disponibilidadProduct(product: Product) {
-    if (product.is_available === true) {
-      this.productService.updateProduct(product)
-        .subscribe((data: any) => {
-        });
-    } else {
+  // changeAvailable(product) {
+  //   const productTemp = product;
+  //   if (productTemp.is_available == true) {
+  //     productTemp.is_available == false;
+  //     this.productService.updateProduct(productTemp)
+  //       .subscribe((data: any) => {
+  //         return;
+  //       });
+  //   }
+  //   productTemp.is_available == true;
+  //   this.productService.updateProduct(product)
+  //     .subscribe((data: any) => {
+  //       return
+  //     });
+  // }
 
-      this.productService.updateProduct(product)
+  activateProduct(product) {
+    const productTemp: Product = product;
+    if (productTemp.is_available == true) {
+      productTemp.is_available = false;
+      this.productService.updateProduct(productTemp)
         .subscribe((data: any) => {
+          return;
         });
     }
   }
+
+
 
 
   searchBy(search: string): void {

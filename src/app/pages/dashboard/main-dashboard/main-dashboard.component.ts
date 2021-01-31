@@ -6,14 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-dashboard.component.scss']
 })
 export class MainDashboardComponent implements OnInit {
+  merchant;
 
 
-  constructor(
-  ) { }
-
-  ngOnInit(): void {
-
+  constructor( ) {
+    this.merchant = JSON.parse(localStorage.getItem('merchant'));
+    // console.log(this.merchant);
   }
 
+  ngOnInit(): void {
+  }
 
 }

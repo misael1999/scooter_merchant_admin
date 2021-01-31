@@ -6,7 +6,7 @@ import { OrdersInProcessComponent } from './orders-in-process/orders-in-process.
 import { DeliveredOrdersComponent } from './delivered-orders/delivered-orders.component';
 import { NewOrdersComponent } from './new-orders/new-orders.component';
 import { RejectOrderDialogComponent } from './new-orders/reject-order-dialog/reject-order-dialog.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OrdersCancelledComponent } from './orders-cancelled/orders-cancelled.component';
 import { SharedModule } from '../../shared/shared.module';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
@@ -31,6 +31,7 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
     AngularMaterialModule,
     ReactiveFormsModule,
     SharedModule,
+    FormsModule,
     PipesModule
   ],
   entryComponents: [

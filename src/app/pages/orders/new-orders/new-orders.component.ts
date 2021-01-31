@@ -27,7 +27,7 @@ export class NewOrdersComponent implements OnInit, OnDestroy {
   pageEvent: PageEvent;
   // loaders
   loaderAcceptOrder = false;
-
+  searchText;
   // Parametros para el paginado
   params = { limit: 15, offset: 0, search: '', order_status: '14', ordering: '' };
   orders: Array<any> = [];
@@ -61,9 +61,14 @@ export class NewOrdersComponent implements OnInit, OnDestroy {
 
   searchBy(value: string) {
     this.params.search = value;
-    /*     if (value === '') {
-          return;
-        } */
+    this.ordersService.searchText = value;
+    this.getOrders();
+  }
+
+  clearSearch() {
+    this.params.search = '';
+    this.ordersService.searchText = '';
+    this.searchText = "";
     this.getOrders();
   }
 
@@ -95,6 +100,12 @@ export class NewOrdersComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  orderingOrders(value: string) {
+    this.params.ordering = value;
+    this.getOrders();
+  }
+
 
   // ======= PAGINADOR ========
   getPages(e): PageEvent {

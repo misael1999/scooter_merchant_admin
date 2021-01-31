@@ -38,8 +38,7 @@
             </li>
 
             <!-- ====  -->
-            <li *ngIf="merchant.has_branches" routerLink="/branches" routerLinkActive="active"
-                class="nav-item dropdown">
+            <li *ngIf="merchant.has_branches" routerLink="/branches" routerLinkActive="active" class="nav-item dropdown">
                 <a>
                     <span class="icon-holder">
                         <i class="anticon anticon-apartment"></i>
@@ -68,7 +67,19 @@
             </li>
 
             <!-- ====  -->
-            <li routerLink="/reviews" routerLinkActive="active" class="nav-item dropdown">
+            <li routerLink="/marketing" routerLinkActive="active" class="nav-item dropdown">
+                <a>
+                    <span class="icon-holder">
+
+                        <i class="anticon anticon-line-chart"></i>
+                        <!-- <i class="anticon <i class="anticon anticon-line-chart"></i> line-chart"></i> -->
+                    </span>
+                    <span class="title">Marketing</span>
+                </a>
+            </li>
+
+            <!-- ====  -->
+            <!-- <li routerLink="/reviews" routerLinkActive="active" class="nav-item dropdown">
                 <a>
                     <span class="icon-holder">
 
@@ -76,7 +87,7 @@
                     </span>
                     <span class="title">Reseñas</span>
                 </a>
-            </li>
+            </li> -->
 
             <!-- ====  -->
             <li routerLink="/statement" routerLinkActive="active" class="nav-item dropdown">
@@ -105,8 +116,7 @@
             <hr *ngIf="merchant.is_delivery_by_store">
             <!-- <span style="font-size: 90%; margin-left: 15px;">Gestión de envíos</span> -->
             <!-- ====  -->
-            <li *ngIf="merchant.is_delivery_by_store" routerLink="/delivery" routerLinkActive="active"
-                class="nav-item dropdown">
+            <li *ngIf="merchant.is_delivery_by_store" routerLink="/delivery" routerLinkActive="active" class="nav-item dropdown">
                 <a>
                     <span class="icon-holder">
 
@@ -117,8 +127,7 @@
             </li>
 
             <!-- ====  -->
-            <li *ngIf="merchant.is_delivery_by_store" routerLink="/zones" routerLinkActive="active"
-                class="nav-item dropdown">
+            <li *ngIf="merchant.is_delivery_by_store" routerLink="/zones" routerLinkActive="active" class="nav-item dropdown">
                 <a>
                     <span class="icon-holder">
 
@@ -129,8 +138,7 @@
                 </a>
             </li>
 
-            <li *ngIf="merchant.is_delivery_by_store" routerLink="/delivery-config" routerLinkActive="active"
-                class="nav-item dropdown">
+            <li *ngIf="merchant.is_delivery_by_store" routerLink="/delivery-config" routerLinkActive="active" class="nav-item dropdown">
                 <a>
                     <span class="icon-holder">
                         <i class="anticon anticon-deployment-unit"></i>
@@ -138,9 +146,7 @@
                     <span class="title">Configurar entregas</span>
                 </a>
             </li>
-            <hr>
 
-            <!-- TERMINA ENTREGADO POR LA TIENDA  -->
 
         </ul>
     </div>

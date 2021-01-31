@@ -12,105 +12,116 @@ import { CancelOrderComponent } from './cancel-order/cancel-order.component';
   styleUrls: ['./orders-in-process.component.scss']
 })
 export class OrdersInProcessComponent implements OnInit {
- // MatPaginator Inputs
- length = 100;
- pageSize = 15;
- pageSizeOptions: number[] = [5, 10, 25, 100];
- // MatPaginator Output
- pageEvent: PageEvent;
- // Loaders
- loadingOrderReady = false;
+  // MatPaginator Inputs
+  length = 100;
+  pageSize = 15;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  // MatPaginator Output
+  pageEvent: PageEvent;
+  // Loaders
+  loadingOrderReady = false;
+  searchText;
 
- // Parametros para el paginado
- params = { limit: 15, offset: 0, search: '', order_status : '15' };
- orders: Array<any> = [];
- loadingOrders: boolean;
- liveData$: Subscription;
+  // Parametros para el paginado
+  params = { limit: 15, offset: 0, search: '', order_status: '15', ordering: '' };
+  orders: Array<any> = [];
+  loadingOrders: boolean;
+  liveData$: Subscription;
 
- constructor(private ordersService: OrdersService,
-             private dialog: MatDialog, private webSocketService: WebSocketService) { }
+  constructor(private ordersService: OrdersService,
+    private dialog: MatDialog, private webSocketService: WebSocketService) { }
 
- ngOnInit(): void {
-   this.getOrders();
- }
+  ngOnInit(): void {
+    this.getOrders();
+  }
 
- getOrders() {
-   this.loadingOrders = true;
-   this.ordersService.getOrders(this.params)
-     .subscribe((data: any) => {
-       this.orders = data.results;
-       this.loadingOrders = false;
-       this.length = data.count;
-     }, error => {
-       this.loadingOrders = false;
-     });
- }
+  getOrders() {
+    this.loadingOrders = true;
+    this.ordersService.getOrders(this.params)
+      .subscribe((data: any) => {
+        this.orders = data.results;
+        this.loadingOrders = false;
+        this.length = data.count;
+      }, error => {
+        this.loadingOrders = false;
+      });
+  }
 
- searchBy(value: string) {
-   this.params.search = value;
-/*     if (value === '') {
-     return;
-   } */
-   this.getOrders();
- }
+  searchBy(value: string) {
+    this.params.search = value;
+    this.ordersService.searchText = value;
+    this.getOrders();
+  }
 
- orderReady(order) {
-  this.loadingOrderReady = true;
+  clearSearch() {
+    this.params.search = '';
+    this.ordersService.searchText = '';
+    this.searchText = "";
+    this.getOrders();
+  }
 
-  this.ordersService.orderReady(order.id)
-    .subscribe(data => {
-      this.getOrders();
+  orderingOrders(value: string) {
+    this.params.ordering = value;
+    this.getOrders();
+  }
 
-    }, error => {
+  orderReady(order) {
+    this.loadingOrderReady = true;
 
-    }, () => {
-      this.loadingOrderReady = false;
+    this.ordersService.orderReady(order.id)
+      .subscribe(data => {
+        this.getOrders();
+
+      }, error => {
+
+      }, () => {
+        this.loadingOrderReady = false;
+      });
+
+  }
+
+  openDialogAssignDelivery(orderId) {
+    /* const dialogref = this.dialog.open(AssignDeliveryDialogComponent, {
+      disableClose: true,
+      width: '60%',
+      minHeight: '500px',
+      minWidth: '350px',
+      data: {orderId}
+    });
+ 
+    dialogref.afterClosed().subscribe(data => {
+      if (data) {
+        this.getOrders();
+      }
+    }); */
+  }
+
+  openDialogCancelOrder(orderId) {
+    const dialogref = this.dialog.open(CancelOrderComponent, {
+      disableClose: true,
+      width: '40%',
+      minHeight: '300px',
+      minWidth: '300px',
+      data: { orderId }
     });
 
- }
+    dialogref.afterClosed().subscribe(data => {
+      if (data) {
+        this.getOrders();
+      }
+    });
+  }
 
- openDialogAssignDelivery(orderId) {
-   /* const dialogref = this.dialog.open(AssignDeliveryDialogComponent, {
-     disableClose: true,
-     width: '60%',
-     minHeight: '500px',
-     minWidth: '350px',
-     data: {orderId}
-   });
-
-   dialogref.afterClosed().subscribe(data => {
-     if (data) {
-       this.getOrders();
-     }
-   }); */
- }
-
- openDialogCancelOrder(orderId) {
-   const dialogref = this.dialog.open(CancelOrderComponent, {
-     disableClose: true,
-     width: '40%',
-     minHeight: '300px',
-     minWidth: '300px',
-     data: {orderId}
-   });
-
-   dialogref.afterClosed().subscribe(data => {
-     if (data) {
-       this.getOrders();
-     }
-   });
- }
-
- // ======= PAGINADOR ========
- getPages(e): PageEvent {
-   if (this.orders.length === 0) {
-     this.pageSize = 15;
-     return;
-   }
-   this.params.limit = e.pageSize;
-   this.params.offset = this.params.limit * e.pageIndex;
-   this.getOrders();
- }
+  // ======= PAGINADOR ========
+  getPages(e): PageEvent {
+    if (this.orders.length === 0) {
+      this.pageSize = 15;
+      return;
+    }
+    this.params.limit = e.pageSize;
+    this.params.offset = this.params.limit * e.pageIndex;
+    this.getOrders();
+  }
 
 
 }

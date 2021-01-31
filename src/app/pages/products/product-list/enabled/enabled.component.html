@@ -9,8 +9,8 @@
                         <option>Ordenar por:</option>
                         <option value="name">Ordenar de A a Z</option>
                         <option value="-name">Ordenar de Z a A</option>
-                        <option value="created">Ordenar de reciente a antiguo</option>
-                        <option value="-created">Ordenar de antiguo a reciente</option>
+                        <option value="-created">Ordenar de reciente a antiguo</option>
+                        <option value="created">Ordenar de antiguo a reciente</option>
                     </select>
                 </div>
                 <!-- End Ordering products  -->
@@ -81,7 +81,7 @@
                         <tr *ngFor="let product of products ">
                             <td>
                                 <img class="img-category img-profile rounded-circle" *ngIf="product.picture" [src]="product.picture" alt="category_img">
-                                <img class="img-category img-profile rounded-circle" *ngIf="product.picture === null" src="assets/img/Bolsa.png" alt="category_img">
+                                <img class="img-category img-profile rounded-circle" *ngIf="product.picture === null" src="assets/img/bolsa.svg" alt="category_img">
                             </td>
                             <td> {{product.name}}</td>
                             <td> {{product.category.name}}</td>
@@ -90,7 +90,7 @@
                             <td> $ {{product.price }}</td>
                             <td>
                                 <!-- {{product.is_available ? 'Disponible': 'No disponible'}} -->
-                                <mat-slide-toggle [(ngModel)]="product.is_available">{{product.is_available ? 'Disponible': 'No disponible'}}</mat-slide-toggle>
+                                <!-- <mat-slide-toggle [(ngModel)]="product.is_available" (click)="changeAvailable(product.is_available)">{{product.is_available ? 'Disponible': 'Agotado'}}</mat-slide-toggle> -->
                             </td>
                             <td class="text-center">
                                 <button *ngIf="params.status == 1" class="btn btn-Editt" routerLink="/products/modify/{{product.id}}">

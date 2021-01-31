@@ -19,9 +19,10 @@ export class DeliveredOrdersComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
   // MatPaginator Output
   pageEvent: PageEvent;
+  searchText;
 
   // Parametros para el paginado
-  params = { limit: 15, offset: 0, search: '', order_status: '3,4,5,6,16' };
+  params = { limit: 15, offset: 0, search: '', order_status: '3,4,5,6,16', ordering: '' };
   orders: Array<any> = [];
   loadingOrders: boolean;
   liveData$: Subscription;
@@ -47,9 +48,19 @@ export class DeliveredOrdersComponent implements OnInit {
 
   searchBy(value: string) {
     this.params.search = value;
-    /*     if (value === '') {
-         return;
-       } */
+    this.ordersService.searchText = value;
+    this.getOrders();
+  }
+
+  clearSearch() {
+    this.params.search = '';
+    this.ordersService.searchText = '';
+    this.searchText = "";
+    this.getOrders();
+  }
+
+  orderingOrders(value: string) {
+    this.params.ordering = value;
     this.getOrders();
   }
 

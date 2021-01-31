@@ -61,6 +61,11 @@ const routes: Routes = [
     loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
   },
   {
+    path: 'marketing',
+    canActivate: [AuthGuard, RefreshTokenGuard],
+    loadChildren: () => import('./marketing/marketing.module').then(m => m.MarketingModule)
+  },
+  {
     path: 'delivery-config',
     canActivate: [AuthGuard, RefreshTokenGuard],
     loadChildren: () => import('./delivery-config/delivery-config.module').then(m => m.DeliveryConfigModule)

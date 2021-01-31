@@ -1,84 +1,59 @@
-<div class="container-fluid">
-    <div>
-        <div class="filters mb-3">
-            <div class="row d-flex justify-content-end">
+<div class="row">
+    <div class="col-md-12 col-lg-12 p-t-15">
+        <div class="row">
 
 
-                <!-- Ordering Categories -->
-                <div class="col-lg-3">
-                    <select class="form-control select-form" (change)="orderBy($event.target.value)">
-                        <option>Ordenar por:</option>
-                        <option value="name">Ordenar de A a Z</option>
-                        <option value="-name">Ordenar de Z a A</option>
-                        <option value="created">Ordenar de reciente a antiguo </option>
-                        <option value="-created">Ordenar de antiguo a reciente</option>
-                    </select>
-                </div>
-                <!-- End Ordering Categories -->
+            <!-- Ordering -->
+            <div class="col-md-3 col-lg-3 col-sm-12 p-b-10">
+                <select class="form-control select-form" (change)="orderBy($event.target.value)">
+                    <option>Ordenar por:</option>
+                    <option value="name">Ordenar de A a Z</option>
+                    <option value="-name">Ordenar de Z a A</option>
+                    <option value="created">Ordenar de reciente a antiguo </option>
+                    <option value="-created">Ordenar de antiguo a reciente</option>
+                </select>
+            </div>
+            <!-- End Ordering -->
 
 
-                <!-- Show Categories -->
-                <div class="col-md-3 tabPading">
-                    <select (change)="showList($event.target.value)" class="form-control select-form">
+            <!-- Show view -->
+            <div class="col-md-3 col-lg-3 col-sm-12 p-b-10">
+                <select (change)="showList($event.target.value)" class="form-control select-form">
                         <option>Ver por:</option>
                         <option value="1">Disponibles</option>
                         <option value="2">Bloqueados</option>
                     </select>
-                </div>
-                <!-- End show Categories -->
+            </div>
+            <!-- End show view by -->
 
 
-                <div class="col-lg-3"></div>
+            <div class="col-md-3 col-lg-3"></div>
 
 
-                <!-- Search categories by name -->
-                <div class="col-lg-3">
-                    <div class="input-group">
-                        <input #searchInput (keyup.enter)="searchBy(searchInput.value)" type="text" class="form-control fm-size" placeholder="Buscar por nombre..." aria-label="Username" aria-describedby="basic-addon1">
-                        <div class="input-group-prepend cursor" (click)="searchBy(searchInput.value)">
-                            <span class="input-group-text" id="basic-addon1">
+            <!-- Search by-->
+            <div class="col-lg-3">
+                <div class="input-group">
+                    <input #searchInput (keyup.enter)="searchBy(searchInput.value)" type="text" class="form-control fm-size" placeholder="Buscar por nombre..." aria-label="Username" aria-describedby="basic-addon1">
+                    <div class="input-group-prepend cursor" (click)="searchBy(searchInput.value)">
+                        <span class="input-group-text" id="basic-addon1">
                                 <i class="fas fa-search"></i>
                             </span>
-                        </div>
                     </div>
                 </div>
-                <!-- Search categories by name -->
-
             </div>
+            <!-- End search by-->
         </div>
-
-
-        <div class="row" class="content">
-
-
-            <!-- Mat Paginator  -->
-            <div class="col-lg-12 d-flex justify-content-between align-items-center">
-                <div>
-
-                    <button class="btn btn-success btn-sm" (click)="openOrdering()">Ordenar</button>
-                </div>
-
-
-                <mat-paginator  [disabled]="!categories" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getPage($event)"></mat-paginator>
-            </div>
-            <!-- End Mat Paginator -->
+    </div>
 
 
 
-
-            <!-- Preloader -->
-            <div class="col-lg-12 d-flex justify-content-center" *ngIf="!categories">
-                <div class="spinner-border text-primary my-5" role="status">
-                    <span class="sr-only">Cargando categorías...</span>
-                </div>
-            </div>
-            <!-- End Preloader -->
+    <div class="col-md-12 col-lg-12 p-t-15">
 
 
-
-            <div class="col-md-12" *ngIf="categories && categories.length > 0">
-
-                <table class="table  table-bordered">
+        <div class="col-md-12 col-lg-12">
+            <button class="btn btn-success btn-sm" *ngIf="categories.length > 0" (click)="openOrdering()">Ordenar</button>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th *ngIf="typeMenu >= 2" scope="col">Imagen</th>
@@ -89,9 +64,6 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let category of categories ">
-
-
-
 
                             <td *ngIf="typeMenu >= 2">
                                 <img class="img-category img-profile rounded-circle" *ngIf="category.picture" [src]="category.picture" alt="category_img">
@@ -121,10 +93,10 @@
                     </tbody>
                 </table>
             </div>
-
-
-            <!-- Component no data categories -->
-            <app-no-found-data *ngIf="categories && categories.length === 0"  [message]="'No hay categorías que mostrar'"></app-no-found-data>
         </div>
+
+
+        <!-- Component no data categories -->
+        <app-no-found-data *ngIf="categories && categories.length === 0"  [message]="'No hay categorías que mostrar'"></app-no-found-data>
     </div>
 </div>
