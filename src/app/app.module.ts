@@ -14,9 +14,6 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getPaginatorTranslate } from './shared/paginator';
 import { SharedModule } from './shared/shared.module';
 import { PageNoFound404Component } from './shared/page-no-found404/page-no-found404.component';
-import { AngularFireMessagingModule } from '@angular/fire/messaging';
-import { environment } from 'src/environments/environment';
-import { FirebaseMessagingService } from './services/firebase-messaging.service';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -38,14 +35,12 @@ registerLocaleData(localeEs);
     FormsModule,
     ReactiveFormsModule,
     LayoutModule,
-    AngularFireMessagingModule,
     HttpClientModule,
     LoadingBarRouterModule,
     LoadingBarModule,
     SharedModule
   ],
   providers: [
-    FirebaseMessagingService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,

@@ -33,9 +33,6 @@ export class TabScheduleComponent implements OnInit {
     this.configService.getSchedules()
       .subscribe((data: any) => {
         const schedulesTemp: Array<any> = data.data;
-
-        console.log(schedulesTemp);
-
         this.schedulesmerchant.forEach(schedule => {
 
           const scheduleFindIndex = schedulesTemp.findIndex(scheduleTemp => scheduleTemp.id == schedule.schedule_id);
@@ -44,7 +41,6 @@ export class TabScheduleComponent implements OnInit {
             // const id = schedulesTemp[scheduleFindIndex].id;
             schedulesTemp[scheduleFindIndex] = schedule;
             // schedulesTemp[scheduleFindIndex].checked = true;
-            schedulesTemp[scheduleFindIndex].is_open = true;
             schedulesTemp[scheduleFindIndex].name = name;
             this.scheduleSelected.push(schedule);
           }
@@ -58,12 +54,9 @@ export class TabScheduleComponent implements OnInit {
   
   addSchedule(schedule) {
     this.isChangeSchedule = true;
-    if (schedule.is_open) {
       const index = this.scheduleSelected.findIndex((schedu) =>
         schedu.schedule_id === schedule.schedule_id);
 
-      // If exist schedule, then update it
-      delete schedule.is_open;
       if (index >= 0) {
         this.scheduleSelected[index] = { ...schedule };
         return;
@@ -72,9 +65,6 @@ export class TabScheduleComponent implements OnInit {
       this.scheduleSelected.push({
         ...schedule
       });
-    } else {
-      this.deleteSchedule(schedule.schedule_id);
-    }
   }
 
   deleteSchedule(scheduleId) {
