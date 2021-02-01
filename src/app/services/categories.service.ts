@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoriesService {
   merchant: Merchant;
+  searchText;
 
   constructor(private http: HttpClient) {
     this.merchant = JSON.parse(localStorage.getItem('merchant'));

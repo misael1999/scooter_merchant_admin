@@ -41,8 +41,6 @@ export class CategoryListComponent implements OnInit {
     }
   }
 
-  openOrdering(){
-    this.router.navigate(['/categories/ordering']);
-  }
+  
 
 }

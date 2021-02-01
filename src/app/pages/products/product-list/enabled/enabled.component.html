@@ -1,78 +1,82 @@
-<div class="container-fluid mt-3">
-    <div>
-        <div class="filters mb-3">
-            <div class="row d-flex justify-content-end">
+<div class="row">
+    <div class="col-md-12 col-lg-12 p-t-10">
+        <div class="row">
 
-                <!-- Ordering products  -->
-                <div class="col-lg-3">
-                    <select class="form-control select-form" (change)="orderBy($event.target.value)">
+
+            <!-- Ordering -->
+            <div class="col-md-3 col-lg-3 col-sm-12 p-b-10">
+                <select class="form-control select-form" (change)="orderBy($event.target.value)">
                         <option>Ordenar por:</option>
                         <option value="name">Ordenar de A a Z</option>
                         <option value="-name">Ordenar de Z a A</option>
                         <option value="-created">Ordenar de reciente a antiguo</option>
                         <option value="created">Ordenar de antiguo a reciente</option>
                     </select>
-                </div>
-                <!-- End Ordering products  -->
+            </div>
+            <!-- End Ordering -->
 
-                <!-- Ordering products  -->
-                <div class="col-lg-3">
-                    <select class="form-control select-form" (change)="showList($event.target.value)">
+
+            <!-- Show view by -->
+            <div class="col-md-3 col-lg-3 col-sm-12 p-b-10">
+                <select class="form-control select-form" [(ngModel)]="params.status" (change)="showList($event.target.value)">
                         <option>Ver por:</option>
                         <option value="1">Disponibles</option>
                         <option value="2">Bloqueados </option>
                     </select>
-                </div>
-                <!-- End Ordering products  -->
+            </div>
+            <!-- End show view by -->
 
-                <div class="col-lg-3">
-                </div>
 
-                <!-- Search products -->
-                <div class="col-lg-3">
-                    <div class="input-group mb-3">
-                        <input #searchInput (keyup.enter)="searchBy(searchInput.value)" type="text" class="form-control fm-size" placeholder="Buscar por nombre" aria-label="Username" aria-describedby="basic-addon1">
-                        <div class="input-group-prepend cursor" (click)="searchBy(searchInput.value)">
-                            <span class="input-group-text" id="basic-addon1">
-                                <i class="fas fa-search"></i>
-                            </span>
-                        </div>
+            <div class="col-lg-3"></div>
+
+
+            <!-- Search products -->
+            <div class="col-md-3 col-lg-3 col-sm-12 ">
+                <div class="input-group">
+                    <input #searchInput (keyup.enter)="searchBy(searchInput.value)" [(ngModel)]="searchText" type="text " class="form-control fm-size " placeholder="Buscar por nombre " aria-label="Username " aria-describedby="basic-addon1 ">
+                    <div class="input-group-prepend cursor " (click)="searchBy(searchInput.value) ">
+                        <span *ngIf="!params.search" class="input-group-text " id="basic-addon1 ">
+                    <i class="fas fa-search "></i>
+                </span>
+                        <span *ngIf="params.search != ''" (click)="clearSearch()" class="input-group-text cursor" id="basic-addon2">
+                    <i class="fas fa-times-circle"></i>
+                </span>
                     </div>
                 </div>
-                <!-- End Search products -->
+            </div>
+            <!-- End Search products -->
+
+
+        </div>
+    </div>
+
+
+
+
+    <div class="col-md-12 col-lg-12 p-t-15">
+
+
+        <!-- Preloader -->
+        <div class="col-lg-12 d-flex justify-content-center" *ngIf="loadingProduct">
+            <div class="spinner-border text-primary my-5" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
         </div>
-
-        <!-- Table products -->
-        <div class="row" class="content">
-
-            <!-- Paginator  -->
-            <div class="col-lg-12 d-flex justify-content-end">
-                <mat-paginator [disabled]="!products || products.length===0" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getPage($event)"></mat-paginator>
-            </div>
-            <!-- End paginator -->
-
-            <!-- Preloader  -->
-            <div class="col-lg-12 d-flex justify-content-center" *ngIf="!products">
-                <div class="spinner-border text-primary my-5" role="status">
-                    <span class="sr-only">Cargando productos...</span>
-                </div>
-            </div>
-            <!-- End Preloader -->
+        <!-- End Preloader -->
 
 
-            <div class="col-md-12" *ngIf="products && products.length > 0">
-                <table class="table  table-bordered">
+        <div class="col-md-12 col-lg-12" *ngIf="!loadingProduct && products.length > 0">
+            <div class="table-responsive">
+                <table class="table table-bordered">
                     <thead>
                         <tr class="">
-                            <th scope="col">Imagen</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Categoría</th>
-                            <th *ngIf="typeMenu >= 2" scope="col">Subcategoría</th>
-                            <!-- <th *ngIf="typeMenu >= 3" scope="col">Sección</th> -->
-                            <th scope="col">Precio</th>
-                            <th scope="col">Disponibilidad</th>
-                            <th scope="col" class="text-center">Acciones</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th *ngIf="typeMenu >= 2">Subcategoría</th>
+                            <th style="width: 6%;">Precio</th>
+                            <th style="width: 8%;">Disponibilidad</th>
+                            <th class="text-center" style="width: 10%;">Acciones</th>
                         </tr>
                     </thead>
 
@@ -86,33 +90,36 @@
                             <td> {{product.name}}</td>
                             <td> {{product.category.name}}</td>
                             <td *ngIf="typeMenu >= 2"> {{product.subcategory?.name}}</td>
-                            <!-- <td *ngIf="typeMenu >= 3"> {{product.section?.name}}</td> -->
                             <td> $ {{product.price }}</td>
-                            <td>
-                                <!-- {{product.is_available ? 'Disponible': 'No disponible'}} -->
-                                <!-- <mat-slide-toggle [(ngModel)]="product.is_available" (click)="changeAvailable(product.is_available)">{{product.is_available ? 'Disponible': 'Agotado'}}</mat-slide-toggle> -->
-                            </td>
                             <td class="text-center">
-                                <button *ngIf="params.status == 1" class="btn btn-Editt" routerLink="/products/modify/{{product.id}}">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </button>
+                                <small>{{product.is_available ? 'con stock': 'agotado'}}</small><br>
+                                <!-- {{product.is_available ? 'Disponible': 'No disponible'}} -->
+                                <mat-slide-toggle [(ngModel)]="product.is_available"></mat-slide-toggle>
+                            </td>
 
-                                <button *ngIf="params.status == 1" class="btn btn-Delete" (click)="deleteCategory(product.id, product.name)">
-                                    <i class="fas fa-lock"></i>
-                                </button>
-                                <button *ngIf="params.status == 2" class="btn bt-activate" (click)="activateProduct(product)">
-                                    <i class="fas fa-lock-open"></i>
-                                </button>
+
+                            <td class="text-center">
+                                <button *ngIf="params.status == 1" class="btn btn-info btn-sm m-5" style="width: 90%;" routerLink="/products/modify/{{product.id}}">Editar</button>
+                                <button *ngIf="params.status == 1" class="btn btn-primary btn-sm" style="width: 90%;" (click)="deleteCategory(product)">Bloquear</button>
+                                <button *ngIf="params.status == 2" class="btn btn-info btn-sm" style="width: 90%;" (click)="unLock(product)">Activar</button>
                             </td>
                         </tr>
                     </tbody>
-
-
                 </table>
             </div>
-            <app-no-found-data *ngIf="products && products.length === 0"  [message]="'No hay productos que mostrar'">
-            </app-no-found-data>
         </div>
-        <!-- End table products -->
+
+
+        <!-- Paginator  -->
+        <div class="col-lg-12 d-flex justify-content-end"  *ngIf="!loadingProduct && products.length > 0">
+            <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getPage($event)"></mat-paginator>
+        </div>
+        <!-- End paginator -->
+
+
+        <!-- Component no data -->
+        <app-no-found-data *ngIf="products && products.length === 0"  [message]="'No hay productos que mostrar'">
+        </app-no-found-data>
+        <!-- End component no data -->
     </div>
 </div>

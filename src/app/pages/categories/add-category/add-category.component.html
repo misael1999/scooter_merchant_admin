@@ -1,8 +1,7 @@
 <h1 mat-dialog-title class="d-flex justify-content-between">
-
-    {{id != null ? 'Editar': 'Agregar' }} Categoría
-    <button mat-dialog-close mat-flat-button class="btn ">
-        <i class="far fa-times-circle"></i>
+    {{id != null ? 'Editar': 'Agregar' }} categoría
+    <button mat-dialog-close mat-flat-button class="btn btn-light">
+        <i class="anticon anticon-close"></i>
     </button>
 </h1>
 
@@ -13,25 +12,17 @@
             <form [formGroup]="group" class="user" (ngSubmit)="sendData(group.value)">
                 <div class="form-group">
                     <label>Nombre</label>
-                    <input formControlName="name" [ngClass]="{'is-invalid': isFieldInvalid(group, 'name'), 'is-valid': isFieldValid(group, 'name')}" type="text" class="form-control" placeholder="Nombre de la categoría">
+                    <input formControlName="name" [ngClass]="{'is-invalid': isFieldInvalid(group, 'name'), 'is-valid': isFieldValid(group, 'name')}" type="text" class="form-control" placeholder="Nombre">
                     <!-- MESSAGES ERRORS  -->
                     <div class="invalid-feedback">
                         <span *ngIf="hasFieldError(group, 'name','required')">El nombre es requerido</span>
                     </div>
                 </div>
-
-     <!--            <div class="form-row" *ngIf="typeMenu >= 2">
-                    <div class="form-group col-md-6">
-                        <label>Imagen</label>
-                        <input type="file" class="form-control" placeholder="Elige una imagen" (change)="handlePickUpImage($event)">
-                    </div>
-                    <img *ngIf="imageURL" class="img-fluid col-md-6" [src]="imageURL" alt="category_picture" width="40%">
-                </div> -->
                 <hr>
-                <div>
-                    <button [disabled]="loadingSave" [disabled]="group.invalid" class="btn btn-primary align-items-end">
-                        <span>Guardar</span>
-                        
+                <div class="d-flex justify-content-end">
+                    <button mat-button mat-dialog-close class="btn btn-light btn-sm m-r-20">Cancelar</button>
+                    <button [disabled]="loadingSave" [disabled]="group.invalid" class="btn btn-primary btn-sm align-items-end">
+                        <span>Guardar</span>                        
                         <div *ngIf="loadingSave" class="spinner-border text-warning" role="status">
                             <span class="sr-only">Loading...</span>
                           </div>

@@ -5,7 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ValidationForms } from 'src/app/utils/validations-forms';
 import { Router } from '@angular/router';
 
@@ -19,6 +19,7 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
   categories: Category[];
   typeMenu;
   orderCategory: boolean;
+  searchText;
   @Output() openEditDialog = new EventEmitter<Category>();
 
   params = {
@@ -28,6 +29,7 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     ordering: '',
     status: 1
   };
+  loadingCategories: boolean;
 
   // MatPaginator Inputs
   length = 100;
@@ -36,8 +38,8 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  constructor(private categoriesService: CategoriesService, private router: Router) { 
-    super(); 
+  constructor(private categoriesService: CategoriesService, private router: Router) {
+    super();
   }
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     this.getCategories(this.params);
   }
 
-  openOrdering(){
+  openOrdering() {
     this.router.navigate(['/categories/ordering']);
   }
 
@@ -58,7 +60,7 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     this.getCategories(this.params);
   }
 
-  
+
 
   blockCategory(id) {
     this.categoriesService.unlockCategory(id)
@@ -72,13 +74,13 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
   activeCategory(category) {
     this.categoriesService.unlockCategory(category.id)
       .subscribe((data) => {
-        console.log(data);
-        this.showMessageConfirm('Categoría activada');
-        this.getCategories(this.params);
+        this.showSwalMessage('Categoría activada');
+        this.showList(this.params.status = 1);
       }, error => {
-        this.showSwalMessage(error.errors.message);
+        this.showSwalMessage('Error al activar');
       });
   }
+
 
   deleteCategory(id, nombre) {
     Swal.fire({
@@ -114,9 +116,9 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
     }
   }
 
@@ -125,8 +127,16 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     this.categoriesSubscription.unsubscribe();
   }
 
-  searchBy(search: string): void {
-    this.params.search = search;
+  searchBy(value: string) {
+    this.params.search = value;
+    this.categoriesService.searchText = value;
+    this.getCategories(this.params);
+  }
+
+  clearSearch() {
+    this.params.search = '';
+    this.categoriesService.searchText = '';
+    this.searchText = "";
     this.getCategories(this.params);
   }
 
@@ -139,13 +149,20 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     if (this.categoriesSubscription) {
       this.categoriesSubscription.unsubscribe();
     }
+    this.loadingCategories = true;
     this.categoriesSubscription = this.categoriesService
       .getCategories(params)
       .subscribe((data: any) => {
         this.categories = data.results;
+        this.loadingCategories = false;
         this.length = data.count;
+      }, error => {
+        this.loadingCategories = false;
       });
   }
+
+
+
 
   getPage(e: any): PageEvent {
     if (this.categories.length === 0) {
@@ -156,5 +173,5 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     this.params.offset = this.params.limit * e.pageIndex;
     this.getCategories(this.params);
   }
-  
+
 }

@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Product } from 'src/app/models/product.model';
-import { Category } from 'src/app/models/category.model';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { ProductsService } from 'src/app/services/products.service';
-import { CategoriesService } from 'src/app/services/categories.service';
 import Swal from 'sweetalert2';
 import { ValidationForms } from '../../../../utils/validations-forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-enabled',
@@ -14,8 +12,10 @@ import { ValidationForms } from '../../../../utils/validations-forms';
   styleUrls: ['./enabled.component.scss']
 })
 export class EnabledComponent extends ValidationForms implements OnInit, OnDestroy {
-  products: Product[];
+  availabilityForm: FormGroup;
+  products;
   productsSubscription: Subscription;
+  loadingProduct;
 
   // MatPaginator Inputs
   length = 100;
@@ -24,38 +24,32 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  params = {
-    limit: 25,
-    offset: 0,
-    search: '',
-    ordering: '',
-    status: 1
-  };
+  params = { limit: 25, offset: 0, search: '', ordering: '', status: 1 };
   typeMenu;
+  searchText;
 
-  constructor(private productService: ProductsService) {
+  constructor(private productService: ProductsService, private fb: FormBuilder,) {
     super();
     this.typeMenu = localStorage.getItem('type_menu');
   }
 
   ngOnInit(): void {
-    this.getProducts(this.params);
+    this.getProducts();
   }
 
   showList(status) {
     this.params.status = status;
-    this.getProducts(this.params);
+    this.getProducts();
   }
 
 
   ngOnDestroy(): void {
-    this.productsSubscription.unsubscribe();
   }
 
-  deleteCategory(id, name) {
+  deleteCategory(product) {
     Swal.fire({
-      title: 'Desactivar',
-      text: `Esta seguro de desactivar a: ${name}`,
+      title: 'Bloquear',
+      text: `Esta seguro de bloquear: ${product.name}`,
       type: 'warning',
       showConfirmButton: true,
       confirmButtonText: 'Bloquear',
@@ -63,13 +57,13 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
       cancelButtonText: 'Cancelar',
     }).then(resp => {
       if (resp.value) {
-        this.productService.deleteProduct(id)
+        this.productService.deleteProduct(product.id)
           .subscribe(data => {
-            this.getProducts(this.params);
+            this.getProducts();
             Swal.fire({
               title: 'Bloqueado',
               type: 'success',
-              text: 'El producto ha sido desactivado',
+              text: 'El producto ha sido bloqueado',
               timer: 1500
             });
           });
@@ -77,56 +71,45 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     });
   }
 
-  // changeAvailable(product) {
-  //   const productTemp = product;
-  //   if (productTemp.is_available == true) {
-  //     productTemp.is_available == false;
-  //     this.productService.updateProduct(productTemp)
-  //       .subscribe((data: any) => {
-  //         return;
-  //       });
-  //   }
-  //   productTemp.is_available == true;
-  //   this.productService.updateProduct(product)
-  //     .subscribe((data: any) => {
-  //       return
-  //     });
-  // }
-
-  activateProduct(product) {
-    const productTemp: Product = product;
-    if (productTemp.is_available == true) {
-      productTemp.is_available = false;
-      this.productService.updateProduct(productTemp)
-        .subscribe((data: any) => {
-          return;
-        });
-    }
+  unLock(product) {
+    this.productService.unlockProduct(product)
+      .subscribe((data) => {
+        this.showSwalMessage('Producto activado');
+        this.showList(this.params.status = 1)
+      }, error => {
+        this.showSwalMessage('Error al activar')
+      });
   }
 
+  getProducts() {
+    this.loadingProduct = true;
+    this.productService.getProducts(this.params)
+      .subscribe((data: any) => {
+        this.products = data.results;
+        // console.log(this.products);
+        this.length = data.count;
+        this.loadingProduct = false;
+      }, error => {
+        this.loadingProduct = false;
+      })
+  }
 
+  searchBy(value: string) {
+    this.params.search = value;
+    this.productService.searchText = value;
+    this.getProducts()
+  }
 
-
-  searchBy(search: string): void {
-    this.params.search = search;
-    this.getProducts(this.params);
+  clearSearch() {
+    this.params.search = '';
+    this.productService.searchText = '';
+    this.searchText = "";
+    this.getProducts();
   }
 
   orderBy(orderValue: string): void {
     this.params.ordering = orderValue;
-    this.getProducts(this.params);
-  }
-
-  getProducts(params = {}): void {
-    if (this.productsSubscription) {
-      this.productsSubscription.unsubscribe();
-    }
-    this.productsSubscription = this.productService.getProducts(params)
-      .subscribe((data: any) => {
-        this.products = data.results;
-        console.log(this.products);
-        this.length = data.count;
-      });
+    this.getProducts();
   }
 
   getPage(e: any): PageEvent {
@@ -136,7 +119,6 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     }
     this.params.limit = e.pageSize;
     this.params.offset = this.params.limit * e.pageIndex;
-    this.getProducts(this.params);
+    this.getProducts();
   }
-
 }

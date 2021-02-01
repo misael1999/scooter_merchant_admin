@@ -1,3 +1,13 @@
+.example-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.example-radio-button {
+    margin: 5px;
+}
+
 .example-margin {
     margin: 0 10px;
 }
@@ -8,7 +18,7 @@ ul {
 }
 
 .content {
-    background-color: #ffffff;
+    background-color: #fffffd !important;
     border-radius: 2px;
 }
 
@@ -21,7 +31,38 @@ ul {
     background-color: 787D8C;
 }
 
+// =============
+.cardE {
+    padding: 20px;
+    .title {
+        font-size: 16px;
+        color: #000000;
+        font-weight: bold;
+    }
+    .title-underline {
+        width: 60px;
+        height: 2px;
+        border: 1px solid #ff1515;
+        margin-bottom: 8px;
+    }
+}
+
+.cardI {
+    margin-top: 0px;
+    margin-left: 20px;
+    margin-bottom: 0px;
+    // margin: 20px, 0px;
+    padding-right: 10px;
+    padding-left: 15px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    width: 100%;
+}
+
 .badge {
     width: 6%;
+    // margin-top: 1px;
+    padding: 1px;
+    // margin-bottom: 1px;
     background-color: #787D8C !important;
 }

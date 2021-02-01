@@ -1,12 +1,10 @@
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-flex-start mb-4">
-        <div class="col-md-5">
-            <h1 class="h3 mb-0 text-gray-800">Productos</h1>
-        </div>
-        <div class="col-md-5"></div>
-        <div class="col-md-2">
-            <a class="btn btn-sm btn-secondary btn-block" [routerLink]="['/products', 'add']">Agregar</a>
-        </div>
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between">
+        <h1 class="h3 text-gray-800 p-b-5">Productos</h1>
+        <button class="btn btn-primary btn-sm" routerLink="/products/add">Agregar</button>
     </div>
+
     <app-enabled></app-enabled>
+
 </div>

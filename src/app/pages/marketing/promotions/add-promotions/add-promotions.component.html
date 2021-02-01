@@ -1,71 +1,264 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-flex-start">
         <div class="col-md-10">
-            <h1 class="h3 mb-0 text-gray-800">Agregar promoción</h1>
+            <h1 class="h3 text-gray-800">Agregar promoción</h1>
         </div>
     </div>
 
 
+
     <div class="row d-flex justify-content-center">
-        <div class="col-md-10 col-lg-10 p-t-30">
+        <div class="col-md-10 col-lg-10 p-t-25">
             <div class="content p-30">
 
-                <div class="d-flex justify-content-center p-b-20">
-                    <h5 class="text-center">Danos los detalles y crearemos tu promoción instantánea con una lista completa para ser mas efectiva.</h5>
-                </div>
 
 
                 <form>
 
-                    <div class="card p-20">
+                    <!-- Add name promotion -->
+                    <div class="card cardE">
                         <span class="badge badge-secondary">Paso 1</span>
+                        <span class="title">Elige un nombre</span>
+                        <span class="title-underline"></span>
                         <div class="form-group">
                             <div class="form-row">
-                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                <div class="col-md-12 col-lg-12 col-sm-12">
                                     <label>Nombre</label>
                                     <input class="form-control" type="text" placeholder="Martes de alitas...">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- End ad name promotion -->
 
 
 
 
-                    <div class="card p-20">
+                    <div class="card cardE">
                         <span class="badge badge-secondary">Paso 2</span>
-                        <h5>Cantidad de descuento</h5>
+                        <span class="title">Elige el tipo de descuento</span>
+                        <span class="title-underline"></span>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12 col-lg-12 col-sm-12">
+
+                                    <mat-radio-group class="example-radio-group">
+                                        <mat-radio-button value="1" class="example-radio-button">
+                                            Cantidad fija
+                                        </mat-radio-button>
+
+                                        <div class="row">
+                                            <div class="col-md-10 d-flex justify-content-between">
+                                                <div class="card cardI">
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+                                                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                                                <label>Cantidad</label>
+                                                                <input type="number" class="form-control" placeholder="$10">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <mat-radio-button value="2" class="example-radio-button">
+                                            Porcentaje
+                                        </mat-radio-button>
+
+                                        <div class="row">
+                                            <div class="col-md-10 d-flex justify-content-between">
+                                                <div class="card cardI">
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+                                                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                                                <label>Elige el porcentaje</label>
+                                                                <select class="form-control">
+                                                                    <option>20%</option>
+                                                                    <option>40%</option>
+                                                                    <option>60%</option>
+                                                                    <option>80%</option>
+                                                                    <option>100%</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <mat-radio-button value="3" class="example-radio-button">
+                                            Totalidad de envío
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card cardE">
+                        <span class="badge badge-secondary">Paso 3</span>
+                        <span class="title">Define tus reglas </span>
+                        <span class="title-underline"></span>
 
                         <div class="form-group">
                             <div class="form-row">
-                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                <div class="col-md-12 col-lg-12 col-sm-12">
 
-                                    <section class="example-section">
-                                        <span class="example-list-section">
-                                          
-                                          <ul>
-                                            <li >
-                                              <mat-checkbox >
-                                                Cantidad fija a descontar
-                                                
-                                            </mat-checkbox> <br>
-                                            <span>loremkdkd</span>
-                                        </li>
-                                        <li>
-                                            <mat-checkbox>
-                                                Porcentaje a descontar
-                                            </mat-checkbox>
-                                        </li>
-                                        <li>
-                                            <mat-checkbox>
-                                                Envio gratis
-                                            </mat-checkbox>
-                                        </li>
+                                    <mat-radio-group class="example-radio-group">
+                                        <mat-radio-button value="1" class="example-radio-button">
+                                            Compra mínima
+                                        </mat-radio-button>
+                                        <div class="row">
+                                            <div class="col-md-10 d-flex justify-content-between">
+                                                <div class="card cardI">
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+                                                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                                                <label>Compra minima</label>
+                                                                <input type="number" class="form-control" placeholder="$300">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <mat-radio-button value="2" class="example-radio-button">
+                                            Otra
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                        </ul>
-                                        </span>
 
-                                    </section>
+                    <div class="card cardE">
+                        <span class="badge badge-secondary">Paso 4</span>
+                        <span class="title">Establece un periodo de fechas </span>
+                        <span class="title-underline"></span>
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12 col-lg-12 col-sm-12">
+
+
+                                    <mat-radio-group class="example-radio-group">
+                                        <mat-radio-button value="1" class="example-radio-button">
+                                            Periódicamente
+                                        </mat-radio-button>
+                                        <div class="row">
+                                            <div class="col-md-10 d-flex justify-content-between">
+                                                <div class="card cardI">
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+                                                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                                                <label>Días disponibles</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <mat-radio-button value="2" class="example-radio-button">
+                                            Rango de fechas
+                                        </mat-radio-button>
+                                        <div class="row">
+                                            <div class="col-md-10 d-flex justify-content-between">
+                                                <div class="card cardI">
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+                                                            <div class="col-md-12 col-lg-12 col-sm-12">
+
+                                                                <div class="col-md-6">
+                                                                    <mat-form-field appearance="fill">
+                                                                        <mat-label>Dia de inicio</mat-label>
+                                                                        <input matInput [min]="minDate" [matDatepicker]="pickerMin">
+                                                                        <mat-datepicker-toggle matSuffix [for]="pickerMin"></mat-datepicker-toggle>
+                                                                        <mat-datepicker #pickerMin></mat-datepicker>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <mat-form-field appearance="fill">
+                                                                        <mat-label>Día de finalización</mat-label>
+                                                                        <input matInput [max]="maxDate" [matDatepicker]="pickerMax">
+                                                                        <mat-datepicker-toggle matSuffix [for]="pickerMax"></mat-datepicker-toggle>
+                                                                        <mat-datepicker #pickerMax></mat-datepicker>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-radio-group>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card cardE">
+                        <span class="badge badge-secondary">Paso 5</span>
+                        <span class="title">Establece un presupuesto </span>
+                        <span class="title-underline"></span>
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <span>Establece un monto máximo o la cantidad de pedidos que desees gastar</span>
+                                <div class="col-md-12 col-lg-12 col-sm-12">
+
+
+                                    <mat-radio-group class="example-radio-group">
+                                        <mat-radio-button value="1" class="example-radio-button">
+                                            Monto de presupuesto
+                                        </mat-radio-button>
+                                        <div class="row">
+                                            <div class="col-md-10 d-flex justify-content-between">
+                                                <div class="card cardI">
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+                                                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                                                <label>Monto de presupuesto</label>
+                                                                <input type="number" class="form-control" placeholder="$500.00">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <mat-radio-button value="2" class="example-radio-button">
+                                            Monto por pedidos
+                                        </mat-radio-button>
+                                        <div class="row">
+                                            <div class="col-md-10 d-flex justify-content-between">
+                                                <div class="card cardI">
+                                                    <div class="form-group">
+                                                        <div class="form-row">
+                                                            <div class="col-md-12 col-lg-12 col-sm-12">
+                                                                <label>Cantidad de pedidos</label>
+                                                                <input type="number" class="form-control" placeholder="50">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <mat-radio-button value="3" class="example-radio-button">
+                                            Indeterminado
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+
                                 </div>
                             </div>
                         </div>
@@ -75,7 +268,12 @@
 
 
 
-                    <div class="card p-20">
+
+
+
+
+
+                    <!-- <div class="card p-20">
                         <span class="badge badge-secondary">Paso 2</span>
                         <div class="form-group">
                             <div class="form-row">
@@ -99,10 +297,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <div class="form-row">
                             <div class="col-lg-12">
                                 <label>Periodo por dias</label>
@@ -126,9 +324,9 @@
 
 
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <div class="form-row">
                             <div class="col-lg-12">
                                 <label>Periodo por horas</label>
@@ -144,7 +342,7 @@
 
 
                         </div>
-                    </div>
+                    </div> -->
 
 
 
@@ -159,18 +357,18 @@
                     </div> -->
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <div class="form-row">
                             <div class="col-lg-12">
                                 <label>Presupuesto</label>
                                 <input type="text" class="form-control">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <div class="form-row">
                             <div class="col-lg-12">
                                 <label>Reglas</label>
@@ -180,10 +378,10 @@
                                 </section>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <div class="form-row">
                             <div class="col-lg-6">
                                 <label>Monto minimo a gastar</label>
@@ -199,14 +397,11 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <div class="form-row d-flex justify-content-between">
-
-
-                            <!-- <label> Elige la cantidad de productos</label> -->
                             <div class="col-lg-6">
                                 <label>Cantidad a comprar</label>
                                 <select class="form-control">
@@ -227,19 +422,16 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <div class="form-row d-flex justify-content-between">
-
-
-                            <!-- <label> Elige la cantidad de productos</label> -->
                             <div class="col-lg-6">
 
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
                 </form>
