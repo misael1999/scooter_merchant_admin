@@ -4,7 +4,7 @@ import { AuthGuard } from '../services/guards/auth.guard';
 import { RefreshTokenGuard } from '../services/guards/refresh-token.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'activate', pathMatch: 'full' },
   {
     path: 'dashboard',
     canActivate: [AuthGuard, RefreshTokenGuard],

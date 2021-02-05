@@ -6,12 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-promotions.component.scss']
 })
 export class AddPromotionsComponent implements OnInit {
-  // discountRate = { permanent: false, percentage: false, total: null };
-  discountRate = false;
+  discountRate = { permanent: false, percentage: false, total: null };
+  // discountRate = false;
 
 
   rule1: boolean;
   rule2: boolean;
+  rule3: boolean;
   minDate: Date;
   maxDate: Date;
 
@@ -23,7 +24,7 @@ export class AddPromotionsComponent implements OnInit {
 
 
   select(value) {
-    this.discountRate = value == 'true' ? true : false;
+    // this.discountRate = value == 'true' ? true : false;
   }
 
   ngOnInit(): void {

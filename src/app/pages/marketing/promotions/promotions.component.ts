@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./promotions.component.scss']
 })
 export class PromotionsComponent implements OnInit {
+  loadingPromotions: boolean;
+  promotions: Array<any> = [1];
 
   constructor() { }
 

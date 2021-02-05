@@ -85,7 +85,7 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
   deleteCategory(id, nombre) {
     Swal.fire({
       title: 'Bloquear',
-      text: `Esta seguro de bloquear a ${nombre}`,
+      text: `Esta seguro de bloquear a: ${nombre}`,
       type: 'warning',
       showConfirmButton: true,
       confirmButtonText: 'Bloquear',

@@ -4,7 +4,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { ProductsService } from 'src/app/services/products.service';
 import Swal from 'sweetalert2';
 import { ValidationForms } from '../../../../utils/validations-forms';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Product } from '../../../../models/product.model';
 
 @Component({
   selector: 'app-enabled',
@@ -14,6 +15,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class EnabledComponent extends ValidationForms implements OnInit, OnDestroy {
   availabilityForm: FormGroup;
   products;
+  productUpdate: Product;
   productsSubscription: Subscription;
   loadingProduct;
 
@@ -31,6 +33,10 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
   constructor(private productService: ProductsService, private fb: FormBuilder,) {
     super();
     this.typeMenu = localStorage.getItem('type_menu');
+    // this.buildAvailable(this.productUpdate);
+    // this.availabilityForm = this.fb.group({
+    //   is_available: ['', Validators.requiredTrue]
+    // })
   }
 
   ngOnInit(): void {
@@ -71,6 +77,46 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     });
   }
 
+
+  onFormSubmit() {
+    if (this.availabilityForm.invalid) {
+      this.availabilityForm.markAllAsTouched();
+      return;
+    }
+
+    // const product = this.availabilityForm.value;
+
+    this.productService.updateProduct(this.availabilityForm.value)
+      .subscribe((data) => {
+        console.log('actulizado')
+      }, error => {
+        console.log('error');
+
+      });
+    // alert(JSON.stringify(this.availabilityForm.value, null, 2));
+  }
+
+
+
+
+  changeAvailable(product) {
+    // const product = this.availabilityForm.value;
+    this.productService.changeAvailable({is_available: product.is_available, id:product.id})
+      .subscribe((data) => {
+        console.log('actulizado')
+      }, error => {
+        console.log('error');
+
+      });
+  }
+
+  buildAvailable(product) {
+    this.availabilityForm = this.fb.group({
+      is_available: [product.is_available]
+    })
+  }
+
+
   unLock(product) {
     this.productService.unlockProduct(product)
       .subscribe((data) => {
@@ -86,7 +132,6 @@ export class EnabledComponent extends ValidationForms implements OnInit, OnDestr
     this.productService.getProducts(this.params)
       .subscribe((data: any) => {
         this.products = data.results;
-        // console.log(this.products);
         this.length = data.count;
         this.loadingProduct = false;
       }, error => {

@@ -31,6 +31,10 @@ export class ProductsService {
   updateProduct(product: Product): Observable<any> {
     return this.http.patch(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/products/${product.id}/`, { ...product });
   }
+  
+  changeAvailable(product): Observable<any> {
+    return this.http.patch(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/products/${product.id}/`, { ...product });
+  }
 
   deleteProduct(id: Product): Observable<any> {
     return this.http.delete(`${environment.HOST_APIV1}/merchants/${this.merchant.id}/products/${id}/`);

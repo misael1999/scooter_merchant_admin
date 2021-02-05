@@ -41,7 +41,7 @@ export class MainStatementComponent implements OnInit {
     this.loadingData = true;
     this.statisticsService.getSummaryData({ month })
       .subscribe((data) => {
-        console.log(data);
+        // console.log(data);
         this.dataSummary = data;
         this.loadingData = false;
       }, error => {

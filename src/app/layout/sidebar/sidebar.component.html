@@ -67,15 +67,35 @@
             </li>
 
             <!-- ====  -->
-            <li routerLink="/marketing" routerLinkActive="active" class="nav-item dropdown">
+            <!-- <li routerLink="/marketing" routerLinkActive="active" class="nav-item dropdown">
                 <a>
                     <span class="icon-holder">
                         <i class="anticon anticon-notification"></i>
-                        <!-- <i class="anticon anticon-line-chart"></i> -->
-                        <!-- <i class="anticon <i class="anticon anticon-line-chart"></i> line-chart"></i> -->
                     </span>
                     <span class="title">Marketing</span>
                 </a>
+            </li> -->
+
+
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-notification"></i>
+                    </span>
+                    <span class="title">Marketing</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li routerLink="/marketing/promotions" routerLinkActive="active">
+                        <a>Promociones</a>
+                    </li>
+                    <li routerLink="/marketing/campaing" routerLinkActive="active">
+                        <a>Campañas</a>
+                    </li>
+
+                </ul>
             </li>
 
             <!-- ====  -->

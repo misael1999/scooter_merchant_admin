@@ -67,7 +67,7 @@
 
         <div class="col-md-12 col-lg-12" *ngIf="!loadingProduct && products.length > 0">
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-sm">
                     <thead>
                         <tr class="">
                             <th>Imagen</th>
@@ -83,7 +83,7 @@
 
                     <tbody>
                         <tr *ngFor="let product of products ">
-                            <td>
+                            <td class="text-center">
                                 <img class="img-category img-profile rounded-circle" *ngIf="product.picture" [src]="product.picture" alt="category_img">
                                 <img class="img-category img-profile rounded-circle" *ngIf="product.picture === null" src="assets/img/bolsa.svg" alt="category_img">
                             </td>
@@ -93,8 +93,7 @@
                             <td> $ {{product.price }}</td>
                             <td class="text-center">
                                 <small>{{product.is_available ? 'con stock': 'agotado'}}</small><br>
-                                <!-- {{product.is_available ? 'Disponible': 'No disponible'}} -->
-                                <mat-slide-toggle [(ngModel)]="product.is_available"></mat-slide-toggle>
+                                <mat-slide-toggle (change)="changeAvailable(product)" [(ngModel)]="product.is_available"></mat-slide-toggle>
                             </td>
 
 
