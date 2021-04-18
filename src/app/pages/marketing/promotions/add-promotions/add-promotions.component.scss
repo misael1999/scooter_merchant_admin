@@ -1,11 +1,64 @@
+.content {
+    background-color: #fffffd !important;
+    border-radius: 2px;
+    .card {
+        padding: 20px;
+        border: solid 2px #787D8C;
+        .badge {
+            width: 7%;
+            padding: .5px;
+            background-color: #787D8C !important;
+        }
+        .title {
+            font-size: 15px;
+            color: #000000;
+            font-weight: bold;
+        }
+        .title-underline {
+            width: 70px;
+            height: 2px;
+            border: 1px solid #ff1515;
+            margin-bottom: 8px;
+        }
+        .data {
+            margin-left: 30px;
+            padding: 10px 15px;
+            width: 90%;
+            justify-content: end;
+            .tags {
+                display: flex;
+                padding-top: -2rem !important;
+                padding-right: -2rem !important;
+                margin-top: -.8rem !important;
+                .tag {
+                    padding: 2px 6px;
+                    width: auto;
+                    font-size: 100%;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin-left: 10px;
+                    margin-top: 5px;
+                    border: 1px solid #ff1515;
+                    color: #ff1515;
+                    &.disabled {
+                        color: #b6acac;
+                        border-color: #b6acac;
+                    }
+                }
+            }
+        }
+    }
+}
+
 .example-radio-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 5px;
 }
 
 .example-radio-button {
-    margin: 5px;
+    margin-left: 0px;
+    margin-right: 20px;
 }
 
 .example-margin {
@@ -17,52 +70,6 @@ ul {
     margin-top: 4px;
 }
 
-.content {
-    background-color: #fffffd !important;
-    border-radius: 2px;
-}
-
-.card {
-    background-color: #fffffb;
-}
-
-.step {
-    background: black;
-    background-color: 787D8C;
-}
-
-// =============
-.cardE {
-    padding: 20px;
-    .title {
-        font-size: 16px;
-        color: #000000;
-        font-weight: bold;
-    }
-    .title-underline {
-        width: 60px;
-        height: 2px;
-        border: 1px solid #ff1515;
-        margin-bottom: 8px;
-    }
-}
-
-.cardI {
-    margin-top: 0px;
-    margin-left: 20px;
-    margin-bottom: 0px;
-    // margin: 20px, 0px;
-    padding-right: 10px;
-    padding-left: 15px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    width: 100%;
-}
-
-.badge {
-    width: 6%;
-    // margin-top: 1px;
-    padding: 1px;
-    // margin-bottom: 1px;
-    background-color: #787D8C !important;
+mat-form-field {
+    margin-right: 12px;
 }

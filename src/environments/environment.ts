@@ -4,11 +4,8 @@
 
 export const environment = {
   production: false,
-  // link para produccion
-  HOST_APIV1: 'https://api.lospedidos.site/api/v1',
-  // link para pruebas
-  // HOST_APIV1: 'https://dev.lospedidos.site/api/v1',
-
+  // HOST_APIV1: 'https://api.lospedidos.site/api/v1',
+  HOST_APIV1: 'https://dev.lospedidos.site/api/v1',
   // HOST_APIV1: 'https://www.scooterdev.tech/api/v1',
   // HOST_APIV1: 'http://127.0.0.1:8000/api/v1',
   // HOST_APIV1: 'http://192.168.0.6:8000/api/v1',

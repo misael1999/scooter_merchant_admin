@@ -1,440 +1,157 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-flex-start">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <h1 class="h3 text-gray-800">Agregar promoción</h1>
         </div>
     </div>
 
 
+    <div class="row d-flex justify-content-between">
+        <div class=" col-sm-12 col-md-10 col-lg-10 p-t-10">
+            <div class="content p-5">
 
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-10 col-lg-10 p-t-25">
-            <div class="content p-30">
-
-
-
-                <form>
-
-                    <!-- Add name promotion -->
-                    <div class="card cardE">
+                <form [formGroup]="formPromotions">
+                    <div class="card">
                         <span class="badge badge-secondary">Paso 1</span>
-                        <span class="title">Elige un nombre</span>
+                        <span class="title">Establece el periodo para tu promoción </span>
                         <span class="title-underline"></span>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <label>Nombre</label>
-                                    <input class="form-control" type="text" placeholder="Martes de alitas...">
+
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                            <mat-radio-group (change)="changeTypePeriodicity($event.value)" formControlName="is_periodic" class="example-radio-group">
+                                <mat-radio-button value="true" class="example-radio-button">
+                                    Periódicamente
+                                </mat-radio-button>
+                                <mat-radio-button value="false" class="example-radio-button">
+                                    Rango de fechas
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+
+                        <div class="col-md-12 col-lg-12 col-sm-12" *ngIf="typePeriodicity === false || typePeriodicity === true">
+                            <div class="data">
+                                <div *ngIf="typePeriodicity == true">
+                                    <label>Selecciona los días</label>
+                                    <div class="row w-100 tags">
+                                        <div class="tag" [ngClass]="{'disabled': tagIndexOf(schedule.id) < 0}" (click)="tagsSelect(schedule.id, tagIndexOf(schedule.id) >= 0 )" *ngFor="let schedule of schedules">
+                                            {{schedule.name}} <i *ngIf="tagIndexOf(schedule.id) >= 0" class="anticon anticon-close ml-1"></i>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="pt-3">
+                                    <label>Selecciona una fecha y hora de inicio y una de finalizacion</label>
+
+                                    <div class="d-flex">
+                                        <div>
+
+                                            <mat-form-field color="accent" appearance="fill">
+                                                <mat-label>Fecha de inicio</mat-label>
+                                                <input matInput [matDatepicker]="picker1">
+                                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker1></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div>
+
+                                            <input type="time" class="form-control ml-2" placeholder="Apertura" value="09:00" />
+                                        </div>
+
+                                    </div>
+
+                                    <div class="d-flex">
+                                        <div>
+
+                                            <mat-form-field color="accent" appearance="fill">
+                                                <mat-label>Fecha de finalización</mat-label>
+                                                <input matInput [matDatepicker]="picker1">
+                                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker1></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+
+                                            <input type="time" class="form-control" placeholder="cerrado" value="15:00" />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <!-- End ad name promotion -->
 
 
 
-
-                    <div class="card cardE">
+                    <div class="card">
                         <span class="badge badge-secondary">Paso 2</span>
-                        <span class="title">Elige el tipo de descuento</span>
+                        <span class="title">Define el tipo de aporte para el envió</span>
                         <span class="title-underline"></span>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-12 col-lg-12 col-sm-12">
 
-                                    <mat-radio-group class="example-radio-group">
-                                        <mat-radio-button value="permanent" class="example-radio-button">
-                                            Cantidad fija
-                                        </mat-radio-button>
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                            <mat-radio-group (change)="changeTypeDiscountRate($event.value)" class="example-radio-group" formControlName="is_discount_percentage">
+                                <mat-radio-button value="false" class="example-radio-button">
+                                    Cantidad fja
+                                </mat-radio-button>
+                                <mat-radio-button value="true" class="example-radio-button">
+                                    Porcentaje
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
 
-                                        <div class="row" *ngIf="rule1">
-                                            <div class="col-md-10 d-flex justify-content-between">
-                                                <div class="card cardI">
-                                                    <div class="form-group">
-                                                        <div class="form-row">
-                                                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                                                <label>Cantidad</label>
-                                                                <input type="number" class="form-control" placeholder="$10">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <mat-radio-button value="2" class="example-radio-button">
-                                            Porcentaje
-                                        </mat-radio-button>
-
-                                        <div class="row">
-                                            <div class="col-md-10 d-flex justify-content-between">
-                                                <div class="card cardI">
-                                                    <div class="form-group">
-                                                        <div class="form-row">
-                                                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                                                <label>Elige el porcentaje</label>
-                                                                <select class="form-control">
-                                                                    <option>20%</option>
-                                                                    <option>40%</option>
-                                                                    <option>60%</option>
-                                                                    <option>80%</option>
-                                                                    <option>100%</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <mat-radio-button value="3" class="example-radio-button">
-                                            Totalidad de envío
-                                        </mat-radio-button>
-                                    </mat-radio-group>
-
+                        <div class="col-md-12 col-lg-12 col-sm-12" *ngIf="typeDiscountRate === true || typeDiscountRate === false">
+                            <div class="data">
+                                <div *ngIf="typeDiscountRate === false">
+                                    <label>Elige la cantidad</label>
+                                    <select class="form-control form-select" formControlName="discount_amount" style="width: 200px;">
+                                        <option selected value="10">$ 10.00</option>
+                                        <option value="15">$ 15.00</option>
+                                        <option value="20">$ 20.00</option>
+                                        <option value="25">$ 25.00</option>
+                                        <option value="30">$ 30.00</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="typeDiscountRate === true">
+                                    <label>Elige el porcentaje</label>
+                                    <select class="form-control form-select" formControlName="discount_amount" style="width: 200px;">
+                                        <option value="30">30 %</option>
+                                        <option value="50">50 %</option>
+                                        <option value="70">70 %</option>
+                                        <option value="100">100 %</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card cardE">
+
+                    <div class="card">
                         <span class="badge badge-secondary">Paso 3</span>
-                        <span class="title">Define tus reglas </span>
+                        <span class="title">Establece tus reglas</span>
                         <span class="title-underline"></span>
-
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-12 col-lg-12 col-sm-12">
-
-                                    <mat-radio-group class="example-radio-group">
-                                        <mat-radio-button value="1" class="example-radio-button">
-                                            Compra mínima
-                                        </mat-radio-button>
-                                        <div class="row">
-                                            <div class="col-md-10 d-flex justify-content-between">
-                                                <div class="card cardI">
-                                                    <div class="form-group">
-                                                        <div class="form-row">
-                                                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                                                <label>Compra minima</label>
-                                                                <input type="number" class="form-control" placeholder="$300">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <mat-radio-button value="2" class="example-radio-button">
-                                            Otra
-                                        </mat-radio-button>
-                                    </mat-radio-group>
+                        <span class="p-0">¿Qué tienen que cumplir tus clientes? ¿Qué deben hacer tus clientes?</span>
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="data">
+                                <div>
+                                    <label>Compra minima</label>
+                                    <input type="number" class="form-control" formControlName="minimum_order_price" placeholder="$300" style="width: 200px;">
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="card cardE">
-                        <span class="badge badge-secondary">Paso 4</span>
-                        <span class="title">Establece un periodo de fechas </span>
-                        <span class="title-underline"></span>
-
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-12 col-lg-12 col-sm-12">
-
-
-                                    <mat-radio-group class="example-radio-group">
-                                        <mat-radio-button value="1" class="example-radio-button">
-                                            Periódicamente
-                                        </mat-radio-button>
-                                        <div class="row">
-                                            <div class="col-md-10 d-flex justify-content-between">
-                                                <div class="card cardI">
-                                                    <div class="form-group">
-                                                        <div class="form-row">
-                                                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                                                <label>Días disponibles</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-                                        <mat-radio-button value="2" class="example-radio-button">
-                                            Rango de fechas
-                                        </mat-radio-button>
-                                        <div class="row">
-                                            <div class="col-md-10 d-flex justify-content-between">
-                                                <div class="card cardI">
-                                                    <div class="form-group">
-                                                        <div class="form-row">
-                                                            <div class="col-md-12 col-lg-12 col-sm-12">
-
-                                                                <div class="col-md-6">
-                                                                    <mat-form-field appearance="fill">
-                                                                        <mat-label>Dia de inicio</mat-label>
-                                                                        <input matInput [min]="minDate" [matDatepicker]="pickerMin">
-                                                                        <mat-datepicker-toggle matSuffix [for]="pickerMin"></mat-datepicker-toggle>
-                                                                        <mat-datepicker #pickerMin></mat-datepicker>
-                                                                    </mat-form-field>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <mat-form-field appearance="fill">
-                                                                        <mat-label>Día de finalización</mat-label>
-                                                                        <input matInput [max]="maxDate" [matDatepicker]="pickerMax">
-                                                                        <mat-datepicker-toggle matSuffix [for]="pickerMax"></mat-datepicker-toggle>
-                                                                        <mat-datepicker #pickerMax></mat-datepicker>
-                                                                    </mat-form-field>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </mat-radio-group>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card cardE">
-                        <span class="badge badge-secondary">Paso 5</span>
-                        <span class="title">Establece un presupuesto </span>
-                        <span class="title-underline"></span>
-
-                        <div class="form-group">
-                            <div class="form-row">
-                                <span>Establece un monto máximo o la cantidad de pedidos que desees gastar</span>
-                                <div class="col-md-12 col-lg-12 col-sm-12">
-
-
-                                    <mat-radio-group class="example-radio-group">
-                                        <mat-radio-button value="1" class="example-radio-button">
-                                            Monto de presupuesto
-                                        </mat-radio-button>
-                                        <div class="row">
-                                            <div class="col-md-10 d-flex justify-content-between">
-                                                <div class="card cardI">
-                                                    <div class="form-group">
-                                                        <div class="form-row">
-                                                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                                                <label>Monto de presupuesto</label>
-                                                                <input type="number" class="form-control" placeholder="$500.00">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-                                        <mat-radio-button value="2" class="example-radio-button">
-                                            Monto por pedidos
-                                        </mat-radio-button>
-                                        <div class="row">
-                                            <div class="col-md-10 d-flex justify-content-between">
-                                                <div class="card cardI">
-                                                    <div class="form-group">
-                                                        <div class="form-row">
-                                                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                                                <label>Cantidad de pedidos</label>
-                                                                <input type="number" class="form-control" placeholder="50">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <mat-radio-button value="3" class="example-radio-button">
-                                            Indeterminado
-                                        </mat-radio-button>
-                                    </mat-radio-group>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-                    <!-- <div class="card p-20">
-                        <span class="badge badge-secondary">Paso 2</span>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-lg-6">
-                                    <label>Periodicamente</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <section class="example-section2">
-                                        <span class="example-list-section">
-                                    <ul>
-                                      <li>
-                                        <mat-checkbox>Lunes</mat-checkbox>
-                                        <mat-checkbox>Lunes</mat-checkbox>
-                                        <mat-checkbox>Lunes</mat-checkbox>
-                                        <mat-checkbox>Lunes</mat-checkbox>
-                                      </li>
-                                    </ul>
-                                  </span>
-                                    </section>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-
-                    <!-- <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-lg-12">
-                                <label>Periodo por dias</label>
-                            </div>
-                            <div class="col-md-6">
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Inicio</mat-label>
-                                    <input matInput [min]="minDate" [matDatepicker]="pickerMin">
-                                    <mat-datepicker-toggle matSuffix [for]="pickerMin"></mat-datepicker-toggle>
-                                    <mat-datepicker #pickerMin></mat-datepicker>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-6">
-                                <mat-form-field appearance="fill">
-                                    <mat-label>Cierre</mat-label>
-                                    <input matInput [max]="maxDate" [matDatepicker]="pickerMax">
-                                    <mat-datepicker-toggle matSuffix [for]="pickerMax"></mat-datepicker-toggle>
-                                    <mat-datepicker #pickerMax></mat-datepicker>
-                                </mat-form-field>
-                            </div>
-
-
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-lg-12">
-                                <label>Periodo por horas</label>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="time" class="form-control ml-2" placeholder="Apertura" />
-
-                            </div>
-                            <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="cerrado" />
-
-                            </div>
-
-
-                        </div>
-                    </div> -->
-
-
-
-
-
-
-
-                    <!-- <div class="inputs" *ngIf="schedule.is_open">
-                        <input (change)="sendSchedule()" [(ngModel)]="openingHour" type="time" class="form-control ml-2" placeholder="Apertura" [(value)]="schedule.from_hour" />
-                        <span>A</span>
-                        <input (change)="sendSchedule()" [(ngModel)]="closedHour" type="time" class="form-control" placeholder="cerrado" [(value)]="schedule.to_hour" />
-                    </div> -->
-
-
-                    <!-- <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-lg-12">
-                                <label>Presupuesto</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                    </div> -->
-
-
-
-                    <!-- <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-lg-12">
-                                <label>Reglas</label>
-                                <section class="example-section">
-                                    <mat-checkbox class="example-margin" [(ngModel)]="rule1" checked="rule1">Monto minimo</mat-checkbox>
-                                    <mat-checkbox class="example-margin" [(ngModel)]="rule2" checked="rule2">Obten uno</mat-checkbox>
-                                </section>
-                            </div>
-                        </div>
-                    </div> -->
-
-
-                    <!-- <div class="form-group">
-                        <div class="form-row">
-                            <div class="col-lg-6">
-                                <label>Monto minimo a gastar</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="col-lg-6">
-                                <label> Productos</label>
-                                <select class="form-control">
-                                    <option>Promocion 1</option>
-                                    <option>Promocion 2</option>
-                                    <option>Promocion 3</option>
-                                    <option>Promocion 4</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div> -->
-
-
-                    <!-- <div class="form-group">
-                        <div class="form-row d-flex justify-content-between">
-                            <div class="col-lg-6">
-                                <label>Cantidad a comprar</label>
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                </select>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <label>Cantidad a resivir</label>
-                                <select class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div> -->
-
-
-                    <!-- <div class="form-group">
-                        <div class="form-row d-flex justify-content-between">
-                            <div class="col-lg-6">
-
-                            </div>
-                        </div>
-                    </div> -->
-
-
                 </form>
+
+
+                <div class="d-flex justify-content-end">
+                    <button [disabled]="loadingSave" (click)="createPromotions()" type="submit" class="btn btn-primary">
+                        Guardar
+                        <div *ngIf="loadingSave" class="spinner-border text-secondary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

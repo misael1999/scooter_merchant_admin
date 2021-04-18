@@ -10,6 +10,7 @@ import { AngularMaterialModule } from '../../shared/angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TypePromotionsComponent } from './promotions/type-promotions/type-promotions.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TypePromotionsComponent } from './promotions/type-promotions/type-promo
     MarketingRoutingModule,
     MatRadioModule,
     AngularMaterialModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule

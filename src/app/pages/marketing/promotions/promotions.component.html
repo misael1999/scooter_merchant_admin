@@ -1,93 +1,64 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between">
-        <h1 class="h3 text-gray-800">Promociones</h1>
-        <!-- <a routerLink="/marketing/typesPromotions">Hola</a> -->
+        <h1 class="h3 mb-0 text-gray-800 p-b-10">Promociones</h1>
         <button class="btn btn-primary btn-sm" routerLink="/marketing/typesPromotions">Agregar promocion</button>
     </div>
 
 
-    <div class="row p-t-20">
-        <div class="col-md-12 col-lg-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5>Ahora 500 al comprar minimo 1000</h5>
-                        <div>
-                            <button class="btn btn-success btn-sm">Pausar</button>
-                        </div>
-                    </div>
-                    <div class="m-t-15" class="d-flex justify-content-between align-items-center">
-                        <div class="d-md-flex">
-                            <div class="px-md-5 m-v-10 border-right border-hide-md">
-                                <p class="m-b-0">Canjes totales</p>
-                                <h3 class="m-b-0">
-                                    <span>223</span>
-                                </h3>
-                            </div>
-                            <div class="px-md-5 m-v-10 border-right border-hide-md">
-                                <p class="m-b-0">Total de ventas</p>
-                                <h3 class="m-b-0">
-                                    <span> 245</span>
-                                </h3>
-                            </div>
-                            <div class="px-md-5 m-v-10 border-right border-hide-md">
-                                <p class="m-b-0">Monto gastado</p>
-                                <h3 class="m-b-0">
-                                    <span>$ 252</span>
-                                </h3>
-                            </div>
-                            <div class="px-md-5 m-v-10">
-                                <p class="m-b-0">Fechas</p>
-                                <h3 class="m-b-0">
-                                    <span>2020</span>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 p-t-15">
 
+            <!-- PRELOADER -->
+            <div class="col-lg-12 d-flex justify-content-center" *ngIf="loadingPromotions">
+                <div class="spinner-border text-primary my-5" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
-        </div>
 
 
-        <!-- Preloader -->
-        <div class="col-lg-12 d-flex justify-content-center" *ngIf="loadingPromotions">
-            <div class="spinner-border text-primary my-5" role="status">
-                <span class="sr-only">Loading...</span>
+            <div class="col-md-12 col-lg-12" *ngIf="!loadingPromotions && promotions.length > 0">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Tipo de promoción</th>
+                                <th>Rango de fechas</th>
+                                <th>Tipo de descuento</th>
+                                <th>Cantidad de descuento</th>
+                                <th>Periodo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let promotion of promotions">
+                                <td>Descuento en envío</td>
+                                <td>{{promotion.from_date | date }} == {{promotion.to_date | date }} </td>
+                                <td>
+                                    <span *ngIf="promotion.rule.is_discount_percentage == true">Porcentaje</span>
+                                    <span *ngIf="promotion.rule.is_discount_percentage != true">Cantidad fija</span>
+                                </td>
+                                <td>
+                                    <span *ngIf="promotion.rule.is_discount_percentage == true">  {{promotion.rule.discount_amount}}  %</span>
+                                    <span *ngIf="promotion.rule.is_discount_percentage != true"> $ {{promotion.rule.discount_amount}} </span>
+                                </td>
+                                <td>
+                                    <span *ngIf="promotion.rule.is_periodic == true">Periodica</span>
+                                    <span *ngIf="promotion.rule.is_periodic == false">No periodica</span>
+                                </td>
+                                <td>
+                                    <span *ngIf="promotion.rule.is_periodic == true"> Periodica</span>
+                                    <span *ngIf="promotion.rule.is_periodic != true"> Rango de fechas</span>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-        <!-- End Preloader -->
 
-
-
-        <div class="col-md-12 col-lg-12 p-t-15" *ngIf="!loadingPromotions && promotions.length > 0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Tipo de promocion</th>
-                            <th>Rango de fechas</th>
-                            <th>Canjes</th>
-                            <th>Generado</th>
-                            <th>Estatus</th>
-                            <th class="text-center" style="width: 15%;">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let order of [1,2,3,4,5]">
-                            <td>Articulos gratis</td>
-                            <td>15/ene/21 -- 20/ene/21</td>
-                            <td>10 de 15</td>
-                            <td>$1,550</td>
-                            <td>Activa</td>
-                            <td class="text-center">
-                                <button class="btn btn-success btn-sm" style="width: 80px;">Pausar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <!-- Component no data -->
+            <app-no-found-data *ngIf="!loadingPromotions && promotions.length == 0"  [message]="'No hay promociones que mostrar'"></app-no-found-data>
+            <!-- End component no data -->
         </div>
     </div>
 </div>
