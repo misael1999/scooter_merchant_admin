@@ -11,6 +11,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TypePromotionsComponent } from './promotions/type-promotions/type-promotions.component';
 import { SharedModule } from '../../shared/shared.module';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { HourIntervalsComponent } from './promotions/add-promotions/hour-intervals/hour-intervals.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import { SharedModule } from '../../shared/shared.module';
     CampaingComponent,
     AddCampaingComponent,
     AddPromotionsComponent,
-    TypePromotionsComponent
+    TypePromotionsComponent,
+    HourIntervalsComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,9 @@ import { SharedModule } from '../../shared/shared.module';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatInputModule,
+    MatNativeDateModule
   ]
 })
 export class MarketingModule { }

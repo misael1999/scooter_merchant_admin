@@ -44,43 +44,38 @@
 
                                     <div class="d-flex">
                                         <div>
-
                                             <mat-form-field color="accent" appearance="fill">
                                                 <mat-label>Fecha de inicio</mat-label>
-                                                <input matInput [matDatepicker]="picker1">
+                                                <input matInput [matDatepicker]="picker1" formControlName="from_date">
                                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker1></mat-datepicker>
                                             </mat-form-field>
                                         </div>
 
                                         <div>
-
-                                            <input type="time" class="form-control ml-2" placeholder="Apertura" value="09:00" />
+                                            <input type="time" class="form-control ml-2" placeholder="Hora de inicio" formControlName="openingHour" value="09:00:00" />
                                         </div>
-
                                     </div>
+
 
                                     <div class="d-flex">
                                         <div>
-
                                             <mat-form-field color="accent" appearance="fill">
-                                                <mat-label>Fecha de finalización</mat-label>
-                                                <input matInput [matDatepicker]="picker1">
-                                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker1></mat-datepicker>
+                                                <mat-label>Fecha de fin</mat-label>
+                                                <input matInput [matDatepicker]="picker2" formControlName="to_date">
+                                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker2 color="primary"></mat-datepicker>
                                             </mat-form-field>
                                         </div>
                                         <div>
-
-                                            <input type="time" class="form-control" placeholder="cerrado" value="15:00" />
+                                            <input type="time" class="form-control ml-2" formControlName="closedHour" placeholder="Hora de cierre" value="20:00:00" />
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
+
+                        <button class="btn btn-accent btn-block" (click)="addCustomSchedule()">Agrega un horario personalizado</button>
                     </div>
 
 

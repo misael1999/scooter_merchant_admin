@@ -16,7 +16,12 @@ export class PromotionsMerchantsService {
 
   getPromotions(params = {}): Observable<any> {
     const URL = `${environment.HOST_APIV1}/merchants/${this.merchant.id}/promotions/`;
-    return this.http.get(URL, { params })
+    return this.http.get(URL, { params });
+  }
+
+  getPromotionsById(promotionID): Observable<any> {
+    const URL = `${environment.HOST_APIV1}/merchants/${this.merchant.id}/promotions/${promotionID}/`;
+    return this.http.get(URL);
   }
 
   createPromotion(promotion): Observable<any> {

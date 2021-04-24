@@ -9,9 +9,11 @@ const routes: Routes = [
     { path: 'promotions', component: PromotionsComponent },
     { path: 'typesPromotions', component: TypePromotionsComponent },
     { path: 'add', component: AddPromotionsComponent },
+    { path: ':id/edit', component: AddPromotionsComponent },
     { path: 'campaing', component: CampaingComponent },
     { path: '', redirectTo: 'promotions', pathMatch: 'full' }
 ];
+
 
 
 // const routes: Routes = [

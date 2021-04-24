@@ -27,6 +27,7 @@
                                 <th>Tipo de descuento</th>
                                 <th>Cantidad de descuento</th>
                                 <th>Periodo</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,8 +47,7 @@
                                     <span *ngIf="promotion.rule.is_periodic == false">No periodica</span>
                                 </td>
                                 <td>
-                                    <span *ngIf="promotion.rule.is_periodic == true"> Periodica</span>
-                                    <span *ngIf="promotion.rule.is_periodic != true"> Rango de fechas</span>
+                                    <button class="btn btn-primary" routerLink="/marketing/{{promotion.id}}/edit">Editar</button>
                                 </td>
 
                             </tr>
