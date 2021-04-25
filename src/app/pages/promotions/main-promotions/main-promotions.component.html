@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex justify-content-between pb-3">
+                <div>
+                    <h1>Promociones</h1>
+                </div>
+                <div>
+                    <button class="btn btn-primary" routerLink="/promotions/add">Agregar promoción</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Component no data -->
+    <app-no-found-data *ngIf="!loadingData && promotions.length == 0"  [message]="'No hay promociones que mostrar'"></app-no-found-data>
+
+
+
+
+    <!-- List promotions -->
+    <app-list-promotions [promotions]="promotions"></app-list-promotions>
+
+
+
+    <!-- PAGINADOR  -->
+    <!-- <mat-paginator *ngIf="!loadingData && promotions.length > 0" [pageIndex]="pageIndex"  [disabled]="loadingData || promotions.length==0" [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getPages($event)">
+</mat-paginator> -->
+
+
+
+</div>

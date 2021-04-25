@@ -1,0 +1,36 @@
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Tipo de promoción</th>
+                <th>Rango de fechas</th>
+                <th>Tipo de descuento</th>
+                <th>Cantidad de descuento</th>
+                <th>Periodo</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let promotion of promotions">
+                <td>Descuento en envío</td>
+                <td>{{promotion.from_date | date }} == {{promotion.to_date | date }} </td>
+                <td>
+                    <span *ngIf="promotion.rule.is_discount_percentage == true">Porcentaje</span>
+                    <span *ngIf="promotion.rule.is_discount_percentage != true">Cantidad fija</span>
+                </td>
+                <td>
+                    <span *ngIf="promotion.rule.is_discount_percentage == true">  {{promotion.rule.discount_amount}}  %</span>
+                    <span *ngIf="promotion.rule.is_discount_percentage != true"> $ {{promotion.rule.discount_amount}} </span>
+                </td>
+                <td>
+                    <span *ngIf="promotion.rule.is_periodic == true">Periodica</span>
+                    <span *ngIf="promotion.rule.is_periodic == false">No periodica</span>
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-primary btn-sm w-100" routerLink="/marketing/{{promotion.id}}/edit">Editar</button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

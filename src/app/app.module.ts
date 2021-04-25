@@ -18,8 +18,6 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
-
-
 registerLocaleData(localeEs);
 
 @NgModule({
@@ -50,7 +48,7 @@ registerLocaleData(localeEs);
       provide: LOCALE_ID,
       useValue: 'es'
     },
-    {provide: DEFAULT_CURRENCY_CODE, useValue: 'MXN'},
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'MXN' },
     {
       provide: MatPaginatorIntl,
       useValue: getPaginatorTranslate()

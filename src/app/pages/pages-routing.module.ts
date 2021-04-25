@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../services/guards/auth.guard';
 import { RefreshTokenGuard } from '../services/guards/refresh-token.guard';
+import { PromotionsModule } from './promotions/promotions.module';
 
 const routes: Routes = [
   { path: '', redirectTo: 'activate', pathMatch: 'full' },
@@ -60,10 +61,15 @@ const routes: Routes = [
     canActivate: [AuthGuard, RefreshTokenGuard],
     loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)
   },
+  // {
+  //   path: 'marketing',
+  //   canActivate: [AuthGuard, RefreshTokenGuard],
+  //   loadChildren: () => import('./marketing/marketing.module').then(m => m.MarketingModule)
+  // },
   {
-    path: 'marketing',
+    path: 'promotions',
     canActivate: [AuthGuard, RefreshTokenGuard],
-    loadChildren: () => import('./marketing/marketing.module').then(m => m.MarketingModule)
+    loadChildren: () => import('./promotions/promotions.module').then(m => m.PromotionsModule)
   },
   {
     path: 'delivery-config',

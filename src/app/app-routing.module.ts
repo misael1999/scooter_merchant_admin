@@ -9,9 +9,7 @@ import { PageNoFound404Component } from './shared/page-no-found404/page-no-found
 
 const routes: Routes = [
   {
-    path: '', component: PagesComponent,
-    // CompleteProfileGuard
-    canActivate: [CompleteProfileGuard, AuthGuard, RefreshTokenGuard],
+    path: '', component: PagesComponent, canActivate: [CompleteProfileGuard, AuthGuard, RefreshTokenGuard],
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
   },
   {
